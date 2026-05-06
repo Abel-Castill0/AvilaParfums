@@ -7,13 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="icon" type="image/webp" href="logo.webp" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <style>
       /* ==========================================
-     CSS VARIABLES & RESET
-  ========================================== */
+    CSS VARIABLES & RESET
+    ========================================== */
       :root {
         --bg-deep: #ffffff;
         --bg-dark: #f7f7f7;
@@ -31,6 +31,9 @@
         --shadow-gold: 0 0 40px rgba(0, 0, 0, 0.08);
         --font-display: "Cormorant Garamond", serif;
         --font-body: "Raleway", sans-serif;
+        --bg-color: #fcfcfc; /* Blanco ligeramente perlado, no puro, para menos fatiga visual */
+        --brand-color: #0a0a0a; /* Negro profundo pero no absoluto (#000) */
+        --font-luxury: "Cinzel", "Didot", "Georgia", serif;
       }
       *,
       *::before,
@@ -52,70 +55,107 @@
         overflow-x: hidden;
       }
 
-      /* ==========================================
-         LOADER (CINEMÁTICO)
-      ========================================== */
-      #loader {
+      /* ========== CONTENEDOR PRINCIPAL ========== */
+      #luxury-loader {
         position: fixed;
         inset: 0;
-        background: #ffffff;
-        z-index: 9999;
+        z-index: 99999;
+        background-color: var(--bg-color);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition:
-          opacity 0.8s ease,
-          visibility 0.8s ease;
         overflow: hidden;
       }
-      #loader.hidden {
-        opacity: 0;
-        visibility: hidden;
+
+      .loader-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem; /* Espaciado elegante */
       }
 
-      .koi-loader {
+      /* ========== ESCENA DE ANIMACIÓN ========== */
+      .animation-scene {
+        position: relative;
         width: 200px;
         height: 200px;
-        margin-bottom: 2rem;
-        filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.08));
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      .loader-text {
-        font-family: var(--font-display);
-        font-size: 1.6rem;
-        color: #000000;
-        letter-spacing: 0.35em;
+      /* Frasco dibujado en SVG */
+      .perfume-bottle {
+        width: 70px;
+        height: auto;
+        z-index: 2;
+        opacity: 0; /* Oculto inicialmente, GSAP lo revela */
+        filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.06));
+      }
+
+      /* Órbitas para los peces */
+      .orbit {
+        position: absolute;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Ajustamos el tamaño de las órbitas para que giren alrededor del frasco */
+      .orbit-1 {
+        width: 150px;
+        height: 150px;
+      }
+      .orbit-2 {
+        width: 200px;
+        height: 200px;
+      }
+
+      /* Estilos para tu archivo local pez-koi.svg */
+      .koi-fish {
+        position: absolute;
+        width: 38px; /* Ajusta este valor si tu SVG es muy grande o pequeño */
+        height: auto;
+        top: -19px; /* Mitad del height para centrarlo en la línea de órbita */
+        opacity: 0.85;
+        /* Dependiendo hacia dónde apunte tu SVG original, podrías necesitar cambiar este rotate */
+        transform: rotate(90deg);
+      }
+
+      .koi-2 {
+        top: auto;
+        bottom: -19px;
+        transform: rotate(-90deg);
+      }
+
+      /* ========== BRANDING ========== */
+      .brand-container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .brand-name {
+        font-family: var(--font-luxury);
+        font-size: clamp(1.2rem, 3vw, 1.6rem);
+        font-weight: 400;
+        letter-spacing: 0.1em; /* GSAP lo expandirá */
+        color: var(--brand-color);
+        margin: 0;
         text-transform: uppercase;
         opacity: 0;
-        animation: textFadeIn 1.2s ease forwards 0.8s; /* aparece después de 0.8s */
       }
 
-      @keyframes textFadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      .brand-line {
+        width: 0px; /* GSAP lo expandirá */
+        height: 1px;
+        background-color: var(--brand-color);
+        margin-top: 1.2rem;
+        opacity: 0;
       }
-
-      /* ==========================================
-     KOI SVG WATERMARK
-  ========================================== */
-      .koi-watermark {
-        position: fixed;
-        bottom: -80px;
-        right: -80px;
-        width: 400px;
-        height: 400px;
-        opacity: 0.025;
-        pointer-events: none;
-        z-index: 0;
-      }
-
       /* ==========================================
          NAVIGATION (DISEÑO ELEGANTE Y PROFESIONAL)
       ========================================== */
@@ -2815,299 +2855,110 @@
     </style>
   </head>
   <body>
-    <!-- ==========================================
-         LOADER (DISEÑO CINEMÁTICO PROFESIONAL)
-    ========================================== -->
-    <div id="loader">
-      <svg
-        class="koi-loader"
-        viewBox="0 0 240 240"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <!-- Círculo exterior giratorio elegante -->
-        <circle
-          cx="120"
-          cy="120"
-          r="110"
-          fill="none"
-          stroke="#000000"
-          stroke-width="1"
-          opacity="0.08"
-        >
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            from="0 120 120"
-            to="360 120 120"
-            dur="20s"
-            repeatCount="indefinite"
-          />
-        </circle>
-        <circle
-          cx="120"
-          cy="120"
-          r="105"
-          fill="none"
-          stroke="#000000"
-          stroke-width="0.5"
-          stroke-dasharray="3 6"
-          opacity="0.12"
-        >
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            from="360 120 120"
-            to="0 120 120"
-            dur="15s"
-            repeatCount="indefinite"
-          />
-        </circle>
-
-        <!-- Frasco de perfume central -->
-        <g transform="translate(120, 105)">
-          <!-- Brillo externo -->
-          <ellipse
-            cx="0"
-            cy="0"
-            rx="30"
-            ry="45"
+    <div id="luxury-loader">
+      <div class="loader-wrapper">
+        <div class="animation-scene">
+          <!-- Frasco de perfume diseñado con SVG (Geométrico, minimalista, cristal grueso) -->
+          <svg
+            class="perfume-bottle"
+            viewBox="0 0 120 180"
             fill="none"
-            stroke="#000000"
-            stroke-width="0.5"
-            opacity="0.05"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <animate
-              attributeName="rx"
-              values="30;33;30"
-              dur="3s"
-              repeatCount="indefinite"
+            <!-- Tapa (Negro sólido) -->
+            <rect
+              x="40"
+              y="10"
+              width="40"
+              height="30"
+              fill="var(--brand-color)"
             />
-            <animate
-              attributeName="ry"
-              values="45;48;45"
-              dur="3s"
-              repeatCount="indefinite"
-            />
-          </ellipse>
-
-          <!-- Cuerpo del frasco -->
-          <path
-            d="M-14,8 L-10,-25 L10,-25 L14,8 Z"
-            fill="none"
-            stroke="#000000"
-            stroke-width="1.8"
-            stroke-linejoin="round"
-          />
-
-          <!-- Líquido interior con vibración sutil -->
-          <path d="M-11,5 L10,5 L12,10 L-12,10 Z" fill="#000000" opacity="0.1">
-            <animate
-              attributeName="opacity"
-              values="0.1;0.15;0.1"
-              dur="4s"
-              repeatCount="indefinite"
-            />
-          </path>
-
-          <!-- Tapón -->
-          <rect
-            x="-8"
-            y="-35"
-            width="16"
-            height="10"
-            rx="2"
-            fill="none"
-            stroke="#000000"
-            stroke-width="1.8"
-          />
-
-          <!-- Brillo dorado -->
-          <path
-            d="M-6,-15 L0,-22 L6,-15"
-            fill="none"
-            stroke="#000000"
-            stroke-width="1.2"
-            opacity="0.4"
-          >
-            <animate
-              attributeName="opacity"
-              values="0.4;0.7;0.4"
-              dur="2s"
-              repeatCount="indefinite"
-            />
-          </path>
-        </g>
-
-        <!-- Pez Koi 1 (órbita izquierda) -->
-        <g transform="translate(120, 120)">
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            from="0 120 120"
-            to="360 120 120"
-            dur="8s"
-            repeatCount="indefinite"
-          />
-          <g transform="translate(48, 0) scale(1.1)">
-            <path
-              d="M0,0 Q-18,-11 -22,0 Q-18,11 0,0"
+            <!-- Cuello -->
+            <rect
+              x="48"
+              y="40"
+              width="24"
+              height="8"
               fill="none"
-              stroke="#000000"
-              stroke-width="1.5"
-              stroke-linecap="round"
+              stroke="var(--brand-color)"
+              stroke-width="2"
             />
-            <circle cx="-7" cy="-3" r="1.2" fill="#000000" />
-            <!-- Aleta dorsal -->
-            <path
-              d="M-4,-6 Q0,-12 7,-6"
-              fill="none"
-              stroke="#000000"
+            <!-- Tubo interior sutil -->
+            <line
+              x1="60"
+              y1="48"
+              x2="60"
+              y2="155"
+              stroke="var(--brand-color)"
               stroke-width="1"
-              stroke-linecap="round"
+              stroke-dasharray="2 3"
+              opacity="0.3"
             />
-          </g>
-        </g>
-
-        <!-- Pez Koi 2 (órbita derecha, en sentido opuesto) -->
-        <g transform="translate(120, 120)">
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            from="180 120 120"
-            to="540 120 120"
-            dur="10s"
-            repeatCount="indefinite"
-          />
-          <g transform="translate(-52, 0) scale(-1.1, 1.1)">
-            <path
-              d="M0,0 Q-18,-11 -22,0 Q-18,11 0,0"
+            <!-- Cuerpo del frasco -->
+            <rect
+              x="20"
+              y="48"
+              width="80"
+              height="120"
+              rx="2"
               fill="none"
-              stroke="#000000"
-              stroke-width="1.5"
-              stroke-linecap="round"
+              stroke="var(--brand-color)"
+              stroke-width="2.5"
             />
-            <circle cx="-7" cy="-3" r="1.2" fill="#000000" />
+            <!-- Grosor interior del cristal (simula lujo y peso) -->
+            <rect
+              x="28"
+              y="56"
+              width="64"
+              height="102"
+              fill="var(--brand-color)"
+              opacity="0.03"
+            />
             <path
-              d="M-4,-6 Q0,-12 7,-6"
-              fill="none"
-              stroke="#000000"
-              stroke-width="1"
-              stroke-linecap="round"
+              d="M28,158 L92,158"
+              stroke="var(--brand-color)"
+              stroke-width="6"
+              opacity="0.1"
             />
-          </g>
-        </g>
+            <!-- Etiqueta frontal -->
+            <rect
+              x="40"
+              y="85"
+              width="40"
+              height="25"
+              fill="var(--brand-color)"
+            />
+          </svg>
 
-        <!-- Ondas de aroma giratorias -->
-        <g opacity="0.15">
-          <path
-            d="M50,50 Q70,40 60,60 T40,80"
-            fill="none"
-            stroke="#000000"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          >
-            <animateTransform
-              attributeName="transform"
-              type="rotate"
-              from="0 120 120"
-              to="360 120 120"
-              dur="15s"
-              repeatCount="indefinite"
-            />
-          </path>
-          <path
-            d="M180,180 Q200,170 190,190 T170,210"
-            fill="none"
-            stroke="#000000"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          >
-            <animateTransform
-              attributeName="transform"
-              type="rotate"
-              from="180 120 120"
-              to="540 120 120"
-              dur="15s"
-              repeatCount="indefinite"
-            />
-          </path>
-        </g>
+          <!-- Órbitas con TU archivo local pez-koi.svg -->
+          <div class="orbit orbit-1">
+            <!-- IMPORTANTE: Asegúrate de que pez-koi.svg esté en la misma carpeta o ajusta la ruta -->
+            <img src="pez-koi.svg" alt="Koi Interior" class="koi-fish koi-1" />
+          </div>
+          <div class="orbit orbit-2">
+            <!-- IMPORTANTE: Asegúrate de que pez-koi.svg esté en la misma carpeta o ajusta la ruta -->
+            <img src="pez-koi.svg" alt="Koi Exterior" class="koi-fish koi-2" />
+          </div>
+        </div>
 
-        <!-- Partículas de brillo -->
-        <circle cx="45" cy="145" r="1.5" fill="#000000" opacity="0.3">
-          <animate
-            attributeName="opacity"
-            values="0.3;0.05;0.3"
-            dur="3s"
-            repeatCount="indefinite"
-          />
-          <animate
-            attributeName="cy"
-            values="145;140;145"
-            dur="3s"
-            repeatCount="indefinite"
-          />
-        </circle>
-        <circle cx="195" cy="95" r="1.5" fill="#000000" opacity="0.3">
-          <animate
-            attributeName="opacity"
-            values="0.3;0.05;0.3"
-            dur="3s"
-            repeatCount="indefinite"
-            begin="0.5s"
-          />
-          <animate
-            attributeName="cy"
-            values="95;90;95"
-            dur="3s"
-            repeatCount="indefinite"
-            begin="0.5s"
-          />
-        </circle>
-        <circle cx="95" cy="195" r="1" fill="#000000" opacity="0.2">
-          <animate
-            attributeName="opacity"
-            values="0.2;0.05;0.2"
-            dur="2.5s"
-            repeatCount="indefinite"
-            begin="1s"
-          />
-        </circle>
-      </svg>
-      <div class="loader-text">AVILA PARFUMS</div>
+        <!-- Texto de la Marca -->
+        <div class="brand-container">
+          <h1 class="brand-name">Avila Parfums</h1>
+          <div class="brand-line"></div>
+        </div>
+      </div>
     </div>
-
-    <!-- KOI WATERMARK -->
-    <svg
-      class="koi-watermark"
-      viewBox="0 0 400 400"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <ellipse cx="200" cy="190" rx="80" ry="130" fill="#000000" />
-      <ellipse cx="200" cy="170" rx="50" ry="90" fill="#000000" opacity="0.6" />
-      <circle cx="175" cy="155" r="12" fill="#000000" opacity="0.8" />
-      <path
-        d="M165 295 Q140 340 110 330 Q150 315 155 305"
-        fill="#000000"
-        opacity="0.6"
-      />
-      <path
-        d="M235 295 Q260 340 290 330 Q250 315 245 305"
-        fill="#000000"
-        opacity="0.6"
-      />
-      <circle cx="170" cy="150" r="6" fill="#ffffff" />
-      <circle cx="172" cy="149" r="2" fill="#000000" opacity="0.5" />
-    </svg>
-
     <!-- ==========================================
      NAVIGATION
 ========================================== -->
     <nav id="mainNav">
       <a href="#" class="nav-logo" onclick="showPage('home')">
-        <img src="logo.webp" alt="Avila Parfums" class="nav-logo-icon" loading="lazy" />
+        <img
+          src="logo.webp"
+          alt="Avila Parfums"
+          class="nav-logo-icon"
+          loading="lazy"
+        />
         <div>
           <span class="nav-logo-text">Avila Parfums</span>
           <span class="nav-logo-subtitle">TU AROMA, TU SELLO</span>
@@ -4091,7 +3942,8 @@
                   <img
                     src="metodo-pago.webp"
                     alt="Visa, Mastercard, Yape, PagoEfectivo"
-                    title="Nuestros métodos de pago" loading="lazy"
+                    title="Nuestros métodos de pago"
+                    loading="lazy"
                   />
                 </div>
 
@@ -4488,7 +4340,8 @@
             <img
               src=""
               alt="Pack"
-              style="width: 100%; height: 100%; object-fit: cover" loading="lazy"
+              style="width: 100%; height: 100%; object-fit: cover"
+              loading="lazy"
             />
           </div>
           <div class="modal-content" style="padding: 2rem">
@@ -4629,6 +4482,8 @@
     <!-- ==========================================
      JAVASCRIPT
 ========================================== -->
+    <!-- Motor de Animación GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
       // ==========================================
       // DATA — PRODUCTS DATABASE
@@ -4864,6 +4719,34 @@
           prices: { "3ml": 29.9, "5ml": 39.9, "10ml": 69.9 },
           featured: true,
           tags: ["winter", "romantic", "acidic"],
+        },
+        {
+          id: 68,
+          img: "img/perfumes/EMPORIO-ARMANI-STRONGER-WITH-YOU-ABSOLUTELY.webp",
+          name: "Stronger With You Absolutely",
+          brand: "Emporio Armani",
+          category: "designer",
+          gender: "male",
+          emoji: "🔥",
+          notes:
+            "Notas de Salida: Ron · Corazón: Lavanda · Fondo: Vainilla, Castaña, Cedro",
+          prices: { "3ml": 29.9, "5ml": 39.9, "10ml": 69.9 },
+          featured: false,
+          tags: ["night", "winter", "sweet", "intense"],
+        },
+        {
+          id: 69,
+          img: "img/perfumes/EMPORIO-ARMANI-STRONGER-WITH-YOU-POWERFULLY.webp",
+          name: "Stronger With You Powerfully",
+          brand: "Emporio Armani",
+          category: "designer",
+          gender: "male",
+          emoji: "🔥",
+          notes:
+            "Notas de Salida: Ron, Bergamota, Elemí · Corazón: Lavanda, Davana · Fondo: Vainilla, Castaña, Cedro, Pachulí",
+          prices: { "3ml": 29.9, "5ml": 39.9, "10ml": 69.9 },
+          featured: true,
+          tags: ["night", "winter", "sweet", "intense"],
         },
         {
           id: 17,
@@ -5843,6 +5726,19 @@
             emoji: "👑",
             img: "img/promos/Promo 11 — Marido y Mujer Nivel Alto.webp",
           },
+          {
+            name: "Promo 12 — MÁS FUERTE CONTIGO",
+            type: "pack",
+            scents:
+              "Stronger With You Absolutely · Stronger With You Intensely · Stronger With You Parfum",
+            sizes: [
+              { label: "3×3ml", qty: "3 decants de 3ml", price: 72.9 },
+              { label: "3×5ml", qty: "3 decants de 5ml", price: 99.9 },
+              { label: "3×10ml", qty: "3 decants de 10ml", price: 184.9 },
+            ],
+            emoji: "🔥",
+            img: "img/promos/Promo 12 — MAS FUERTE CONTIGO.webp",
+          },
         ],
         limited: [
           {
@@ -5888,24 +5784,89 @@
       const totalSlides = 3;
 
       // ==========================================
-      // LOADER
+      // LOADER – DESAPARECE AUTOMÁTICAMENTE
       // ==========================================
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          document.getElementById("loader").classList.add("hidden");
-          startHeroCarousel();
-          renderAll();
-        }, 1000);
-        document.querySelectorAll(".nav-links a").forEach((link) => {
-          link.addEventListener("click", () => {
-            if (window.innerWidth <= 900) {
-              document.querySelector(".nav-links").style.display = "none";
-              document.body.style.overflow = "";
-            }
-          });
+      document.addEventListener("DOMContentLoaded", () => {
+        const tl = gsap.timeline();
+
+        // 1. Animación de Entrada (Sofisticada y elegante)
+        tl.to(".perfume-bottle", {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: "power3.out",
+          startAt: { y: 15 },
+        })
+          .to(
+            ".brand-name",
+            {
+              opacity: 1,
+              y: 0,
+              letterSpacing: "0.45em",
+              duration: 1.8,
+              ease: "power2.out",
+              startAt: { y: 10 },
+            },
+            "-=1.2",
+          )
+          .to(
+            ".brand-line",
+            { width: "70px", opacity: 0.5, duration: 1.2, ease: "power4.out" },
+            "-=1.5",
+          )
+          .fromTo(
+            [".orbit-1", ".orbit-2"],
+            { opacity: 0, scale: 0.9 },
+            { opacity: 1, scale: 1, duration: 2, ease: "power2.inOut" },
+            "-=1.8",
+          );
+
+        // 2. Rotación continua de los peces (tu archivo pez-koi.svg)
+        gsap.to(".orbit-1", {
+          rotation: 360,
+          duration: 12,
+          repeat: -1,
+          ease: "none",
+        });
+        gsap.to(".orbit-2", {
+          rotation: -360,
+          duration: 16,
+          repeat: -1,
+          ease: "none",
+        });
+
+        // Efecto sutil de flotación para todo el conjunto (orgánico)
+        gsap.to(".animation-scene", {
+          y: -6,
+          duration: 3.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        // 3. Control de Salida (Fade-Out y Auto-destrucción)
+        const minDisplayTime = 2500; // 2.5 segundos de visualización
+        const startTime = performance.now();
+
+        window.addEventListener("load", () => {
+          const elapsedTime = performance.now() - startTime;
+          const remainingTime = Math.max(minDisplayTime - elapsedTime, 0);
+
+          setTimeout(() => {
+            gsap.to("#luxury-loader", {
+              opacity: 0,
+              duration: 1.2,
+              ease: "power2.inOut",
+              onComplete: () => {
+                const loaderElement = document.getElementById("luxury-loader");
+                if (loaderElement) loaderElement.remove();
+                startHeroCarousel();
+                renderAll(); // ← Esta es la clave: renderiza todo el contenido
+              },
+            });
+          }, remainingTime);
         });
       });
-
       // ==========================================
       // NAVIGATION
       // ==========================================
