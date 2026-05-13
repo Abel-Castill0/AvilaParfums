@@ -2875,7 +2875,11 @@
       <ul class="nav-links">
         <li><a href="#" onclick="showPage('home')">Inicio</a></li>
         <li><a href="#catalogo" onclick="showPage('catalog')">Catálogo</a></li>
-        <li><a href="#promociones" onclick="showPage('promotions')">Promociones</a></li>
+        <li>
+          <a href="#promociones" onclick="showPage('promotions')"
+            >Promociones</a
+          >
+        </li>
         <li>
           <a href="#" onclick="scrollToSection('recommendations')"
             >Recomendaciones</a
@@ -6643,6 +6647,45 @@
         showToast("Cuenta creada", "Revisa tu correo para confirmar.");
         closeAuthModal();
       }
+      // ─── ENRUTADOR POR HASH (colocar al final del <script>) ───
+      function handleHashChange() {
+        const hash = window.location.hash.slice(1); // quita el "#"
+        if (!hash) return;
+
+        switch (hash) {
+          case "catalogo":
+          case "catalog":
+            showPage("catalog");
+            break;
+          case "promociones":
+          case "promotions":
+            showPage("promotions");
+            break;
+          case "recomendaciones":
+          case "recommendations":
+            showPage("home");
+            setTimeout(() => {
+              const el = document.getElementById("recommendations");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }, 300);
+            break;
+          case "tiktok":
+          case "contenido":
+            showPage("home");
+            setTimeout(() => {
+              const el = document.getElementById("tiktok");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }, 300);
+            break;
+          default:
+            showPage("home");
+        }
+      }
+
+      // Ejecutar al cargar la página (cuando se escribe directamente la URL con hash)
+      window.addEventListener("DOMContentLoaded", handleHashChange);
+      // Ejecutar cada vez que el hash cambia (por si el usuario hace clic en un enlace interno con #)
+      window.addEventListener("hashchange", handleHashChange);
 
       // ==========================================
       // PACK DETAIL MODAL
