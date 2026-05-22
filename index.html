@@ -54,108 +54,6 @@
         font-weight: 300;
         overflow-x: hidden;
       }
-
-      /* ========== CONTENEDOR PRINCIPAL ========== */
-      #luxury-loader {
-        position: fixed;
-        inset: 0;
-        z-index: 99999;
-        background-color: var(--bg-color);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-      }
-
-      .loader-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 3rem; /* Espaciado elegante */
-      }
-
-      /* ========== ESCENA DE ANIMACIÓN ========== */
-      .animation-scene {
-        position: relative;
-        width: 200px;
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* Frasco dibujado en SVG */
-      .perfume-bottle {
-        width: 70px;
-        height: auto;
-        z-index: 2;
-        opacity: 0; /* Oculto inicialmente, GSAP lo revela */
-        filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.06));
-      }
-
-      /* Órbitas para los peces */
-      .orbit {
-        position: absolute;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* Ajustamos el tamaño de las órbitas para que giren alrededor del frasco */
-      .orbit-1 {
-        width: 150px;
-        height: 150px;
-      }
-      .orbit-2 {
-        width: 200px;
-        height: 200px;
-      }
-
-      /* Estilos para tu archivo local pez-koi.svg */
-      .koi-fish {
-        position: absolute;
-        width: 38px; /* Ajusta este valor si tu SVG es muy grande o pequeño */
-        height: auto;
-        top: -19px; /* Mitad del height para centrarlo en la línea de órbita */
-        opacity: 0.85;
-        /* Dependiendo hacia dónde apunte tu SVG original, podrías necesitar cambiar este rotate */
-        transform: rotate(90deg);
-      }
-
-      .koi-2 {
-        top: auto;
-        bottom: -19px;
-        transform: rotate(-90deg);
-      }
-
-      /* ========== BRANDING ========== */
-      .brand-container {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .brand-name {
-        font-family: var(--font-luxury);
-        font-size: clamp(1.2rem, 3vw, 1.6rem);
-        font-weight: 400;
-        letter-spacing: 0.1em; /* GSAP lo expandirá */
-        color: var(--brand-color);
-        margin: 0;
-        text-transform: uppercase;
-        opacity: 0;
-      }
-
-      .brand-line {
-        width: 0px; /* GSAP lo expandirá */
-        height: 1px;
-        background-color: var(--brand-color);
-        margin-top: 1.2rem;
-        opacity: 0;
-      }
       /* ==========================================
          NAVIGATION (DISEÑO ELEGANTE Y PROFESIONAL)
       ========================================== */
@@ -3771,6 +3669,19 @@
                   />
                 </div>
                 <div class="form-group">
+                  <label class="form-label">DNI</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    placeholder="12345678"
+                    id="dni"
+                    maxlength="8"
+                    inputmode="numeric"
+                    pattern="[0-9]{8}"
+                    required
+                  />
+                </div>
+                <div class="form-group">
                   <label class="form-label">Dirección de Entrega</label>
                   <input
                     type="text"
@@ -4384,8 +4295,6 @@
     <!-- ==========================================
      JAVASCRIPT
 ========================================== -->
-    <!-- Motor de Animación GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
       // ==========================================
       // DATA — PRODUCTS DATABASE
@@ -5386,6 +5295,34 @@
           featured: false,
           tags: ["summer", "casual", "neutral"],
         },
+        {
+          id: 70,
+          img: "img/perfumes/FRENCH-AVENUE-LIQUID-BRUN.webp",
+          name: "Liquid Brun",
+          brand: "French Avenue",
+          category: "arabe",
+          gender: "unisex",
+          emoji: "🔥",
+          notes:
+            "Notas de Salida: Canela, Nuez Moscada, Bergamota · Corazón: Praliné, Vainilla, Notas Amaderadas · Fondo: Ámbar, Almizcle, Madera de Oud",
+          prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 },
+          featured: false,
+          tags: ["winter", "night", "sweet", "elegant"],
+        },
+        {
+          id: 71,
+          img: "img/perfumes/FRENCH-AVENUE-VULCAN-FEU.webp",
+          name: "Vulcan Feu",
+          brand: "French Avenue",
+          category: "arabe",
+          gender: "unisex",
+          emoji: "🌋",
+          notes:
+            "Notas de Salida: Pimienta Negra, Jengibre, Cítricos · Corazón: Incienso, Lavanda, Notas Especiadas · Fondo: Vetiver, Maderas Secas, Ámbar",
+          prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 },
+          featured: false,
+          tags: ["winter", "night", "intense", "bold"],
+        },
       ];
 
       const PROMOS = {
@@ -5685,90 +5622,6 @@
       let currentSlide = 0;
       const totalSlides = 3;
 
-      // ==========================================
-      // LOADER – DESAPARECE AUTOMÁTICAMENTE
-      // ==========================================
-      document.addEventListener("DOMContentLoaded", () => {
-        const tl = gsap.timeline();
-
-        // 1. Animación de Entrada (Sofisticada y elegante)
-        tl.to(".perfume-bottle", {
-          opacity: 1,
-          y: 0,
-          duration: 1.5,
-          ease: "power3.out",
-          startAt: { y: 15 },
-        })
-          .to(
-            ".brand-name",
-            {
-              opacity: 1,
-              y: 0,
-              letterSpacing: "0.45em",
-              duration: 1.8,
-              ease: "power2.out",
-              startAt: { y: 10 },
-            },
-            "-=1.2",
-          )
-          .to(
-            ".brand-line",
-            { width: "70px", opacity: 0.5, duration: 1.2, ease: "power4.out" },
-            "-=1.5",
-          )
-          .fromTo(
-            [".orbit-1", ".orbit-2"],
-            { opacity: 0, scale: 0.9 },
-            { opacity: 1, scale: 1, duration: 2, ease: "power2.inOut" },
-            "-=1.8",
-          );
-
-        // 2. Rotación continua de los peces (tu archivo pez-koi.svg)
-        gsap.to(".orbit-1", {
-          rotation: 360,
-          duration: 12,
-          repeat: -1,
-          ease: "none",
-        });
-        gsap.to(".orbit-2", {
-          rotation: -360,
-          duration: 16,
-          repeat: -1,
-          ease: "none",
-        });
-
-        // Efecto sutil de flotación para todo el conjunto (orgánico)
-        gsap.to(".animation-scene", {
-          y: -6,
-          duration: 3.5,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        // 3. Control de Salida (Fade-Out y Auto-destrucción)
-        const minDisplayTime = 2500; // 2.5 segundos de visualización
-        const startTime = performance.now();
-
-        window.addEventListener("load", () => {
-          const elapsedTime = performance.now() - startTime;
-          const remainingTime = Math.max(minDisplayTime - elapsedTime, 0);
-
-          setTimeout(() => {
-            gsap.to("#luxury-loader", {
-              opacity: 0,
-              duration: 1.2,
-              ease: "power2.inOut",
-              onComplete: () => {
-                const loaderElement = document.getElementById("luxury-loader");
-                if (loaderElement) loaderElement.remove();
-                startHeroCarousel();
-                renderAll(); // ← Esta es la clave: renderiza todo el contenido
-              },
-            });
-          }, remainingTime);
-        });
-      });
       // ==========================================
       // NAVIGATION
       // ==========================================
@@ -6214,13 +6067,6 @@
         }
       }
 
-      function findPromoCategory(promoName) {
-        for (const cat in PROMOS) {
-          if (PROMOS[cat].some((p) => p.name === promoName)) return cat;
-        }
-        return null;
-      }
-
       // Manejador para cerrar el modal con Escape
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape") closeSelectorPromoModal();
@@ -6463,6 +6309,11 @@
           );
           return;
         }
+        if (!dni) {
+          // ← NUEVA VALIDACIÓN (opcional)
+          showToast("Campo requerido", "Por favor ingresa tu DNI.");
+          return;
+        }
         if (cart.length === 0) {
           showToast("Carrito vacío", "Agrega productos antes de confirmar.");
           return;
@@ -6481,6 +6332,7 @@
         msg += `• Nombre: ${firstName} ${document.getElementById("lastName").value.trim()}%0A`;
         msg += `• Correo: ${document.getElementById("email").value.trim()}%0A`;
         msg += `• Teléfono: ${document.getElementById("phone").value.trim()}%0A`;
+        msg += `• DNI: ${dni}%0A`;
         msg += `• Dirección: ${address}%0A`;
         msg += `• Distrito: ${document.getElementById("district").value.trim()}%0A`;
         msg += `• Ciudad: ${document.getElementById("city").value.trim()}%0A`;
@@ -6749,54 +6601,6 @@
       }
 
       function selectPackSize(sizeLabel, price, btn) {
-        document
-          .querySelectorAll("#packModalSizes .modal-size-btn")
-          .forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-      }
-
-      function closePackDetailModal() {
-        document.getElementById("packDetailModal").classList.remove("active");
-        document.body.style.overflow = "";
-        currentPackPromo = null;
-      }
-
-      function addPackToCartFromModal() {
-        if (!currentPackPromo) return;
-        const activeBtn = document.querySelector(
-          "#packModalSizes .modal-size-btn.active",
-        );
-        if (!activeBtn) return showToast("Error", "Selecciona un tamaño.");
-        const sizeLabel = activeBtn.getAttribute("data-size-label");
-        const price = parseFloat(activeBtn.getAttribute("data-price"));
-        addToCart({
-          name: currentPackPromo.name,
-          brand: "Avila Parfums",
-          size: sizeLabel,
-          price: price,
-          emoji: currentPackPromo.emoji || "🎁",
-          img: currentPackPromo.img || "",
-        });
-        closePackDetailModal();
-      }
-
-      document
-        .getElementById("packDetailModal")
-        .addEventListener("click", function (e) {
-          if (e.target === this) closePackDetailModal();
-        });
-      document.addEventListener("keydown", function (e) {
-        if (
-          e.key === "Escape" &&
-          document
-            .getElementById("packDetailModal")
-            .classList.contains("active")
-        ) {
-          closePackDetailModal();
-        }
-      });
-
-      function selectPackSize(sizeLabel, price, btn) {
         currentPackSelectedSize = sizeLabel;
         document
           .querySelectorAll("#packModalSizes .modal-size-btn")
@@ -6870,6 +6674,9 @@
         .addEventListener("click", function (e) {
           if (e.target === this) closeAuthModal();
         });
+
+      renderAll();
+      startHeroCarousel();
     </script>
   </body>
 </html>
