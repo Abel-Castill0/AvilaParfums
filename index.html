@@ -2488,6 +2488,18 @@
         letter-spacing: 0.1em;
         text-transform: uppercase;
       }
+      .toast-close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.8rem;
+        cursor: pointer;
+        font-size: 1.2rem;
+        line-height: 1;
+        opacity: 0.6;
+      }
+      .toast-close:hover {
+        opacity: 1;
+      }
       @keyframes toastIn {
         from {
           opacity: 0;
@@ -2516,6 +2528,255 @@
       }
       ::-webkit-scrollbar-thumb {
         background: var(--gold-dark);
+      }
+      /* Campos con error */
+      .form-input.error {
+        border-color: #c0392b !important;
+        box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.1);
+      }
+      .error-message {
+        font-size: 0.65rem;
+        color: #c0392b;
+        margin-top: 0.2rem;
+        display: none;
+      }
+      /* ==========================================
+   NUEVAS TARJETAS DE CATEGORÍA (PROMOCIONES)
+========================================== */
+      .promo-categories-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 3rem auto 0;
+      }
+
+      .promo-cat-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        display: flex;
+        flex-direction: column;
+      }
+      .promo-cat-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        border-color: var(--border-bright);
+      }
+
+      .promo-cat-img {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+        background: #f5f5f5;
+      }
+      .promo-cat-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+      .promo-cat-card:hover .promo-cat-img img {
+        transform: scale(1.05);
+      }
+
+      .promo-cat-body {
+        padding: 1.8rem 1.5rem 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .promo-cat-badge {
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        background: var(--gold);
+        color: #fff;
+        padding: 0.3rem 1rem;
+        border-radius: 30px;
+        margin-bottom: 1rem;
+      }
+
+      .promo-cat-title {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+        line-height: 1.2;
+      }
+
+      .promo-cat-desc {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .promo-cat-sizes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .promo-cat-size-btn {
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text-secondary);
+        padding: 0.5rem 1.2rem;
+        border-radius: 30px;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        transition: all 0.25s;
+        font-family: var(--font-body);
+      }
+      .promo-cat-size-btn:hover,
+      .promo-cat-size-btn.active {
+        border-color: var(--gold);
+        color: var(--gold);
+        background: rgba(0, 0, 0, 0.03);
+      }
+
+      .promo-cat-btn {
+        width: 100%;
+        background: var(--gold);
+        color: #fff;
+        border: none;
+        padding: 0.9rem;
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-radius: 8px;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .promo-cat-btn:hover {
+        background: var(--gold-light);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Miniaturas de perfumes seleccionados */
+      .selected-perfumes-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 1rem;
+        justify-content: center;
+      }
+      .selected-perfumes-list img {
+        width: 42px;
+        height: 52px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        transition: transform 0.2s;
+      }
+      .selected-perfumes-list img:hover {
+        transform: scale(1.1);
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .promo-categories-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ==========================================
+   PACK ITEMS EN CARRITO Y CHECKOUT
+========================================== */
+      .cart-pack-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.4rem;
+      }
+      .cart-pack-name {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      .cart-pack-remove {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+        padding: 0.2rem;
+      }
+      .cart-pack-remove:hover {
+        color: #c0392b;
+      }
+      .cart-pack-perfumes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0.5rem 0;
+      }
+      .cart-pack-perfume {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.7rem;
+        background: var(--bg-dark);
+        padding: 0.3rem 0.6rem;
+        border-radius: 20px;
+      }
+      .cart-pack-perfume img {
+        width: 28px;
+        height: 34px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      .cart-pack-price {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        color: var(--gold);
+        font-weight: 600;
+        margin-top: 0.3rem;
+      }
+      .cart-pack-meta {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        letter-spacing: 0.05em;
+      }
+      /* Checkout: resumen del pack */
+      .summary-pack-perfumes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin: 0.3rem 0;
+      }
+      .summary-pack-perfume {
+        font-size: 0.65rem;
+        background: var(--bg-dark);
+        padding: 0.2rem 0.5rem;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .summary-pack-perfume img {
+        width: 22px;
+        height: 26px;
+        object-fit: cover;
+        border-radius: 3px;
       }
 
       /* ==========================================
@@ -2771,19 +3032,56 @@
       </a>
 
       <ul class="nav-links">
-        <li><a href="#" onclick="showPage('home')">Inicio</a></li>
-        <li><a href="#catalogo" onclick="showPage('catalog')">Catálogo</a></li>
         <li>
-          <a href="#promociones" onclick="showPage('promotions')"
+          <a
+            href="#"
+            onclick="
+              showPage('home');
+              closeMobileNav();
+            "
+            >Inicio</a
+          >
+        </li>
+        <li>
+          <a
+            href="#catalogo"
+            onclick="
+              showPage('catalog');
+              closeMobileNav();
+            "
+            >Catálogo</a
+          >
+        </li>
+        <li>
+          <a
+            href="#promociones"
+            onclick="
+              showPage('promotions');
+              closeMobileNav();
+            "
             >Promociones</a
           >
         </li>
         <li>
-          <a href="#" onclick="scrollToSection('recommendations')"
+          <a
+            href="#"
+            onclick="
+              scrollToSection('recommendations');
+              closeMobileNav();
+            "
             >Recomendaciones</a
           >
         </li>
-        <li><a href="#" onclick="scrollToSection('tiktok')">Contenido</a></li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              scrollToSection('tiktok');
+              closeMobileNav();
+            "
+            >Contenido</a
+          >
+        </li>
       </ul>
 
       <div class="nav-actions">
@@ -3126,6 +3424,15 @@
                   <span class="rec-option-desc">Versatilidad todo el año</span>
                 </button>
               </div>
+              <div style="text-align: center; margin-top: 1.5rem">
+                <button
+                  class="btn-outline"
+                  onclick="goToPrevStep()"
+                  style="font-size: 0.7rem; padding: 0.5rem 1.5rem"
+                >
+                  ← Anterior
+                </button>
+              </div>
             </div>
 
             <!-- Panel 3 -->
@@ -3165,6 +3472,15 @@
                   <span class="rec-option-desc">Atracción irresistible</span>
                 </button>
               </div>
+              <div style="text-align: center; margin-top: 1.5rem">
+                <button
+                  class="btn-outline"
+                  onclick="goToPrevStep()"
+                  style="font-size: 0.7rem; padding: 0.5rem 1.5rem"
+                >
+                  ← Anterior
+                </button>
+              </div>
             </div>
 
             <!-- Panel 4 -->
@@ -3198,6 +3514,15 @@
                   <span class="rec-option-icon">⚡</span>
                   <span class="rec-option-label">Unisex / compartida</span>
                   <span class="rec-option-desc">Versátil y moderna</span>
+                </button>
+              </div>
+              <div style="text-align: center; margin-top: 1.5rem">
+                <button
+                  class="btn-outline"
+                  onclick="goToPrevStep()"
+                  style="font-size: 0.7rem; padding: 0.5rem 1.5rem"
+                >
+                  ← Anterior
                 </button>
               </div>
             </div>
@@ -3390,6 +3715,7 @@
             <a
               href="https://www.tiktok.com/@avilaparfums.pe"
               target="_blank"
+              rel="noopener noreferrer"
               class="btn-social tiktok-btn"
             >
               <span class="social-icon">
@@ -3409,6 +3735,7 @@
             <a
               href="https://www.instagram.com/avilaparfums.pe/"
               target="_blank"
+              rel="noopener noreferrer"
               class="btn-social insta-btn"
             >
               <span class="social-icon">
@@ -3493,110 +3820,143 @@
       </div>
 
       <!-- ==========================================
-     PROMOTIONS PAGE
+     PROMOTIONS PAGE (DISEÑO PREMIUM)
 ========================================== -->
       <div id="page-promotions" class="page">
         <div class="section-pad" style="margin-top: 70px">
-          <div class="section-header">
-            <span class="section-label">Ofertas Especiales</span>
-            <h2 class="section-title">Promociones <em>Exclusivas</em></h2>
-            <div class="section-line"></div>
+          <div class="section-header" style="text-align: center">
+            <span class="section-label">Ofertas Exclusivas</span>
+            <h2 class="section-title">Arma tu <em>Combo Ideal</em></h2>
+            <div class="section-line center"></div>
             <p
               style="
-                margin-top: 1rem;
-                font-size: 0.75rem;
-                color: var(--text-muted);
-                letter-spacing: 0.05em;
                 max-width: 600px;
+                margin: 1.2rem auto 0;
+                font-size: 0.8rem;
+                color: var(--text-muted);
+                line-height: 1.7;
+                letter-spacing: 0.03em;
               "
             >
-              Arma tu propio combo o llévate nuestros packs más vendidos.
+              Elige tus fragancias favoritas dentro de cada categoría y llévate
+              un pack con descuento especial.
             </p>
           </div>
 
-          <!-- Promociones Nicho -->
-          <div style="margin-bottom: 3rem">
-            <h3
-              style="
-                font-family: var(--font-display);
-                font-size: 1.3rem;
-                color: var(--gold);
-                margin-bottom: 1.5rem;
-                font-weight: 300;
-                letter-spacing: 0.05em;
-              "
-            >
-              ✦ Promociones Nicho
-            </h3>
-            <div class="promo-grid" id="nichoPromos"></div>
-          </div>
+          <div class="promo-categories-grid">
+            <!-- NICHO -->
+            <div class="promo-cat-card" data-category="nicho">
+              <div class="promo-cat-img">
+                <img
+                  src="A_TU_ELECCIÓN_NICHO.webp"
+                  alt="Nicho"
+                  onerror="this.src = 'logo.webp'"
+                  loading="lazy"
+                />
+              </div>
+              <div class="promo-cat-body">
+                <span class="promo-cat-badge">Exclusividad</span>
+                <h3 class="promo-cat-title">Perfumería de Nicho</h3>
+                <p class="promo-cat-desc">
+                  Fragancias de autor únicas e inconfundibles.
+                </p>
+                <div class="promo-cat-sizes" id="nicho-sizes"></div>
+                <button
+                  class="promo-cat-btn"
+                  onclick="openCategorySelector('nicho')"
+                >
+                  Elegir Perfumes →
+                </button>
+                <div
+                  class="selected-perfumes-list"
+                  id="nicho-selected-list"
+                  style="display: none"
+                ></div>
+              </div>
+            </div>
 
-          <!-- Promociones Árabes / Orientales -->
-          <div style="margin-bottom: 3rem">
-            <h3
-              style="
-                font-family: var(--font-display);
-                font-size: 1.3rem;
-                color: var(--gold);
-                margin-bottom: 1.5rem;
-                font-weight: 300;
-                letter-spacing: 0.05em;
-              "
-            >
-              ✦ Promociones Árabes / Orientales
-            </h3>
-            <div class="promo-grid" id="arabePromos"></div>
-          </div>
+            <!-- DISEÑADOR -->
+            <div class="promo-cat-card" data-category="designer">
+              <div class="promo-cat-img">
+                <img
+                  src="A_TU_ELECCIÓN_DISEÑADOR.webp"
+                  alt="Diseñador"
+                  onerror="this.src = 'logo.webp'"
+                  loading="lazy"
+                />
+              </div>
+              <div class="promo-cat-body">
+                <span class="promo-cat-badge">Premium</span>
+                <h3 class="promo-cat-title">Diseñador de Lujo</h3>
+                <p class="promo-cat-desc">
+                  Los grandes clásicos de la perfumería mundial.
+                </p>
+                <div class="promo-cat-sizes" id="designer-sizes"></div>
+                <button
+                  class="promo-cat-btn"
+                  onclick="openCategorySelector('designer')"
+                >
+                  Elegir Perfumes →
+                </button>
+                <div
+                  class="selected-perfumes-list"
+                  id="designer-selected-list"
+                  style="display: none"
+                ></div>
+              </div>
+            </div>
 
-          <!-- Promociones Diseñador -->
-          <div style="margin-bottom: 3rem">
-            <h3
-              style="
-                font-family: var(--font-display);
-                font-size: 1.3rem;
-                color: var(--silver);
-                margin-bottom: 1.5rem;
-                font-weight: 300;
-                letter-spacing: 0.05em;
-              "
-            >
-              ✦ Promociones Diseñador
-            </h3>
-            <div class="promo-grid" id="designerPromos"></div>
+            <!-- ÁRABES -->
+            <div class="promo-cat-card" data-category="arabe">
+              <div class="promo-cat-img">
+                <img
+                  src="A_TU_ELECCIÓN_ÁRABE.webp"
+                  alt="Árabes"
+                  onerror="this.src = 'logo.webp'"
+                  loading="lazy"
+                />
+              </div>
+              <div class="promo-cat-body">
+                <span class="promo-cat-badge">Oriental</span>
+                <h3 class="promo-cat-title">Árabes & Orientales</h3>
+                <p class="promo-cat-desc">
+                  Misterio y poder de Oriente en cada gota.
+                </p>
+                <div class="promo-cat-sizes" id="arabe-sizes"></div>
+                <button
+                  class="promo-cat-btn"
+                  onclick="openCategorySelector('arabe')"
+                >
+                  Elegir Perfumes →
+                </button>
+                <div
+                  class="selected-perfumes-list"
+                  id="arabe-selected-list"
+                  style="display: none"
+                ></div>
+              </div>
+            </div>
           </div>
 
           <!-- Packs Especiales -->
-          <div style="margin-bottom: 3rem">
-            <h3
-              style="
-                font-family: var(--font-display);
-                font-size: 1.3rem;
-                color: var(--gold);
-                margin-bottom: 1.5rem;
-                font-weight: 300;
-                letter-spacing: 0.05em;
-              "
-            >
-              ✦ Packs Especiales
-            </h3>
+          <div style="margin-top: 5rem">
+            <div class="section-header" style="text-align: center">
+              <span class="section-label">Ediciones Curadas</span>
+              <h2 class="section-title">Packs <em>Especiales</em></h2>
+              <div class="section-line center"></div>
+              <p
+                style="
+                  max-width: 500px;
+                  margin: 1rem auto 0;
+                  font-size: 0.75rem;
+                  color: var(--text-muted);
+                "
+              >
+                Combos ya armados con las fragancias más aclamadas. Solo elige
+                el tamaño.
+              </p>
+            </div>
             <div class="promo-grid" id="especialesPromos"></div>
-          </div>
-
-          <!-- Ediciones Limitadas -->
-          <div style="margin-bottom: 3rem">
-            <h3
-              style="
-                font-family: var(--font-display);
-                font-size: 1.3rem;
-                color: #e8a87c;
-                margin-bottom: 1.5rem;
-                font-weight: 300;
-                letter-spacing: 0.05em;
-              "
-            >
-              ⚡ Ediciones Limitadas
-            </h3>
-            <div class="promo-grid" id="limitedPromos"></div>
           </div>
         </div>
       </div>
@@ -3673,7 +4033,7 @@
                   <input
                     type="text"
                     class="form-input"
-                    placeholder="12345678"
+                    placeholder="Ingresa tu DNI (8 dígitos)"
                     id="dni"
                     maxlength="8"
                     inputmode="numeric"
@@ -3794,6 +4154,7 @@
                   <a
                     href="https://wa.me/51994091862"
                     target="_blank"
+                    rel="noopener noreferrer"
                     style="
                       color: var(--gold);
                       text-decoration: none;
@@ -3850,6 +4211,7 @@
             <a
               href="https://www.instagram.com/avilaparfums.pe/"
               target="_blank"
+              rel="noopener noreferrer"
               class="social-btn"
               title="Instagram"
             >
@@ -3863,6 +4225,7 @@
             <a
               href="https://www.tiktok.com/@avilaparfums.pe"
               target="_blank"
+              rel="noopener noreferrer"
               class="social-btn"
               title="TikTok"
             >
@@ -3876,6 +4239,7 @@
             <a
               href="https://wa.me/51994091862"
               target="_blank"
+              rel="noopener noreferrer"
               class="social-btn"
               title="WhatsApp"
             >
@@ -3964,6 +4328,7 @@
               >avilaparfumsperu@gmail.com</a
             >
           </p>
+
           <p style="margin-top: 0.8rem">📍 Lima, Perú</p>
           <p>🚚 Contra entrega Lima</p>
           <p>📦 Envío a Provincias</p>
@@ -3973,6 +4338,15 @@
       <div class="footer-bottom">
         <p class="footer-copyright">
           © 2025 Avila Parfums. Todos los derechos reservados. Lima, Perú.
+        </p>
+        <p class="footer-signature">
+          Diseñado y desarrollado por
+          <a
+            href="https://abel-castill0.github.io/Portafolio/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Abel Castillo</a
+          >
         </p>
         <p class="footer-copyright">
           Decants auténticos · Contra entrega · Envío a nivel nacional
@@ -5604,6 +5978,10 @@
       };
 
       // ==========================================
+      // DATA — PRODUCTS DATABASE (mantén tu array original)
+      // ==========================================
+
+      // ==========================================
       // STATE
       // ==========================================
       let cart = JSON.parse(localStorage.getItem("avilaCart") || "[]");
@@ -5640,6 +6018,7 @@
           pageId === "checkout" ? "none" : "";
         window.scrollTo({ top: 0, behavior: "smooth" });
         if (pageId === "checkout") renderCheckout();
+        closeMobileNav();
       }
 
       function scrollToSection(id) {
@@ -5651,12 +6030,18 @@
         }, 300);
       }
 
+      function closeMobileNav() {
+        const links = document.querySelector(".nav-links");
+        if (links.style.display === "flex") {
+          links.style.display = "none";
+          document.body.style.overflow = "";
+        }
+      }
+
       function toggleMobileNav() {
         const links = document.querySelector(".nav-links");
-        const isOpen = links.style.display === "flex";
-        if (isOpen) {
-          links.style.display = "none";
-          document.body.style.overflow = ""; // desbloquear scroll
+        if (links.style.display === "flex") {
+          closeMobileNav();
         } else {
           links.style.display = "flex";
           links.style.flexDirection = "column";
@@ -5673,7 +6058,7 @@
           links.style.zIndex = "999";
           links.style.height = "auto";
           links.style.minHeight = "50vh";
-          document.body.style.overflow = "hidden"; // bloquear scroll
+          document.body.style.overflow = "hidden";
         }
       }
 
@@ -5683,7 +6068,6 @@
       function startHeroCarousel() {
         heroInterval = setInterval(nextSlide, 6000);
       }
-
       function goToSlide(n) {
         clearInterval(heroInterval);
         document
@@ -5699,7 +6083,6 @@
         document.getElementById("dot-" + currentSlide).classList.add("active");
         heroInterval = setInterval(nextSlide, 6000);
       }
-
       function nextSlide() {
         goToSlide((currentSlide + 1) % totalSlides);
       }
@@ -5717,7 +6100,7 @@
         updateCartUI();
       }
 
-      function buildProductCard(product, small = false) {
+      function buildProductCard(product) {
         const basePrice = Math.min(...Object.values(product.prices));
         const badgeClass = {
           nicho: "badge-nicho",
@@ -5730,30 +6113,27 @@
           arabe: "Árabe",
         }[product.category];
         return `
-    <div class="product-card" onclick="openProductModal(${product.id})">
-      <div class="product-img">
-        <img src="${product.img}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" loading="lazy">
-        <span class="product-img-placeholder" style="display:none;">${product.emoji}</span>
-        <span class="product-badge ${badgeClass}">${badgeLabel}</span>
-        <button class="product-quick-add" onclick="event.stopPropagation(); quickAddToCart(${product.id})">
-          + Añadir al Carrito
-        </button>
-      </div>
-      <div class="product-info">
-        <div class="product-brand">${product.brand}</div>
-        <div class="product-name">${product.name}</div>
-        <div class="product-notes">${product.notes.split("·")[0].replace("Notas: ", "")}</div>
-        <div class="product-price">
-          <span class="product-price-from">Desde</span>
-          S/ ${basePrice.toFixed(2)}
+      <div class="product-card" onclick="openProductModal(${product.id})">
+        <div class="product-img">
+          <img src="${product.img}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;" 
+               onerror="this.onerror=null; this.src='logo.webp';" loading="lazy">
+          <span class="product-img-placeholder" style="display:none;">${product.emoji}</span>
+          <span class="product-badge ${badgeClass}">${badgeLabel}</span>
+          <button class="product-quick-add" onclick="event.stopPropagation(); quickAddToCart(${product.id})">+ Añadir al Carrito</button>
         </div>
-      </div>
-    </div>`;
+        <div class="product-info">
+          <div class="product-brand">${product.brand}</div>
+          <div class="product-name">${product.name}</div>
+          <div class="product-notes">${product.notes.split("·")[0].replace("Notas: ", "")}</div>
+          <div class="product-price"><span class="product-price-from">Desde</span> S/ ${basePrice.toFixed(2)}</div>
+        </div>
+      </div>`;
       }
 
       function renderFeatured() {
-        const featured = PRODUCTS.filter((p) => p.featured);
-        document.getElementById("featuredGrid").innerHTML = featured
+        document.getElementById("featuredGrid").innerHTML = PRODUCTS.filter(
+          (p) => p.featured,
+        )
           .map(buildProductCard)
           .join("");
       }
@@ -5790,36 +6170,32 @@
       }
 
       // ==========================================
-      // PROMOS RENDER (NUEVO SISTEMA CON MODAL)
+      // PROMOS – NUEVO SISTEMA DE CATEGORÍAS (PACKS COMO ITEMS ÚNICOS)
       // ==========================================
       let currentSelectorPromo = null;
       let currentSelectorSize = null;
       let selectedPerfumesInModal = [];
+      let currentSelectorCategory = null;
 
       function buildPerfumeSelector(promo, sizeObj) {
         currentSelectorPromo = promo;
         currentSelectorSize = sizeObj;
-        const cantidad = sizeObj.cantidad;
         const perfumes = PRODUCTS.filter((p) => p.category === promo.category);
         const grid = document.getElementById("selectorPerfumeGrid");
         if (!grid) return;
         grid.innerHTML = perfumes
           .map(
             (p) => `
-          <div class="perfume-select-card" onclick="togglePerfumeSelection(this, ${p.id})" data-id="${p.id}">
-            <img src="${p.img || "img/perfumes/placeholder.jpg"}" alt="${p.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="perfume-select-info">
-              <strong>${p.name}</strong>
-              <small>${p.brand}</small>
-            </div>
-          </div>
-        `,
+      <div class="perfume-select-card" onclick="togglePerfumeSelection(this, ${p.id})" data-id="${p.id}">
+        <img src="${p.img || "logo.webp"}" alt="${p.name}" onerror="this.onerror=null; this.src='logo.webp';" loading="lazy">
+        <div class="perfume-select-info"><strong>${p.name}</strong><small>${p.brand}</small></div>
+      </div>`,
           )
           .join("");
         document.getElementById("selectorPromoTitle").textContent =
-          `(${cantidad} perfumes)`;
+          `(${sizeObj.cantidad} perfumes)`;
         document.getElementById("selectorPromoInfo").textContent =
-          `Selecciona exactamente ${cantidad} perfumes. Seleccionados: 0`;
+          `Selecciona exactamente ${sizeObj.cantidad} perfumes. Seleccionados: 0`;
         selectedPerfumesInModal = [];
         document.getElementById("selectorPromoModal").classList.add("active");
         document.body.style.overflow = "hidden";
@@ -5844,44 +6220,6 @@
           `Selecciona exactamente ${max} perfumes. Seleccionados: ${selectedPerfumesInModal.length}`;
       }
 
-      // confirmPerfumeSelection actualizada para mostrar miniaturas
-      function confirmPerfumeSelection() {
-        const max = currentSelectorSize.cantidad;
-        if (selectedPerfumesInModal.length !== max) {
-          showToast("Error", `Debes seleccionar exactamente ${max} perfumes.`);
-          return;
-        }
-        closeSelectorPromoModal();
-        const card = document.querySelector(
-          `.promo-card[data-promo-name="${currentSelectorPromo.name}"]`,
-        );
-        if (!card) return;
-
-        // Guardar selección en atributo
-        card.setAttribute(
-          "data-selected-perfumes",
-          JSON.stringify(selectedPerfumesInModal),
-        );
-
-        // Actualizar visual con miniaturas
-        const listEl = card.querySelector(".selected-perfumes-list");
-        if (listEl) {
-          let imgsHtml = "";
-          selectedPerfumesInModal.forEach((id) => {
-            const perf = PRODUCTS.find((p) => p.id === id);
-            if (perf) {
-              imgsHtml += `<img src="${perf.img || "img/perfumes/placeholder.jpg"}" 
-                         alt="${perf.name}" 
-                         title="${perf.brand} - ${perf.name}"
-                         style="width:45px;height:55px;object-fit:cover;border-radius:6px;margin:3px;box-shadow:0 2px 6px rgba(0,0,0,0.1);">`;
-            }
-          });
-          listEl.innerHTML = imgsHtml;
-          listEl.style.display = "flex";
-          listEl.style.flexWrap = "wrap";
-        }
-      }
-
       function closeSelectorPromoModal() {
         document
           .getElementById("selectorPromoModal")
@@ -5889,7 +6227,6 @@
         document.body.style.overflow = "";
       }
 
-      // click en overlay cierra
       document
         .getElementById("selectorPromoModal")
         .addEventListener("click", function (e) {
@@ -5897,117 +6234,191 @@
         });
 
       function renderPromos() {
-        const secciones = [
-          { id: "nichoPromos", data: PROMOS.nicho },
-          { id: "arabePromos", data: PROMOS.arabe },
-          { id: "designerPromos", data: PROMOS.designer },
-          { id: "especialesPromos", data: PROMOS.especiales },
-          { id: "limitedPromos", data: PROMOS.limited },
-        ];
-        secciones.forEach(({ id, data }) => {
-          const el = document.getElementById(id);
-          if (el) {
-            el.innerHTML = data.map(renderPromoCard).join("");
-          } else {
-            console.warn(`Elemento #${id} no encontrado en el DOM`);
+        const especialesContainer = document.getElementById("especialesPromos");
+        if (especialesContainer)
+          especialesContainer.innerHTML = PROMOS.especiales
+            .map(renderPromoCard)
+            .join("");
+        const limitedContainer = document.getElementById("limitedPromos");
+        if (limitedContainer)
+          limitedContainer.innerHTML = PROMOS.limited
+            .map(renderPromoCard)
+            .join("");
+        setupCategoryCards();
+      }
+
+      function setupCategoryCards() {
+        ["nicho", "designer", "arabe"].forEach((cat) => {
+          const promoData = PROMOS[cat] && PROMOS[cat][0];
+          if (!promoData) return;
+          const sizesContainer = document.getElementById(cat + "-sizes");
+          if (!sizesContainer) return;
+          const sizesHTML = promoData.sizes
+            .map(
+              (s, i) => `
+        <button class="promo-cat-size-btn ${i === 0 ? "active" : ""}" 
+                data-size-label="${s.label}" data-price="${s.price}"
+                onclick="selectCatSize('${cat}', '${s.label}', ${s.price}, this)">
+          ${s.label} <strong style="font-family:var(--font-display);margin-left:4px;">S/ ${s.price.toFixed(2)}</strong>
+        </button>`,
+            )
+            .join("");
+          sizesContainer.innerHTML = sizesHTML;
+
+          const card = document.querySelector(
+            `.promo-cat-card[data-category="${cat}"]`,
+          );
+          if (card) {
+            card.setAttribute("data-promo-category", cat);
+            // Establecer el primer tamaño como seleccionado por defecto
+            const firstSize = promoData.sizes[0];
+            card.setAttribute("data-selected-size", firstSize.label);
+            card.setAttribute("data-selected-price", firstSize.price);
           }
         });
       }
 
+      function selectCatSize(category, sizeLabel, price, btn) {
+        const card = document.querySelector(
+          `.promo-cat-card[data-category="${category}"]`,
+        );
+        card
+          .querySelectorAll(".promo-cat-size-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        card.setAttribute("data-selected-size", sizeLabel);
+        card.setAttribute("data-selected-price", price);
+        // Limpiar selección anterior al cambiar de tamaño
+        card.removeAttribute("data-selected-perfumes");
+        const listEl = card.querySelector(".selected-perfumes-list");
+        if (listEl) {
+          listEl.innerHTML = "";
+          listEl.style.display = "none";
+        }
+      }
+
+      function openCategorySelector(category) {
+        const card = document.querySelector(
+          `.promo-cat-card[data-category="${category}"]`,
+        );
+        // El tamaño ya está seleccionado (por defecto o manualmente)
+        const sizeLabel = card.getAttribute("data-selected-size");
+        const price = card.getAttribute("data-selected-price");
+        if (!sizeLabel || !price) {
+          showToast(
+            "Error",
+            "No se pudo determinar el tamaño. Por favor, selecciona uno.",
+          );
+          return;
+        }
+        const promoData = PROMOS[category] && PROMOS[category][0];
+        if (!promoData) return;
+        const sizeObj = promoData.sizes.find((s) => s.label === sizeLabel);
+        if (!sizeObj) return;
+
+        currentSelectorPromo = promoData;
+        currentSelectorSize = sizeObj;
+        currentSelectorCategory = category;
+        buildPerfumeSelector(promoData, sizeObj);
+      }
+
+      // Al confirmar la selección de perfumes, se añade directamente al carrito
+      confirmPerfumeSelection = function () {
+        const max = currentSelectorSize.cantidad;
+        if (selectedPerfumesInModal.length !== max) {
+          showToast("Error", `Debes seleccionar exactamente ${max} perfumes.`);
+          return;
+        }
+        closeSelectorPromoModal();
+        const card = document.querySelector(
+          `.promo-cat-card[data-category="${currentSelectorCategory}"]`,
+        );
+        if (!card) return;
+
+        const sizeLabel = card.getAttribute("data-selected-size");
+        const price = parseFloat(card.getAttribute("data-selected-price"));
+        const selectedIds = selectedPerfumesInModal.slice(); // copia
+
+        // Crear array de perfumes incluidos
+        const perfumesIncluidos = selectedIds.map((id) => {
+          const perf = PRODUCTS.find((p) => p.id === id);
+          return {
+            name: perf.name,
+            brand: perf.brand,
+            img: perf.img,
+            emoji: perf.emoji,
+          };
+        });
+
+        const promoData = PROMOS[currentSelectorCategory][0];
+        // Añadir como UN SOLO ITEM tipo pack
+        addToCart({
+          type: "pack",
+          packName: promoData.name,
+          category: currentSelectorCategory,
+          size: sizeLabel,
+          price: price,
+          perfumes: perfumesIncluidos,
+          img: promoData.img || "logo.webp",
+          emoji: promoData.emoji || "🎁",
+        });
+
+        // Limpiar la selección en la tarjeta (miniaturas) pero mantener el tamaño seleccionado
+        card.removeAttribute("data-selected-perfumes");
+        const listEl = card.querySelector(".selected-perfumes-list");
+        if (listEl) {
+          listEl.innerHTML = "";
+          listEl.style.display = "none";
+        }
+        showToast("Añadido", `Pack ${promoData.name} al carrito`);
+      };
+
+      // Tarjetas de packs antiguos (especiales y limited) se mantienen igual
       function renderPromoCard(promo) {
         const sizeButtons = promo.sizes
           .map(
             (s, i) => `
       <button class="promo-size-btn ${i === 0 ? "active" : ""}" 
               data-size-label="${s.label}" data-price="${s.price}" onclick="handleSizeSelect(this, '${promo.name}', ${s.price})">
-        <span>${s.label}</span>
-        <strong>S/ ${s.price.toFixed(2)}</strong>
+        <span>${s.label}</span><strong>S/ ${s.price.toFixed(2)}</strong>
         <span style="font-size:0.55rem;opacity:0.6;">${s.qty}</span>
       </button>`,
           )
           .join("");
-
-        const imgSrc = promo.img || "img/perfumes/placeholder-promo.jpg";
-
-        const selectorHTML =
-          promo.type === "selector"
-            ? `
-      <div class="perfume-selector">
-        <button class="btn-outline" style="width:100%;padding:0.7rem;font-size:0.7rem;letter-spacing:0.1em;" 
-                onclick="event.stopPropagation(); openPerfumeSelectorForPromo('${promo.name}')">
-          Elegir Perfumes
-        </button>
-        <div class="selected-perfumes-list" style="display:none;"></div>
-      </div>`
-            : "";
-
+        const imgSrc = promo.img || "logo.webp";
         const showSizesAndButton = promo.type !== "pack";
-
-        // Atributo extra para selectores: guardar la categoría
-        const extraAttrs =
-          promo.type === "selector"
-            ? `data-promo-category="${promo.category}"`
-            : "";
-
         return `
-          <div class="promo-card${promo.type === "pack" ? " clickable" : ""}" data-promo-name="${promo.name}" ${extraAttrs}>
-            <img class="promo-card-img" src="${imgSrc}" alt="${promo.name}" onerror="this.style.display='none';">
-            <div class="promo-card-body" ${promo.type === "pack" ? `onclick="openPackDetailModal('${promo.name}')"` : ""}>
-              <div class="promo-timer">Tiempo Limitado</div>
-              <div class="promo-name">${promo.emoji} ${promo.name}</div>
-              <div class="promo-scents">${promo.scents}</div>
-              ${selectorHTML}
-              ${
-                showSizesAndButton
-                  ? `
-                <div class="promo-sizes">${sizeButtons}</div>
-                <button class="promo-add-btn" onclick="event.stopPropagation(); addPromoToCart('${promo.name}', '${promo.type}', this)">
-                  Añadir al Carrito
-                </button>
-              `
-                  : `
-                <div style="margin-top:auto;font-size:0.7rem;color:var(--text-muted);text-align:center;padding-top:0.5rem;">
-                  Haz clic para ver tamaños y añadir →
-                </div>
-              `
-              }
-            </div>
-          </div>`;
+      <div class="promo-card${promo.type === "pack" ? " clickable" : ""}" data-promo-name="${promo.name}">
+        <img class="promo-card-img" src="${imgSrc}" alt="${promo.name}" onerror="this.onerror=null; this.src='logo.webp';" loading="lazy">
+        <div class="promo-card-body" ${promo.type === "pack" ? `onclick="openPackDetailModal('${promo.name}')"` : ""}>
+          <div class="promo-timer">Tiempo Limitado</div>
+          <div class="promo-name">${promo.emoji} ${promo.name}</div>
+          <div class="promo-scents">${promo.scents}</div>
+          ${
+            showSizesAndButton
+              ? `
+            <div class="promo-sizes">${sizeButtons}</div>
+            <button class="promo-add-btn" onclick="event.stopPropagation(); addPromoToCart('${promo.name}', '${promo.type}', this)">Añadir al Carrito</button>
+          `
+              : `
+            <div style="margin-top:auto;font-size:0.7rem;color:var(--text-muted);text-align:center;padding-top:0.5rem;">Haz clic para ver tamaños y añadir →</div>
+          `
+          }
+        </div>
+      </div>`;
       }
 
       function handleSizeSelect(btn, promoName, price) {
-        // Desmarca todos los botones de la tarjeta y marca este
         const card = btn.closest(".promo-card");
         card
           .querySelectorAll(".promo-size-btn")
           .forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        // Guarda el tamaño seleccionado en un atributo data
         card.setAttribute(
           "data-selected-size",
           btn.getAttribute("data-size-label"),
         );
         card.setAttribute("data-selected-price", price);
-      }
-
-      function openPerfumeSelectorForPromo(promoName) {
-        const promo = Object.values(PROMOS)
-          .flat()
-          .find((p) => p.name === promoName);
-        if (!promo) return;
-        const card = document.querySelector(
-          `.promo-card[data-promo-name="${promoName}"]`,
-        );
-        if (!card) return;
-        const activeSizeBtn = card.querySelector(".promo-size-btn.active");
-        if (!activeSizeBtn) {
-          showToast("Atención", "Selecciona primero un tamaño.");
-          return;
-        }
-        const sizeLabel = activeSizeBtn.getAttribute("data-size-label");
-        const sizeObj = promo.sizes.find((s) => s.label === sizeLabel);
-        if (!sizeObj) return;
-        buildPerfumeSelector(promo, sizeObj);
       }
 
       function addPromoToCart(promoName, promoType, btn) {
@@ -6019,58 +6430,65 @@
         const price = parseFloat(activeSize.getAttribute("data-price"));
 
         if (promoType === "selector") {
-          // Obtener categoría guardada en la tarjeta
           const category = card.getAttribute("data-promo-category");
           if (!category)
             return showToast("Error", "No se encontró la categoría del pack.");
-          const promosDeCategoria = PROMOS[category];
-          if (!promosDeCategoria)
-            return showToast("Error", "Categoría no existe.");
-          const promoObj = promosDeCategoria.find((p) => p.name === promoName);
+          const promoObj = PROMOS[category].find((p) => p.name === promoName);
           if (!promoObj) return showToast("Error", "Pack no encontrado.");
           const sizeObj = promoObj.sizes.find((s) => s.label === sizeLabel);
           if (!sizeObj) return showToast("Error", "Tamaño no encontrado.");
-          const cantidad = sizeObj.cantidad;
           const selectedIdsJson = card.getAttribute("data-selected-perfumes");
-          if (!selectedIdsJson) {
+          if (!selectedIdsJson)
             return showToast("Atención", "Debes elegir los perfumes primero.");
-          }
           const selectedIds = JSON.parse(selectedIdsJson);
-          if (selectedIds.length !== cantidad) {
+          if (selectedIds.length !== sizeObj.cantidad) {
             return showToast(
               "Error",
-              `Debes seleccionar exactamente ${cantidad} perfumes.`,
+              `Debes seleccionar exactamente ${sizeObj.cantidad} perfumes.`,
             );
           }
-          selectedIds.forEach((id) => {
+          const perfumesIncluidos = selectedIds.map((id) => {
             const perf = PRODUCTS.find((p) => p.id === id);
-            if (perf) {
-              addToCart({
-                name: perf.name + ` (Pack ${promoName})`,
-                brand: perf.brand,
-                size: sizeLabel,
-                price: price / cantidad,
-                emoji: perf.emoji,
-                img: perf.img,
-              });
-            }
+            return {
+              name: perf.name,
+              brand: perf.brand,
+              img: perf.img,
+              emoji: perf.emoji,
+            };
           });
-          showToast("Añadidos", `${cantidad} perfumes al carrito`);
-        } else {
           addToCart({
-            name: promoName,
-            brand: "Avila Parfums",
+            type: "pack",
+            packName: promoName,
+            category: category,
             size: sizeLabel,
             price: price,
-            emoji: "🎁",
+            perfumes: perfumesIncluidos,
+            img: promoObj.img || "logo.webp",
+            emoji: promoObj.emoji || "🎁",
+          });
+          // Limpiar selección en la tarjeta
+          card.removeAttribute("data-selected-perfumes");
+          const listEl = card.querySelector(".selected-perfumes-list");
+          if (listEl) {
+            listEl.innerHTML = "";
+            listEl.style.display = "none";
+          }
+        } else {
+          const perfumesIncluidos = promo.scents
+            ? promo.scents.split("·").map((s) => ({ name: s.trim() }))
+            : [];
+          addToCart({
+            type: "pack",
+            packName: promoName,
+            size: sizeLabel,
+            price: price,
+            perfumes: perfumesIncluidos,
+            img: promo.img || "",
+            emoji: promo.emoji || "🎁",
           });
         }
+        showToast("Añadido", `Pack ${promoName} al carrito`);
       }
-
-      // Manejador para cerrar el modal con Escape
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") closeSelectorPromoModal();
-      });
 
       // ==========================================
       // PRODUCT MODAL
@@ -6079,26 +6497,17 @@
         const p = PRODUCTS.find((x) => x.id === id);
         if (!p) return;
         currentModal = p;
-        modalSelectedSize = Object.keys(p.prices)[1]; // default 5ml
-
-        // Generar la ruta de la imagen para el modal añadiendo "2" antes de la extensión
+        modalSelectedSize = Object.keys(p.prices)[1];
         let modalImgSrc = p.img;
         const lastDotIndex = modalImgSrc.lastIndexOf(".");
-        if (lastDotIndex > -1) {
-          // Insertamos "2" justo antes del punto de la extensión: "imagen.webp" → "imagen2.webp"
+        if (lastDotIndex > -1)
           modalImgSrc =
             modalImgSrc.substring(0, lastDotIndex) +
             "2" +
             modalImgSrc.substring(lastDotIndex);
-        }
-
-        // Insertamos la imagen en el modal. Si falla la carga (error), mostramos la original.
-        document.getElementById("modalImg").innerHTML =
-          `<img src="${modalImgSrc}" 
-          alt="${p.name}" 
-          style="width:100%;height:100%;object-fit:cover;" 
-          onerror="this.onerror=null; this.src='${p.img}';">`;
-
+        document.getElementById("modalImg").innerHTML = `
+      <img src="${modalImgSrc}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;"
+           onerror="if(this.src!=='${p.img}'){this.onerror=null;this.src='${p.img}';}else if(this.src!=='logo.webp'){this.onerror=null;this.src='logo.webp';}">`;
         document.getElementById("modalCategory").textContent = {
           nicho: "Nicho",
           designer: "Diseñador",
@@ -6106,18 +6515,14 @@
         }[p.category];
         document.getElementById("modalName").textContent = p.name;
         document.getElementById("modalNotesText").textContent = p.notes;
-
-        const sizes = Object.entries(p.prices)
+        document.getElementById("modalSizes").innerHTML = Object.entries(
+          p.prices,
+        )
           .map(
             ([sz, pr]) => `
-    <button class="modal-size-btn ${sz === "5ml" ? "active" : ""}" onclick="selectModalSize('${sz}', this)">
-      ${sz}
-      <span class="modal-size-price">S/ ${pr.toFixed(2)}</span>
-    </button>`,
+      <button class="modal-size-btn ${sz === "5ml" ? "active" : ""}" onclick="selectModalSize('${sz}', this)">${sz}<span class="modal-size-price">S/ ${pr.toFixed(2)}</span></button>`,
           )
           .join("");
-        document.getElementById("modalSizes").innerHTML = sizes;
-
         document.getElementById("productModal").classList.add("active");
         document.body.style.overflow = "hidden";
       }
@@ -6133,12 +6538,13 @@
       function addToCartFromModal() {
         if (!currentModal || !modalSelectedSize) return;
         addToCart({
+          type: "single",
           name: currentModal.name,
           brand: currentModal.brand,
           size: modalSelectedSize,
           price: currentModal.prices[modalSelectedSize],
           emoji: currentModal.emoji,
-          img: currentModal.img, // ← AÑADE ESTA LÍNEA SI NO ESTÁ
+          img: currentModal.img,
         });
         closeModal();
       }
@@ -6146,14 +6552,14 @@
       function quickAddToCart(id) {
         const p = PRODUCTS.find((x) => x.id === id);
         if (!p) return;
-        const defaultSize = "5ml";
         addToCart({
+          type: "single",
           name: p.name,
           brand: p.brand,
-          size: defaultSize,
-          price: p.prices[defaultSize],
+          size: "5ml",
+          price: p.prices["5ml"],
           emoji: p.emoji,
-          img: p.img, // ← AÑADE
+          img: p.img,
         });
       }
 
@@ -6163,38 +6569,43 @@
       }
 
       // ==========================================
-      // CART (MEJORADO)
+      // CART (MEJORADO PARA PACKS)
       // ==========================================
       function addToCart(item) {
-        const key = `${item.name}-${item.size}`;
-        const existing = cart.find((c) => c.key === key);
-        if (existing) {
-          existing.qty++;
+        if (item.type === "pack") {
+          cart.push({ ...item, id: Date.now(), qty: 1, type: "pack" });
         } else {
-          cart.push({ ...item, key, qty: 1, id: Date.now() });
+          const key = `${item.name}-${item.size}`;
+          const existing = cart.find(
+            (c) => c.type === "single" && c.key === key,
+          );
+          if (existing) {
+            existing.qty++;
+          } else {
+            cart.push({ ...item, key, qty: 1, type: "single", id: Date.now() });
+          }
         }
         saveCart();
         updateCartUI();
-        showToast("Añadido al carrito", `${item.name} · ${item.size}`);
-        // Animación badge
+        showToast("Añadido al carrito", item.packName || item.name);
         const badge = document.getElementById("cartCount");
         badge.classList.remove("bounce");
-        void badge.offsetWidth; // trigger reflow
+        void badge.offsetWidth;
         badge.classList.add("bounce");
       }
 
-      function removeFromCart(key) {
-        cart = cart.filter((c) => c.key !== key);
+      function removeFromCart(id) {
+        cart = cart.filter((c) => c.id !== id);
         saveCart();
         updateCartUI();
       }
 
-      function updateQuantity(key, delta) {
-        const item = cart.find((c) => c.key === key);
-        if (!item) return;
+      function updateQuantity(id, delta) {
+        const item = cart.find((c) => c.id === id);
+        if (!item || item.type === "pack") return;
         item.qty += delta;
         if (item.qty <= 0) {
-          removeFromCart(key);
+          removeFromCart(id);
           return;
         }
         saveCart();
@@ -6204,16 +6615,13 @@
       function saveCart() {
         localStorage.setItem("avilaCart", JSON.stringify(cart));
       }
-
       function getCartTotal() {
         return cart.reduce((sum, c) => sum + c.price * c.qty, 0);
       }
 
       function updateCartUI() {
         const count = cart.reduce((s, c) => s + c.qty, 0);
-        const badge = document.getElementById("cartCount");
-        badge.textContent = count;
-
+        document.getElementById("cartCount").textContent = count;
         const list = document.getElementById("cartItemsList");
         const footer = document.getElementById("cartFooter");
 
@@ -6222,25 +6630,52 @@
           footer.style.display = "none";
         } else {
           list.innerHTML = cart
-            .map(
-              (c) => `
-      <div class="cart-item">
-        <div class="cart-item-img">
-          ${c.img ? `<img src="${c.img}" alt="${c.name}" onerror="this.style.display='none'; this.parentElement.textContent='${c.emoji || "🌿"}'; this.parentElement.style.fontSize='2rem';">` : c.emoji || "🌿"}
-        </div>
-        <div class="cart-item-info">
-          <div class="cart-item-name">${c.name}</div>
-          <div class="cart-item-meta">${c.brand || "Avila Parfums"} · ${c.size}</div>
-          <div class="cart-item-price">S/ ${(c.price * c.qty).toFixed(2)}</div>
-        </div>
-        <div class="cart-item-actions">
-          <button class="qty-btn" onclick="updateQuantity('${c.key}', -1)">−</button>
-          <span class="qty-value">${c.qty}</span>
-          <button class="qty-btn" onclick="updateQuantity('${c.key}', 1)">+</button>
-          <button class="cart-item-remove" onclick="removeFromCart('${c.key}')">✕</button>
-        </div>
-      </div>`,
-            )
+            .map((c) => {
+              if (c.type === "pack") {
+                const perfumesHtml = c.perfumes
+                  .map(
+                    (p) => `
+            <div class="cart-pack-perfume">
+              ${p.img ? `<img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'">` : p.emoji || "🌿"}
+              <span>${p.name || p}</span>
+            </div>`,
+                  )
+                  .join("");
+                return `
+            <div class="cart-item">
+              <div class="cart-item-img">
+                <img src="${c.img || "logo.webp"}" alt="${c.packName}" onerror="this.onerror=null; this.src='logo.webp';" style="width:100%;height:100%;object-fit:cover;">
+              </div>
+              <div class="cart-item-info" style="flex:1;">
+                <div class="cart-pack-header">
+                  <div class="cart-pack-name">${c.emoji || "🎁"} ${c.packName}</div>
+                  <button class="cart-pack-remove" onclick="removeFromCart(${c.id})" title="Eliminar pack">✕</button>
+                </div>
+                <div class="cart-pack-meta">${c.size} · Pack promocional</div>
+                <div class="cart-pack-perfumes">${perfumesHtml}</div>
+                <div class="cart-pack-price">S/ ${c.price.toFixed(2)}</div>
+              </div>
+            </div>`;
+              } else {
+                return `
+            <div class="cart-item">
+              <div class="cart-item-img">
+                <img src="${c.img || "logo.webp"}" alt="${c.name}" onerror="this.onerror=null; this.src='logo.webp';" style="width:100%;height:100%;object-fit:cover;">
+              </div>
+              <div class="cart-item-info">
+                <div class="cart-item-name">${c.name}</div>
+                <div class="cart-item-meta">${c.brand || "Avila Parfums"} · ${c.size}</div>
+                <div class="cart-item-price">S/ ${(c.price * c.qty).toFixed(2)}</div>
+              </div>
+              <div class="cart-item-actions">
+                <button class="qty-btn" onclick="updateQuantity(${c.id}, -1)">−</button>
+                <span class="qty-value">${c.qty}</span>
+                <button class="qty-btn" onclick="updateQuantity(${c.id}, 1)">+</button>
+                <button class="cart-item-remove" onclick="removeFromCart(${c.id})">✕</button>
+              </div>
+            </div>`;
+              }
+            })
             .join("");
           footer.style.display = "";
           document.getElementById("cartTotal").textContent =
@@ -6260,34 +6695,56 @@
         toggleCart();
         showPage("checkout");
       }
+
       // ==========================================
-      // CHECKOUT (MEJORADO)
+      // CHECKOUT
       // ==========================================
       function renderCheckout() {
-        const itemsContainer = document.getElementById("checkoutItems");
-        const subtotal = getCartTotal();
-
+        const container = document.getElementById("checkoutItems");
         if (cart.length === 0) {
-          itemsContainer.innerHTML =
+          container.innerHTML =
             '<p style="font-size:0.75rem;color:var(--text-muted);padding:1rem 0;text-align:center;">No hay productos en el carrito.</p>';
         } else {
-          itemsContainer.innerHTML = cart
-            .map(
-              (c) => `
-              <div class="summary-item">
-                <div class="summary-item-img">
-                  ${c.img ? `<img src="${c.img}" alt="${c.name}" onerror="this.style.display='none'; this.parentElement.textContent='${c.emoji || "🌿"}'; this.parentElement.style.fontSize='1.5rem';">` : c.emoji || "🌿"}
-                </div>
-                <div class="summary-item-details">
-                  <div class="summary-item-name">${c.name}</div>
-                  <div class="summary-item-meta">${c.brand || "Avila Parfums"} · ${c.size} · Cant: ${c.qty}</div>
-                </div>
-                <div class="summary-item-price">S/ ${(c.price * c.qty).toFixed(2)}</div>
-              </div>`,
-            )
+          container.innerHTML = cart
+            .map((c) => {
+              if (c.type === "pack") {
+                const perfumesHtml = c.perfumes
+                  .map(
+                    (p) => `
+            <div class="summary-pack-perfume">
+              ${p.img ? `<img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'">` : p.emoji || "🌿"}
+              <span>${p.name || p}</span>
+            </div>`,
+                  )
+                  .join("");
+                return `
+            <div class="summary-item">
+              <div class="summary-item-img">
+                <img src="${c.img || "logo.webp"}" alt="${c.packName}" onerror="this.onerror=null; this.src='logo.webp';" style="width:100%;height:100%;object-fit:cover;">
+              </div>
+              <div class="summary-item-details">
+                <div class="summary-item-name">${c.emoji || "🎁"} ${c.packName}</div>
+                <div class="summary-item-meta">Pack · ${c.size}</div>
+                <div class="summary-pack-perfumes">${perfumesHtml}</div>
+              </div>
+              <div class="summary-item-price">S/ ${(c.price * c.qty).toFixed(2)}</div>
+            </div>`;
+              } else {
+                return `
+            <div class="summary-item">
+              <div class="summary-item-img">
+                <img src="${c.img || "logo.webp"}" alt="${c.name}" onerror="this.onerror=null; this.src='logo.webp';" style="width:100%;height:100%;object-fit:cover;">
+              </div>
+              <div class="summary-item-details">
+                <div class="summary-item-name">${c.name}</div>
+                <div class="summary-item-meta">${c.brand || "Avila Parfums"} · ${c.size} · Cant: ${c.qty}</div>
+              </div>
+              <div class="summary-item-price">S/ ${(c.price * c.qty).toFixed(2)}</div>
+            </div>`;
+              }
+            })
             .join("");
         }
-
         updateCheckoutTotals();
       }
 
@@ -6300,18 +6757,43 @@
       }
 
       function placeOrder() {
-        const firstName = document.getElementById("firstName").value.trim();
-        const address = document.getElementById("address").value.trim();
-        if (!firstName || !address) {
-          showToast(
-            "Campos requeridos",
-            "Por favor completa nombre y dirección.",
-          );
-          return;
+        document
+          .querySelectorAll(".form-input")
+          .forEach((inp) => inp.classList.remove("error"));
+        document
+          .querySelectorAll(".error-message")
+          .forEach((el) => (el.style.display = "none"));
+        const getField = (id) => document.getElementById(id);
+        const firstName = getField("firstName").value.trim();
+        const lastName = getField("lastName").value.trim();
+        const email = getField("email").value.trim();
+        const phone = getField("phone").value.trim();
+        const dni = getField("dni").value.trim();
+        const address = getField("address").value.trim();
+        const district = getField("district").value.trim();
+        const city = getField("city").value.trim();
+        const reference = getField("reference").value.trim();
+        let valid = true;
+        if (!/^\d{8}$/.test(dni)) {
+          getField("dni").classList.add("error");
+          showFieldError("dni", "El DNI debe tener 8 dígitos.");
+          valid = false;
         }
-        if (!dni) {
-          // ← NUEVA VALIDACIÓN (opcional)
-          showToast("Campo requerido", "Por favor ingresa tu DNI.");
+        [
+          { id: "firstName", name: "Nombre" },
+          { id: "address", name: "Dirección" },
+        ].forEach((f) => {
+          if (!getField(f.id).value.trim()) {
+            getField(f.id).classList.add("error");
+            showFieldError(f.id, `El campo ${f.name} es obligatorio.`);
+            valid = false;
+          }
+        });
+        if (!valid) {
+          showToast(
+            "Campos incompletos",
+            "Por favor corrige los campos marcados.",
+          );
           return;
         }
         if (cart.length === 0) {
@@ -6319,33 +6801,30 @@
           return;
         }
 
-        // Construir mensaje de WhatsApp elegante
-        let msg = `*AVILA PARFUMS — NUEVO PEDIDO*%0A%0A`;
-        msg += `¡Hola! Quiero hacer el siguiente pedido:%0A%0A`;
-
+        let msg = `*AVILA PARFUMS — NUEVO PEDIDO*%0A%0A¡Hola! Quiero hacer el siguiente pedido:%0A%0A`;
         cart.forEach((c) => {
-          msg += `✦ ${c.name} (${c.size}) x${c.qty} → S/ ${(c.price * c.qty).toFixed(2)}%0A`;
+          if (c.type === "pack") {
+            msg += `🎁 *${c.packName}* (${c.size})%0A`;
+            msg += `   Perfumes incluidos:%0A`;
+            c.perfumes.forEach((p) => (msg += `   • ${p.name || p}%0A`));
+            msg += `   Precio: S/ ${c.price.toFixed(2)}%0A%0A`;
+          } else {
+            msg += `✦ ${c.name} (${c.size}) x${c.qty} → S/ ${(c.price * c.qty).toFixed(2)}%0A`;
+          }
         });
-
         msg += `%0A*Total: S/ ${getCartTotal().toFixed(2)}*%0A%0A`;
         msg += `*Datos de envío:*%0A`;
-        msg += `• Nombre: ${firstName} ${document.getElementById("lastName").value.trim()}%0A`;
-        msg += `• Correo: ${document.getElementById("email").value.trim()}%0A`;
-        msg += `• Teléfono: ${document.getElementById("phone").value.trim()}%0A`;
+        msg += `• Nombre: ${firstName} ${lastName}%0A`;
+        msg += `• Correo: ${email}%0A`;
+        msg += `• Teléfono: ${phone}%0A`;
         msg += `• DNI: ${dni}%0A`;
         msg += `• Dirección: ${address}%0A`;
-        msg += `• Distrito: ${document.getElementById("district").value.trim()}%0A`;
-        msg += `• Ciudad: ${document.getElementById("city").value.trim()}%0A`;
-
-        const ref = document.getElementById("reference").value.trim();
-        if (ref) msg += `• Referencia: ${ref}%0A`;
-
+        msg += `• Distrito: ${district}%0A`;
+        msg += `• Ciudad: ${city}%0A`;
+        if (reference) msg += `• Referencia: ${reference}%0A`;
         msg += `%0A_Gracias, espero confirmación._`;
 
-        // Abrir WhatsApp
         window.open(`https://wa.me/51994091862?text=${msg}`, "_blank");
-
-        // Limpiar carrito
         cart = [];
         saveCart();
         updateCartUI();
@@ -6355,65 +6834,77 @@
         );
         setTimeout(() => showPage("home"), 2500);
       }
+
+      function showFieldError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        let errorEl = field.parentNode.querySelector(".error-message");
+        if (!errorEl) {
+          errorEl = document.createElement("div");
+          errorEl.className = "error-message";
+          field.parentNode.appendChild(errorEl);
+        }
+        errorEl.textContent = message;
+        errorEl.style.display = "block";
+      }
+
       // ==========================================
-      // RECOMMENDATIONS (FUNCIONAL)
+      // RECOMMENDATIONS
       // ==========================================
       function selectRec(key, value, btn) {
         recSelections[key] = value;
-        // Marcar visualmente la opción seleccionada
         const options = btn.closest(".rec-options");
         options
           .querySelectorAll(".rec-option")
           .forEach((b) => b.classList.remove("selected"));
         btn.classList.add("selected");
-
-        // Completar paso actual
-        const currentStep = document.getElementById("step-" + recStep);
-        if (currentStep) currentStep.classList.add("completed");
-
-        // Actualizar barra de progreso
+        document.getElementById("step-" + recStep).classList.add("completed");
         updateProgressBar();
-
-        // Pasar al siguiente paso después de una pequeña pausa para que se aprecie la animación
         setTimeout(() => {
-          const currentPanel = document.getElementById("panel-" + recStep);
-          if (currentPanel) currentPanel.classList.remove("active");
-
+          document
+            .getElementById("panel-" + recStep)
+            .classList.remove("active");
           if (recStep < 4) {
             recStep++;
-            const nextPanel = document.getElementById("panel-" + recStep);
-            if (nextPanel) nextPanel.classList.add("active");
-            const nextStep = document.getElementById("step-" + recStep);
-            if (nextStep) nextStep.classList.add("active");
+            document.getElementById("panel-" + recStep).classList.add("active");
+            document.getElementById("step-" + recStep).classList.add("active");
           } else {
             showRecommendations();
           }
         }, 300);
       }
 
+      function goToPrevStep() {
+        if (recStep <= 1) return;
+        document.getElementById("panel-" + recStep).classList.remove("active");
+        document
+          .getElementById("step-" + recStep)
+          .classList.remove("active", "completed");
+        recStep--;
+        document.getElementById("panel-" + recStep).classList.add("active");
+        document.getElementById("step-" + recStep).classList.add("active");
+        updateProgressBar();
+      }
+
       function updateProgressBar() {
         const bar = document.getElementById("recProgressBar");
-        if (bar) {
-          const percent = Math.round(((recStep - 1) / 3) * 100); // 0, 33, 66, 100
-          bar.style.setProperty("--progress", percent + "%");
-        }
+        if (bar)
+          bar.style.setProperty(
+            "--progress",
+            Math.round(((recStep - 1) / 3) * 100) + "%",
+          );
       }
 
       function showRecommendations() {
         const { ph, clima, ocasion, gender } = recSelections;
         if (!ph || !clima || !ocasion || !gender) return;
-
         let filtered = PRODUCTS.filter((p) => {
-          const t = p.tags;
           let score = 0;
-          if (ph && t.includes(ph)) score++;
-          if (clima && t.includes(clima)) score++;
-          if (ocasion && t.includes(ocasion)) score++;
+          if (ph && p.tags.includes(ph)) score++;
+          if (clima && p.tags.includes(clima)) score++;
+          if (ocasion && p.tags.includes(ocasion)) score++;
           if (gender && (p.gender === gender || p.gender === "unisex")) score++;
-          return score >= 1; // al menos una coincidencia para mostrar variedad
+          return score >= 1;
         });
-
-        // Ordenar por puntuación de mayor a menor
         filtered.sort((a, b) => {
           const scoreA =
             (ph && a.tags.includes(ph) ? 1 : 0) +
@@ -6427,45 +6918,34 @@
             (gender && (b.gender === gender || b.gender === "unisex") ? 1 : 0);
           return scoreB - scoreA;
         });
-
-        // Tomar máximo 6 resultados
         filtered = filtered.slice(0, 6);
-
-        const grid = document.getElementById("recProductGrid");
-        if (grid) {
-          grid.innerHTML = filtered.length
-            ? filtered.map(buildProductCard).join("")
-            : '<p style="color:var(--text-muted); grid-column:1/-1; text-align:center;">No encontramos coincidencias exactas. Prueba otra combinación.</p>';
-        }
-
-        const results = document.getElementById("recResults");
-        if (results) results.style.display = "block";
-        if (results)
-          results.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.getElementById("recProductGrid").innerHTML = filtered.length
+          ? filtered.map(buildProductCard).join("")
+          : '<p style="color:var(--text-muted); grid-column:1/-1; text-align:center;">No encontramos coincidencias exactas.</p>';
+        document.getElementById("recResults").style.display = "block";
+        document
+          .getElementById("recResults")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
       function resetRecommendations() {
         recSelections = { ph: null, clima: null, ocasion: null, gender: null };
         recStep = 1;
-        // Resetear paneles
         document
           .querySelectorAll(".rec-panel")
           .forEach((p) => p.classList.remove("active"));
         document.getElementById("panel-1").classList.add("active");
-        // Resetear pasos
         document
           .querySelectorAll(".rec-step")
           .forEach((s) => s.classList.remove("active", "completed"));
         document.getElementById("step-1").classList.add("active");
-        // Resetear opciones
         document
           .querySelectorAll(".rec-option")
           .forEach((o) => o.classList.remove("selected"));
-        // Ocultar resultados
         document.getElementById("recResults").style.display = "none";
-        // Barra de progreso a 0
         updateProgressBar();
       }
+
       // ==========================================
       // AUTH
       // ==========================================
@@ -6473,12 +6953,10 @@
         document.getElementById("authModal").classList.add("active");
         document.body.style.overflow = "hidden";
       }
-
       function closeAuthModal() {
         document.getElementById("authModal").classList.remove("active");
         document.body.style.overflow = "";
       }
-
       function switchAuthTab(tab, btn) {
         document
           .querySelectorAll(".auth-tab")
@@ -6489,21 +6967,21 @@
         document.getElementById("authRegister").style.display =
           tab === "register" ? "block" : "none";
       }
-
       function simulateLogin() {
         showToast("Sesión iniciada", "Bienvenido a Avila Parfums.");
         closeAuthModal();
       }
-
       function simulateRegister() {
         showToast("Cuenta creada", "Revisa tu correo para confirmar.");
         closeAuthModal();
       }
-      // ─── ENRUTADOR POR HASH (colocar al final del <script>) ───
-      function handleHashChange() {
-        const hash = window.location.hash.slice(1); // quita el "#"
-        if (!hash) return;
 
+      // ==========================================
+      // ENRUTADOR POR HASH
+      // ==========================================
+      function handleHashChange() {
+        const hash = window.location.hash.slice(1);
+        if (!hash) return;
         switch (hash) {
           case "catalogo":
           case "catalog":
@@ -6516,27 +6994,30 @@
           case "recomendaciones":
           case "recommendations":
             showPage("home");
-            setTimeout(() => {
-              const el = document.getElementById("recommendations");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }, 300);
+            setTimeout(
+              () =>
+                document
+                  .getElementById("recommendations")
+                  ?.scrollIntoView({ behavior: "smooth" }),
+              300,
+            );
             break;
           case "tiktok":
           case "contenido":
             showPage("home");
-            setTimeout(() => {
-              const el = document.getElementById("tiktok");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }, 300);
+            setTimeout(
+              () =>
+                document
+                  .getElementById("tiktok")
+                  ?.scrollIntoView({ behavior: "smooth" }),
+              300,
+            );
             break;
           default:
             showPage("home");
         }
       }
-
-      // Ejecutar al cargar la página (cuando se escribe directamente la URL con hash)
       window.addEventListener("DOMContentLoaded", handleHashChange);
-      // Ejecutar cada vez que el hash cambia (por si el usuario hace clic en un enlace interno con #)
       window.addEventListener("hashchange", handleHashChange);
 
       // ==========================================
@@ -6544,9 +7025,6 @@
       // ==========================================
       let currentPackPromo = null;
       let currentPackSelectedSize = null;
-      // ==========================================
-      // PACK DETAIL MODAL
-      // ==========================================
 
       function openPackDetailModal(promoName) {
         const promo = Object.values(PROMOS)
@@ -6554,48 +7032,32 @@
           .find((p) => p.name === promoName && p.type === "pack");
         if (!promo) return;
         currentPackPromo = promo;
-
         const imgEl = document.querySelector("#packModalImg img");
         if (imgEl) {
-          // Generar ruta con "2" para la imagen del modal
-          let modalImgSrc = promo.img || "img/perfumes/placeholder-promo.jpg";
+          let modalImgSrc = promo.img || "logo.webp";
           const lastDot = modalImgSrc.lastIndexOf(".");
-          if (lastDot > -1) {
+          if (lastDot > -1)
             modalImgSrc =
               modalImgSrc.substring(0, lastDot) +
               "2" +
               modalImgSrc.substring(lastDot);
-          }
           imgEl.src = modalImgSrc;
           imgEl.alt = promo.name;
           imgEl.onerror = function () {
-            this.src = promo.img || "img/perfumes/placeholder-promo.jpg";
+            this.src = promo.img || "logo.webp";
           };
         }
-
         document.getElementById("packModalCategory").textContent =
           "Pack Especial";
         document.getElementById("packModalName").textContent = promo.name;
-        document.getElementById("packModalScents").innerHTML = `
-          <strong>Perfumes Incluidos</strong><br>
-          <span style="font-style:italic;color:var(--text-secondary);">${promo.scents}</span>
-        `;
-
-        const sizesContainer = document.getElementById("packModalSizes");
-        sizesContainer.innerHTML = promo.sizes
+        document.getElementById("packModalScents").innerHTML =
+          `<strong>Perfumes Incluidos</strong><br><span style="font-style:italic;color:var(--text-secondary);">${promo.scents}</span>`;
+        document.getElementById("packModalSizes").innerHTML = promo.sizes
           .map(
             (s, i) => `
-          <button class="modal-size-btn ${i === 0 ? "active" : ""}" 
-                  data-size-label="${s.label}" 
-                  data-price="${s.price}"
-                  onclick="selectPackSize('${s.label}', ${s.price}, this)">
-            ${s.label}
-            <span class="modal-size-price">S/ ${s.price.toFixed(2)}</span>
-          </button>
-        `,
+      <button class="modal-size-btn ${i === 0 ? "active" : ""}" data-size-label="${s.label}" data-price="${s.price}" onclick="selectPackSize('${s.label}', ${s.price}, this)">${s.label}<span class="modal-size-price">S/ ${s.price.toFixed(2)}</span></button>`,
           )
           .join("");
-
         document.getElementById("packDetailModal").classList.add("active");
         document.body.style.overflow = "hidden";
       }
@@ -6620,50 +7082,67 @@
           (s) => s.label === currentPackSelectedSize,
         );
         if (!sizeObj) return;
+        const perfumesIncluidos = currentPackPromo.scents
+          .split("·")
+          .map((s) => ({ name: s.trim() }));
         addToCart({
-          name: currentPackPromo.name,
-          brand: "Avila Parfums",
+          type: "pack",
+          packName: currentPackPromo.name,
           size: currentPackSelectedSize,
           price: sizeObj.price,
+          perfumes: perfumesIncluidos,
+          img: currentPackPromo.img || "logo.webp",
           emoji: currentPackPromo.emoji || "🎁",
-          img: currentPackPromo.img || "",
         });
         closePackDetailModal();
       }
 
-      // Cerrar al hacer clic en overlay
       document
         .getElementById("packDetailModal")
         .addEventListener("click", function (e) {
           if (e.target === this) closePackDetailModal();
         });
-      // Cerrar con Escape
+
+      // ==========================================
+      // GLOBAL EVENTS
+      // ==========================================
       document.addEventListener("keydown", function (e) {
-        if (
-          e.key === "Escape" &&
-          document
-            .getElementById("packDetailModal")
-            .classList.contains("active")
-        ) {
-          closePackDetailModal();
+        if (e.key === "Escape") {
+          if (
+            document.getElementById("productModal").classList.contains("active")
+          )
+            closeModal();
+          if (document.getElementById("authModal").classList.contains("active"))
+            closeAuthModal();
+          if (document.getElementById("cartSidebar").classList.contains("open"))
+            toggleCart();
+          if (
+            document
+              .getElementById("selectorPromoModal")
+              .classList.contains("active")
+          )
+            closeSelectorPromoModal();
+          if (
+            document
+              .getElementById("packDetailModal")
+              .classList.contains("active")
+          )
+            closePackDetailModal();
         }
       });
 
-      // ==========================================
-      // TOAST
-      // ==========================================
-      function showToast(title, message) {
-        const container = document.getElementById("toastContainer");
-        const toast = document.createElement("div");
-        toast.className = "toast";
-        toast.innerHTML = `<strong>${title}</strong>${message}`;
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 3200);
-      }
+      document.addEventListener("click", function (event) {
+        const nav = document.querySelector(".nav-links");
+        const toggleBtn = document.querySelector(".nav-mobile-toggle");
+        if (
+          nav.style.display === "flex" &&
+          !nav.contains(event.target) &&
+          event.target !== toggleBtn
+        ) {
+          closeMobileNav();
+        }
+      });
 
-      // ==========================================
-      // CLOSE MODALS ON OVERLAY CLICK
-      // ==========================================
       document
         .getElementById("productModal")
         .addEventListener("click", function (e) {
@@ -6675,6 +7154,21 @@
           if (e.target === this) closeAuthModal();
         });
 
+      // ==========================================
+      // TOAST
+      // ==========================================
+      function showToast(title, message) {
+        const container = document.getElementById("toastContainer");
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerHTML = `<strong>${title}</strong>${message}<span class="toast-close" onclick="this.parentElement.remove()">×</span>`;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 3500);
+      }
+
+      // ==========================================
+      // INIT
+      // ==========================================
       renderAll();
       startHeroCarousel();
     </script>
