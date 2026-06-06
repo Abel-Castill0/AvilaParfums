@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Avila Parfums — Decants auténticos de perfumería de nicho, diseñador y árabe. Xerjoff, Dior, Valentino, Lattafa y más. Lima, Perú. Contra entrega y envío a provincias." />
     <title>Avila Parfums — Tu Aroma, Tu Sello</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/webp" href="logo.webp" />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap"
@@ -232,6 +234,8 @@
         display: flex;
         align-items: center;
         z-index: 1;
+        /* GPU compositing para transición suave */
+        will-change: opacity;
       }
       .hero-slide.active {
         opacity: 1;
@@ -400,7 +404,8 @@
       .recommendations .btn-outline:hover,
       .tiktok-section .btn-outline:hover,
       .promotions .btn-outline:hover,
-      .checkout .btn-outline:hover .promo-card .btn-outline:hover,
+      .checkout .btn-outline:hover,
+      .promo-card .btn-outline:hover,
       #page-promotions .btn-outline:hover {
         color: var(--gold);
         border-color: var(--gold);
@@ -1979,7 +1984,7 @@
         background-color: #f4b916; /* Amarillo oficial de PagoEfectivo */
         padding: 8px;
       }
-      /* Texto de nota */
+      /* Texto de nota — definición única (las duplicadas se consolidaron aquí) */
       .payment-note {
         font-size: 0.7rem;
         color: var(--text-muted);
@@ -1987,44 +1992,22 @@
         letter-spacing: 0.03em;
       }
       .payment-note strong {
-        color: var(--text-main, #222); /* Resalta palabras clave */
+        color: #222;
         font-weight: 600;
       }
       /* Estilo base de los iconos: Minimalistas y grises */
       .payment-icons img {
-        height: 32px; /* Tamaño ligeramente ajustado para balance */
+        height: 32px;
         width: auto;
         object-fit: contain;
-        filter: grayscale(100%) opacity(0.7)
-          drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
-        transition: all 0.3s ease; /* Transición más suave para color y escala */
+        filter: grayscale(100%) opacity(0.7) drop-shadow(0 2px 4px rgba(0,0,0,0.06));
+        transition: filter 0.3s ease, transform 0.3s ease;
         cursor: pointer;
       }
-
-      /* Ajuste específico para iconos cuadrados como Yape */
-      .payment-icons img.icon-square {
-        height: 38px;
-      }
-
-      /* Efecto hover: Revela el color original y hace zoom */
+      .payment-icons img.icon-square { height: 38px; }
       .payment-icons img:hover {
         transform: scale(1.1);
-        filter: grayscale(0%) opacity(1)
-          drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-      }
-      .payment-note {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        line-height: 1.8;
-        letter-spacing: 0.03em;
-      }
-
-      .payment-note strong {
-        color: var(
-          --text-main,
-          #333
-        ); /* Resalta palabras clave con tu variable de texto o un gris oscuro */
-        font-weight: 600;
+        filter: grayscale(0%) opacity(1) drop-shadow(0 4px 8px rgba(0,0,0,0.1));
       }
       .checkout-submit {
         width: 100%;
@@ -2669,27 +2652,6 @@
         transform: translateY(-2px);
       }
 
-      /* Miniaturas de perfumes seleccionados */
-      .selected-perfumes-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 1rem;
-        justify-content: center;
-      }
-      .selected-perfumes-list img {
-        width: 42px;
-        height: 52px;
-        object-fit: cover;
-        border-radius: 6px;
-        border: 1px solid var(--border);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        transition: transform 0.2s;
-      }
-      .selected-perfumes-list img:hover {
-        transform: scale(1.1);
-      }
-
       /* Responsive */
       @media (max-width: 900px) {
         .promo-categories-grid {
@@ -3023,7 +2985,7 @@
           src="logo.webp"
           alt="Avila Parfums"
           class="nav-logo-icon"
-          loading="lazy"
+          loading="eager"
         />
         <div>
           <span class="nav-logo-text">Avila Parfums</span>
@@ -3200,7 +3162,7 @@
           <!-- Slide 2 -->
           <div class="hero-slide" id="slide-1">
             <div class="hero-video-wrapper">
-              <video class="hero-video" autoplay muted loop playsinline>
+              <video class="hero-video" muted loop playsinline>
                 <source src="assets/videos/bg-arabe.mp4" type="video/mp4" />
               </video>
             </div>
@@ -3235,7 +3197,7 @@
           <!-- Slide 3 -->
           <div class="hero-slide" id="slide-2">
             <div class="hero-video-wrapper">
-              <video class="hero-video" autoplay muted loop playsinline>
+              <video class="hero-video" muted loop playsinline>
                 <source src="assets/videos/bg-designer.mp4" type="video/mp4" />
               </video>
             </div>
@@ -3558,6 +3520,7 @@
               <div class="process-hero-video">
                 <iframe
                   src="https://www.tiktok.com/player/v1/7635168326779424018?music_info=1&description=1&loop=1"
+                  loading="lazy"
                   allowfullscreen
                   allow="autoplay; encrypted-media"
                   style="
@@ -3780,33 +3743,33 @@
               <div class="catalog-filters" id="typeFilters">
                 <button
                   class="filter-btn active"
-                  onclick="filterCatalog('all')"
+                  onclick="filterCatalog('all', this)"
                 >
                   Todos
                 </button>
-                <button class="filter-btn" onclick="filterCatalog('nicho')">
+                <button class="filter-btn" onclick="filterCatalog('nicho', this)">
                   Nicho
                 </button>
-                <button class="filter-btn" onclick="filterCatalog('designer')">
+                <button class="filter-btn" onclick="filterCatalog('designer', this)">
                   Diseñador
                 </button>
-                <button class="filter-btn" onclick="filterCatalog('arabe')">
+                <button class="filter-btn" onclick="filterCatalog('arabe', this)">
                   Árabes/Orientales
                 </button>
               </div>
             </div>
             <div>
               <div class="catalog-filters" id="genderFilters">
-                <button class="filter-btn active" onclick="filterGender('all')">
+                <button class="filter-btn active" onclick="filterGender('all', this)">
                   Todos
                 </button>
-                <button class="filter-btn" onclick="filterGender('male')">
+                <button class="filter-btn" onclick="filterGender('male', this)">
                   Caballero
                 </button>
-                <button class="filter-btn" onclick="filterGender('female')">
+                <button class="filter-btn" onclick="filterGender('female', this)">
                   Dama
                 </button>
-                <button class="filter-btn" onclick="filterGender('unisex')">
+                <button class="filter-btn" onclick="filterGender('unisex', this)">
                   Unisex
                 </button>
               </div>
@@ -5814,7 +5777,7 @@
               { label: "3×10ml", qty: "3 decants de 10ml", price: 184.9 },
             ],
             emoji: "🔥",
-            img: "img/promos/Promo 1 — Los Más Pedidos.webp ",
+            img: "img/promos/Promo 1 — Los Más Pedidos.webp",
           },
           {
             name: "Promo 2 — Fusión Intensa",
@@ -6070,17 +6033,22 @@
       }
       function goToSlide(n) {
         clearInterval(heroInterval);
-        document
-          .getElementById("slide-" + currentSlide)
-          .classList.remove("active");
-        document
-          .getElementById("dot-" + currentSlide)
-          .classList.remove("active");
+        const prevSlideEl = document.getElementById("slide-" + currentSlide);
+        prevSlideEl.classList.remove("active");
+        // Pausar el video del slide anterior para no desperdiciar CPU
+        const prevVideo = prevSlideEl.querySelector(".hero-video");
+        if (prevVideo) prevVideo.pause();
+
+        document.getElementById("dot-" + currentSlide).classList.remove("active");
         currentSlide = n;
-        document
-          .getElementById("slide-" + currentSlide)
-          .classList.add("active");
+
+        const nextSlideEl = document.getElementById("slide-" + currentSlide);
+        nextSlideEl.classList.add("active");
         document.getElementById("dot-" + currentSlide).classList.add("active");
+        // Reproducir el video del slide activo
+        const nextVideo = nextSlideEl.querySelector(".hero-video");
+        if (nextVideo) nextVideo.play().catch(() => {});
+
         heroInterval = setInterval(nextSlide, 6000);
       }
       function nextSlide() {
@@ -6149,23 +6117,33 @@
         document.getElementById("catalogGrid").innerHTML = filtered.length
           ? filtered.map(buildProductCard).join("")
           : '<p style="color:var(--text-muted);font-size:0.8rem;padding:2rem;grid-column:1/-1;">No hay productos con estos filtros.</p>';
+
+        // Sincronizar estado visual de botones de filtro
+        document.querySelectorAll("#typeFilters .filter-btn").forEach((b) => {
+          const type = b.getAttribute("onclick").match(/'([^']+)'/)?.[1];
+          b.classList.toggle("active", type === currentTypeFilter);
+        });
+        document.querySelectorAll("#genderFilters .filter-btn").forEach((b) => {
+          const gender = b.getAttribute("onclick").match(/'([^']+)'/)?.[1];
+          b.classList.toggle("active", gender === currentGenderFilter);
+        });
       }
 
-      function filterCatalog(type) {
+      function filterCatalog(type, btn) {
         currentTypeFilter = type;
         document
           .querySelectorAll("#typeFilters .filter-btn")
           .forEach((b) => b.classList.remove("active"));
-        event.target.classList.add("active");
+        if (btn) btn.classList.add("active");
         renderCatalog();
       }
 
-      function filterGender(gender) {
+      function filterGender(gender, btn) {
         currentGenderFilter = gender;
         document
           .querySelectorAll("#genderFilters .filter-btn")
           .forEach((b) => b.classList.remove("active"));
-        event.target.classList.add("active");
+        if (btn) btn.classList.add("active");
         renderCatalog();
       }
 
@@ -6323,7 +6301,7 @@
       }
 
       // Al confirmar la selección de perfumes, se añade directamente al carrito
-      confirmPerfumeSelection = function () {
+      function confirmPerfumeSelection() {
         const max = currentSelectorSize.cantidad;
         if (selectedPerfumesInModal.length !== max) {
           showToast("Error", `Debes seleccionar exactamente ${max} perfumes.`);
@@ -6474,8 +6452,10 @@
             listEl.style.display = "none";
           }
         } else {
-          const perfumesIncluidos = promo.scents
-            ? promo.scents.split("·").map((s) => ({ name: s.trim() }))
+          // Buscar el objeto promo por nombre en todas las categorías
+          const promoObj = Object.values(PROMOS).flat().find((p) => p.name === promoName);
+          const perfumesIncluidos = promoObj && promoObj.scents
+            ? promoObj.scents.split("·").map((s) => ({ name: s.trim() }))
             : [];
           addToCart({
             type: "pack",
@@ -6483,8 +6463,8 @@
             size: sizeLabel,
             price: price,
             perfumes: perfumesIncluidos,
-            img: promo.img || "",
-            emoji: promo.emoji || "🎁",
+            img: promoObj ? promoObj.img || "" : "",
+            emoji: promoObj ? promoObj.emoji || "🎁" : "🎁",
           });
         }
         showToast("Añadido", `Pack ${promoName} al carrito`);
@@ -7058,6 +7038,8 @@
       <button class="modal-size-btn ${i === 0 ? "active" : ""}" data-size-label="${s.label}" data-price="${s.price}" onclick="selectPackSize('${s.label}', ${s.price}, this)">${s.label}<span class="modal-size-price">S/ ${s.price.toFixed(2)}</span></button>`,
           )
           .join("");
+        // Inicializar el tamaño seleccionado con el primero por defecto
+        currentPackSelectedSize = promo.sizes[0].label;
         document.getElementById("packDetailModal").classList.add("active");
         document.body.style.overflow = "hidden";
       }
