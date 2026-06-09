@@ -54,6 +54,8 @@
         font-family: var(--font-body);
         font-weight: 300;
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
       img {
         max-width: 100%;
@@ -2830,6 +2832,73 @@
           animation: none;
         }
       }
+      /* ==========================================
+         BEFORE / AFTER PRICING — PROMO CARDS
+      ========================================== */
+      .promo-size-prices {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1px;
+        margin-top: 2px;
+      }
+      .price-original {
+        font-size: 0.6rem;
+        color: var(--text-muted);
+        text-decoration: line-through;
+        letter-spacing: 0.02em;
+        opacity: 0.8;
+      }
+      .price-sale {
+        font-size: 0.78rem;
+        font-family: var(--font-display);
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: 0.01em;
+      }
+      .discount-pill {
+        display: inline-block;
+        background: #c0392b;
+        color: #fff;
+        font-size: 0.5rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 1px 5px;
+        border-radius: 20px;
+        margin-top: 1px;
+        text-transform: uppercase;
+      }
+      /* Elegance upgrades */
+      .promo-size-btn, .promo-cat-size-btn {
+        border-radius: 8px !important;
+        transition: all 0.25s ease !important;
+      }
+      .product-img-wrap {
+        overflow: hidden;
+        border-radius: 12px 12px 0 0;
+      }
+      .product-img-wrap img {
+        transition: transform 0.45s cubic-bezier(0.25,0.8,0.25,1) !important;
+      }
+      .product-card:hover .product-img-wrap img {
+        transform: scale(1.07);
+      }
+      .product-card {
+        border-radius: 14px !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+      }
+      .product-card:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 16px 48px rgba(0,0,0,0.18) !important;
+      }
+      .promo-card {
+        border-radius: 16px !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+      }
+      .promo-card:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 14px 40px rgba(0,0,0,0.16) !important;
+      }
     </style>
   </head>
   <body>
@@ -3770,6 +3839,9 @@
         { id: 67, img: "img/perfumes/AL-HARAMAIN-GOLD-EDITION.webp", name: "Gold Edition", brand: "Al Haramain", category: "arabe", gender: "unisex", emoji: "✨", notes: "Notas de Salida: Bergamota, Notas Verdes · Corazón: Melón, Piña, Notas Dulces, Ámbar · Fondo: Notas Amaderadas, Vainilla, Almizcle", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["summer", "casual", "neutral"] },
         { id: 70, img: "img/perfumes/FRENCH-AVENUE-LIQUID-BRUN.webp", name: "Liquid Brun", brand: "French Avenue", category: "arabe", gender: "unisex", emoji: "🔥", notes: "Notas de Salida: Canela, Nuez Moscada, Bergamota · Corazón: Praliné, Vainilla, Notas Amaderadas · Fondo: Ámbar, Almizcle, Madera de Oud", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["winter", "night", "sweet", "elegant"] },
         { id: 71, img: "img/perfumes/FRENCH-AVENUE-VULCAN-FEU.webp", name: "Vulcan Feu", brand: "French Avenue", category: "arabe", gender: "unisex", emoji: "🌋", notes: "Notas de Salida: Pimienta Negra, Jengibre, Cítricos · Corazón: Incienso, Lavanda, Notas Especiadas · Fondo: Vetiver, Maderas Secas, Ámbar", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["winter", "night", "intense", "bold"] },
+        { id: 72, img: "img/perfumes/YSL-MYSLF-EDP.webp", name: "MYSLF EDP", brand: "Yves Saint Laurent", category: "designer", gender: "male", emoji: "✨", notes: "Notas de Salida: Bergamota, Cardamomo · Corazón: Flores de Azahar, Notas Amaderadas · Fondo: Ámbar, Almizcle, Sándalo", prices: { "3ml": 29.9, "5ml": 39.9, "10ml": 69.9 }, featured: true, tags: ["mild", "work", "neutral"] },
+        { id: 73, img: "img/perfumes/ARMAF-ODYSSEY-GO-MANGO.webp", name: "Odyssey Go Mango", brand: "Armaf", category: "arabe", gender: "unisex", emoji: "🥭", notes: "Notas de Salida: Mango, Frutos Tropicales, Cítricos · Corazón: Flores Blancas, Notas Frutales · Fondo: Almizcle, Ámbar, Notas Amaderadas", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["summer", "casual", "neutral"] },
+        { id: 74, img: "img/perfumes/VALENTINO-UOMO-BORN-IN-ROMA-EXTRADOSE.webp", name: "Uomo Born In Roma Extradose", brand: "Valentino", category: "designer", gender: "male", emoji: "💜", notes: "Notas de Salida: Cardamomo, Bergamota · Corazón: Lavanda Bourbon, Acorde Amaderado · Fondo: Vainilla Negra, Vetiver, Ámbar", prices: { "3ml": 29.9, "5ml": 39.9, "10ml": 69.9 }, featured: true, tags: ["winter", "romantic", "night"] },
       ];
       const PROMOS = {
         nicho: [
@@ -4011,12 +4083,21 @@
           if (!promoData) return;
           const sizesContainer = document.getElementById(cat + "-sizes");
           if (!sizesContainer) return;
-          const sizesHTML = promoData.sizes.map((s, i) => `
+          const sizesHTML = promoData.sizes.map((s, i) => {
+            const orig = getOriginalPrice(s.price);
+            const pct = Math.round((1 - s.price / orig) * 100);
+            return `
         <button class="promo-cat-size-btn ${i === 0 ? "active" : ""}"
                 data-size-label="${s.label}" data-price="${s.price}"
                 onclick="selectCatSize('${cat}', '${s.label}', ${s.price}, this)">
-          ${s.label} <strong style="font-family:var(--font-display);margin-left:4px;">S/ ${s.price.toFixed(2)}</strong>
-        </button>`).join("");
+          <span>${s.label}</span>
+          <div class="promo-size-prices">
+            <span class="price-original">Antes S/ ${orig.toFixed(2)}</span>
+            <strong class="price-sale">S/ ${s.price.toFixed(2)}</strong>
+            <span class="discount-pill">-${pct}%</span>
+          </div>
+        </button>`;
+          }).join("");
           sizesContainer.innerHTML = sizesHTML;
           const card = document.querySelector(`.promo-cat-card[data-category="${cat}"]`);
           if (card) {
@@ -4080,13 +4161,25 @@
         const listEl = card.querySelector(".selected-perfumes-list");
         if (listEl) { listEl.innerHTML = ""; listEl.style.display = "none"; }
       }
+      function getOriginalPrice(price) {
+        return Math.round(price * 1.24 / 5) * 5;
+      }
       function renderPromoCard(promo) {
-        const sizeButtons = promo.sizes.map((s, i) => `
+        const sizeButtons = promo.sizes.map((s, i) => {
+          const orig = getOriginalPrice(s.price);
+          const pct = Math.round((1 - s.price / orig) * 100);
+          return `
       <button class="promo-size-btn ${i === 0 ? "active" : ""}"
               data-size-label="${s.label}" data-price="${s.price}" onclick="handleSizeSelect(this, '${promo.name}', ${s.price})">
-        <span>${s.label}</span><strong>S/ ${s.price.toFixed(2)}</strong>
+        <span>${s.label}</span>
+        <div class="promo-size-prices">
+          <span class="price-original">Antes S/ ${orig.toFixed(2)}</span>
+          <strong class="price-sale">S/ ${s.price.toFixed(2)}</strong>
+          <span class="discount-pill">-${pct}%</span>
+        </div>
         <span style="font-size:0.55rem;opacity:0.6;">${s.qty}</span>
-      </button>`).join("");
+      </button>`;
+        }).join("");
         const imgSrc = promo.img || "logo.webp";
         const showSizesAndButton = promo.type !== "pack";
         return `
@@ -4559,8 +4652,18 @@
         document.getElementById("packModalCategory").textContent = "Pack Especial";
         document.getElementById("packModalName").textContent = promo.name;
         document.getElementById("packModalScents").innerHTML = `<strong>Perfumes Incluidos</strong><br><span style="font-style:italic;color:var(--text-secondary);">${promo.scents}</span>`;
-        document.getElementById("packModalSizes").innerHTML = promo.sizes.map((s, i) => `
-      <button class="modal-size-btn ${i === 0 ? "active" : ""}" data-size-label="${s.label}" data-price="${s.price}" onclick="selectPackSize('${s.label}', ${s.price}, this)">${s.label}<span class="modal-size-price">S/ ${s.price.toFixed(2)}</span></button>`).join("");
+        document.getElementById("packModalSizes").innerHTML = promo.sizes.map((s, i) => {
+          const orig = getOriginalPrice(s.price);
+          const pct = Math.round((1 - s.price / orig) * 100);
+          return `<button class="modal-size-btn ${i === 0 ? "active" : ""}" data-size-label="${s.label}" data-price="${s.price}" onclick="selectPackSize('${s.label}', ${s.price}, this)">
+            <span>${s.label}</span>
+            <div class="promo-size-prices">
+              <span class="price-original">Antes S/ ${orig.toFixed(2)}</span>
+              <strong class="price-sale">S/ ${s.price.toFixed(2)}</strong>
+              <span class="discount-pill">-${pct}%</span>
+            </div>
+          </button>`;
+        }).join("");
         currentPackSelectedSize = promo.sizes[0].label;
         document.getElementById("packDetailModal").classList.add("active");
         document.body.style.overflow = "hidden";
