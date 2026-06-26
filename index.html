@@ -85,6 +85,8 @@
         background: rgba(255, 255, 255, 0.98);
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
         border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
       }
       .nav-logo {
         display: flex;
@@ -351,6 +353,7 @@
         transform: translateY(-2px);
         box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
       }
+      .btn-primary:active, .promo-add-btn:active { transform: scale(0.97); }
       .btn-outline {
         background: transparent;
         color: #ffffff;
@@ -470,6 +473,7 @@
         font-size: clamp(2.2rem, 4vw, 3.5rem);
         font-weight: 300;
         line-height: 1.1;
+        letter-spacing: 0.05em;
       }
       .section-title em {
         color: var(--gold);
@@ -1082,6 +1086,10 @@
         background: rgba(0, 0, 0, 0.06);
         color: var(--gold);
       }
+      @media (max-width: 600px) {
+        .catalog-filters { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; flex-wrap: nowrap; }
+        .filter-btn { white-space: nowrap; flex-shrink: 0; }
+      }
       /* ==========================================
          MODAL DE SELECCIÓN DE PERFUMES (PROMOCIONES)
       ========================================== */
@@ -1479,6 +1487,8 @@
         transition: all 0.3s;
         padding: 0.3rem;
         margin-left: 0.3rem;
+        min-width: 40px;
+        min-height: 40px;
       }
       .cart-item-remove:hover {
         color: #c0392b;
@@ -2385,7 +2395,7 @@
       }
       .promo-cat-img {
         width: 100%;
-        height: 220px;
+        height: 330px;
         overflow: hidden;
         background: #f5f5f5;
       }
@@ -2873,14 +2883,10 @@
         border-radius: 8px !important;
         transition: all 0.25s ease !important;
       }
-      .product-img-wrap {
-        overflow: hidden;
-        border-radius: 12px 12px 0 0;
-      }
-      .product-img-wrap img {
+      .product-img img {
         transition: transform 0.45s cubic-bezier(0.25,0.8,0.25,1) !important;
       }
-      .product-card:hover .product-img-wrap img {
+      .product-card:hover .product-img img {
         transform: scale(1.07);
       }
       .product-card {
@@ -3812,6 +3818,7 @@
         // ---------- ÁRABES ----------
         { id: 39, img: "img/perfumes/LATTAFA-khamrah.webp", name: "Khamrah", brand: "Lattafa", category: "arabe", gender: "unisex", emoji: "🍬", notes: "Notas de Salida: Canela, Nuez Moscada, Bergamota · Corazón: Dátiles, Praliné, Nardos · Fondo: Vainilla, Haba Tonka, Amberwood, Mirra, Benjuí, Akigalawood", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: true, tags: ["winter", "romantic", "acidic"] },
         { id: 40, img: "img/perfumes/LATTAFA-khamrah-qahwa.webp", name: "Khamrah Qahwa", brand: "Lattafa", category: "arabe", gender: "unisex", emoji: "☕", notes: "Notas de Salida: Canela, Cardamomo, Jengibre · Corazón: Praliné, Frutas Confitadas, Flores Blancas · Fondo: Café Arábica, Haba Tonka, Almizcle, Benjuí, Vainilla", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: true, tags: ["winter", "night", "acidic"] },
+        { id: 203, img: "img/perfumes/LATTAFA-KHAMRAH-WAHA.webp", name: "Khamrah Waha", brand: "Lattafa", category: "arabe", gender: "unisex", emoji: "🌊", notes: "Notas de Salida: Cítricos, Frutas Tropicales · Corazón: Flores Blancas, Almizcle Acuático · Fondo: Ámbar, Madera, Vainilla", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["summer", "casual", "neutral"] },
         { id: 41, img: "img/perfumes/LATTAFA-SUBLIME.webp", name: "Sublime", brand: "Lattafa", category: "arabe", gender: "unisex", emoji: "🍎", notes: "Notas de Salida: Manzana, Lichi, Rosa · Corazón: Ciruela, Jazmín · Fondo: Vainilla, Musgo, Pachulí", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["summer", "casual", "neutral"] },
         { id: 42, img: "img/perfumes/LATTAFA-HONOR-GLORY.webp", name: "Honor & Glory", brand: "Lattafa", category: "arabe", gender: "unisex", emoji: "🍍", notes: "Notas de Salida: Piña, Crème Brûlée · Corazón: Cúrcuma, Canela, Pimienta Negra, Benjuí · Fondo: Vainilla, Cashmeran, Sándalo, Musgo", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["winter", "night", "acidic"] },
         { id: 43, img: "img/perfumes/LATTAFA-ASAD.webp", name: "Asad", brand: "Lattafa", category: "arabe", gender: "male", emoji: "🦁", notes: "Notas de Salida: Pimienta Negra, Piña, Tabaco · Corazón: Café, Pachulí, Iris · Fondo: Vainilla, Ámbar, Madera Seca, Benzoína, Ládano", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["winter", "night", "acidic"] },
@@ -3823,7 +3830,6 @@
         { id: 49, img: "img/perfumes/AFNAN-9PM-ELIXIR.webp", name: "9PM Elixir", brand: "Afnan", category: "arabe", gender: "male", emoji: "⚡", notes: "Notas de Salida: Nuez Moscada, Elemi, Cardamomo · Corazón: Pimento, Lavandín, Cuero · Fondo: Cisto, Ládano, Pachulí, Vainilla", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["winter", "night", "acidic"] },
         { id: 50, img: "img/perfumes/AFNAN-9PM-NIGHT-OUT.webp", name: "9PM Night Out", brand: "Afnan", category: "arabe", gender: "unisex", emoji: "🌃", notes: "Notas de Salida: Fruta del Dragón, Bergamota, Coñac, Lavanda, Manzana · Corazón: Cardamomo, Mahonial, Ante, Toffee, Cedro · Fondo: Haba Tonka, Akigalawood, Ambrofix, Pachulí", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["night", "romantic", "acidic"] },
         { id: 51, img: "img/perfumes/AFNAN-9AM-DIVE.webp", name: "9AM Dive", brand: "Afnan", category: "arabe", gender: "unisex", emoji: "🌊", notes: "Notas de Salida: Limón, Menta, Grosella Negra, Pimienta Rosa · Corazón: Manzana, Cedro, Incienso · Fondo: Jengibre, Sándalo, Pachulí, Jazmín", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["summer", "work", "neutral"] },
-        { id: 52, img: "img/perfumes/AFNAN-TURATHI-ELECTRIC.webp", name: "Turathi Electric", brand: "Afnan", category: "arabe", gender: "unisex", emoji: "⚡", notes: "Notas de Salida: Bergamota, Pomelo Rosa, Pera, Mandarina · Corazón: Manzana, Cedro, Flor de Azahar · Fondo: Almizcle, Vainilla, Ámbar, Ambroxan", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["summer", "casual", "neutral"] },
         { id: 53, img: "img/perfumes/RASASI-HAWAS-ICE.webp", name: "Hawas Ice", brand: "Rasasi", category: "arabe", gender: "male", emoji: "🧊", notes: "Notas de Salida: Manzana Helada, Bergamota, Limón Italiano, Anís Estrellado · Corazón: Ciruela, Flor de Azahar, Cardamomo · Fondo: Musgo, Ámbar, Almizcle, Madera Flotante", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["summer", "casual", "neutral"] },
         { id: 54, img: "img/perfumes/RASASI-HAWAS-TROPICAL.webp", name: "Hawas Tropical", brand: "Rasasi", category: "arabe", gender: "male", emoji: "🌴", notes: "Notas de Salida: Agua de Coco, Hoja de Higuera, Jengibre · Corazón: Coco, Higo, Menta · Fondo: Sándalo, Haba Tonka, Almizcle", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["summer", "casual", "neutral"] },
         { id: 55, img: "img/perfumes/RASASI-HAWAS-MALIBU.webp", name: "Hawas Malibu", brand: "Rasasi", category: "arabe", gender: "male", emoji: "🏖️", notes: "Notas de Salida: Piña, Naranja, Pomelo · Corazón: Ámbar, Raíz de Iris, Lavanda · Fondo: Haba Tonka, Almizcle, Cashmeran, Pachulí", prices: { "3ml": 15.0, "5ml": 20.0, "10ml": 35.0 }, featured: false, tags: ["summer", "casual", "neutral"] },
