@@ -598,8 +598,10 @@
       }
       .products-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 1.5px;
+        max-width: 1400px;
+        margin: 0 auto;
       }
       .product-card {
         background: var(--bg-card);
@@ -2782,6 +2784,12 @@
         .products-grid {
           grid-template-columns: 1fr 1fr;
         }
+        .modal-overlay {
+          padding: 0.75rem;
+        }
+        .modal-overlay.active {
+          padding-top: 1.5rem;
+        }
         .promo-grid {
           grid-template-columns: 1fr;
         }
@@ -2844,7 +2852,7 @@
           font-size: 0.7rem;
         }
         .products-grid {
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr;
           gap: 0.5px;
         }
         .product-card {
@@ -3199,115 +3207,14 @@
       @media (max-width: 600px) {
         .contact-section { padding: 3.5rem 1.2rem; }
         .testimonios-section { padding: 3.5rem 1.2rem; }
-      }
-
-      /* ==========================================
-         BOTÓN "COMPRAR POR WHATSAPP" (tarjetas producto)
-      ========================================== */
-      .product-comprar-btn {
-        width: 100%;
-        margin-top: 0.7rem;
-        padding: 0.65rem 0.8rem;
-        background: #25D366;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        font-family: 'Lato', sans-serif;
-        font-weight: 700;
-        font-size: 0.72rem;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.2s ease;
-      }
-      .product-comprar-btn:hover { background: #1ebe5a; transform: translateY(-1px); }
-
-      /* ==========================================
-         MODAL PEDIDO RÁPIDO WHATSAPP
-      ========================================== */
-      #quickOrderModal { display: none; }
-      #quickOrderOverlay {
-        position: fixed; inset: 0;
-        background: rgba(0,0,0,0.72);
-        z-index: 19500;
-        animation: fadeIn .3s ease;
-      }
-      #quickOrderBox {
-        position: fixed;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 19501;
-        background: #fff;
-        border-radius: 16px;
-        padding: 1.8rem;
-        max-width: 380px;
-        width: 90vw;
-        text-align: center;
-        box-shadow: 0 24px 64px rgba(0,0,0,0.35);
-        animation: popupIn .35s cubic-bezier(.34,1.56,.64,1);
-      }
-      #qoModalImg {
-        width: 130px; height: 130px;
-        object-fit: cover;
-        border-radius: 12px;
-        margin: 0 auto 1rem;
-        display: block;
-      }
-      #qoModalName {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.25rem;
-        color: #111;
-        margin-bottom: 0.3rem;
-      }
-      #qoModalPrice {
-        font-family: 'Lato', sans-serif;
-        font-weight: 700;
-        color: #555;
-        font-size: 0.95rem;
-        margin-bottom: 1.2rem;
-      }
-      .qo-qty-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.8rem;
-        margin-bottom: 1.4rem;
-      }
-      .qo-qty-row label {
-        font-family: 'Lato', sans-serif;
-        font-size: 0.72rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: #777;
-      }
-      #qoQtySelect {
-        font-family: 'Lato', sans-serif;
-        font-size: 0.95rem;
-        padding: 0.4rem 0.8rem;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        background: #fafafa;
-      }
-      #qoSendBtn {
-        display: block;
-        width: 100%;
-        background: #25D366;
-        color: #fff;
-        font-family: 'Lato', sans-serif;
-        font-weight: 700;
-        font-size: 0.9rem;
-        padding: 0.85rem;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: background .2s, transform .15s;
-        margin-bottom: 0.7rem;
-      }
-      #qoSendBtn:hover { background: #1ebe5a; transform: scale(1.02); }
-      #qoCloseBtn {
-        background: none; border: none;
-        color: #999; font-size: 0.75rem;
-        text-decoration: underline; cursor: pointer;
+        .testimonio-card {
+          padding: 1.8rem 1.2rem 1.5rem;
+          min-height: auto;
+        }
+        .testimonio-text {
+          font-size: 0.9rem;
+          max-width: 100%;
+        }
       }
 
       /* ==========================================
@@ -3341,7 +3248,7 @@
       }
 
       /* ==========================================
-         NEWSLETTER — DESCUENTO 10%
+         NEWSLETTER
       ========================================== */
       .newsletter-section {
         background: linear-gradient(135deg, #f7f0dd 0%, #efe2c0 100%);
@@ -3492,6 +3399,47 @@
       .promo-card:hover {
         transform: translateY(-4px) !important;
         box-shadow: 0 14px 40px rgba(0,0,0,0.16) !important;
+      }
+
+      /* ==========================================
+         EXPERIENCIA MÓVIL — TOUCH TARGETS Y ZOOM
+         (consolidado aquí para no duplicar los bloques
+         @media ya existentes; solo afecta ≤768px)
+      ========================================== */
+      @media (max-width: 768px) {
+        /* Evita el auto-zoom de iOS en inputs con font-size < 16px */
+        .cf-input, .cf-textarea, .form-input, #nlEmail, #vipPopupNameInput {
+          font-size: 16px;
+        }
+        /* Touch targets ≥44px en controles pequeños */
+        .qty-btn {
+          width: 44px;
+          height: 44px;
+        }
+        .cart-item-remove {
+          min-width: 44px;
+          min-height: 44px;
+        }
+        .social-btn {
+          width: 44px;
+          height: 44px;
+        }
+        .modal-close {
+          width: 44px;
+          height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .hero-dot {
+          width: 44px;
+          height: 44px;
+          padding: 21px 10px;
+          background-clip: content-box;
+        }
+        .hero-dot.active {
+          width: 68px;
+        }
       }
     </style>
   </head>
@@ -4211,14 +4159,14 @@
     <!-- end #app -->
 
     <!-- ==========================================
-         NEWSLETTER — 10% DE DESCUENTO
+         NEWSLETTER
     ========================================== -->
     <section class="newsletter-section" id="newsletterSection" data-aos="fade-up">
-      <h3>Suscríbete y obtén un 10% de descuento en tu primer pedido</h3>
-      <p>Recibe ofertas exclusivas y sé el primero en enterarte de nuevos lanzamientos.</p>
+      <h3>Recibe nuestras novedades y ofertas</h3>
+      <p>Sé el primero en enterarte de nuevos lanzamientos y promociones exclusivas.</p>
       <form id="newsletterForm">
         <input type="email" id="nlEmail" placeholder="tu@correo.com" required />
-        <button type="submit" id="nlSubmitBtn">Obtener descuento</button>
+        <button type="submit" id="nlSubmitBtn">Suscribirme</button>
       </form>
       <p id="nlMessage"></p>
     </section>
@@ -4688,11 +4636,6 @@
           <div class="product-name">${product.name}</div>
           <div class="product-notes">${product.notes.split("·")[0].replace("Notas: ", "")}</div>
           <div class="product-price"><span class="product-price-from">Desde</span> S/ ${basePrice.toFixed(2)}</div>
-          <button class="product-comprar-btn"
-                  data-name="${product.name}" data-price="${basePrice}" data-img="${product.img}"
-                  onclick="event.stopPropagation(); openQuickOrderModal(this);">
-            Comprar por WhatsApp
-          </button>
         </div>
       </div>`;
       }
@@ -5637,29 +5580,6 @@
     </script>
 
     <!-- ══════════════════════════════════════════
-         MODAL PEDIDO RÁPIDO WHATSAPP (genérico, reutilizable)
-    ══════════════════════════════════════════ -->
-    <div id="quickOrderModal" aria-modal="true" role="dialog" aria-label="Pedido rápido por WhatsApp">
-      <div id="quickOrderOverlay" onclick="closeQuickOrderModal()"></div>
-      <div id="quickOrderBox">
-        <img id="qoModalImg" src="" alt="" width="130" height="130" />
-        <div id="qoModalName"></div>
-        <div id="qoModalPrice"></div>
-        <div class="qo-qty-row">
-          <label for="qoQtySelect">Cantidad</label>
-          <select id="qoQtySelect">
-            <option value="1">1</option><option value="2">2</option><option value="3">3</option>
-            <option value="4">4</option><option value="5">5</option><option value="6">6</option>
-            <option value="7">7</option><option value="8">8</option><option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-        </div>
-        <button id="qoSendBtn" onclick="sendQuickOrder()">💬 Enviar pedido por WhatsApp</button>
-        <button id="qoCloseBtn" onclick="closeQuickOrderModal()">Cancelar</button>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════════════════
          POPUP VIP WHATSAPP
     ══════════════════════════════════════════ -->
     <div id="vipPopup" style="display:none;" aria-modal="true" role="dialog" aria-label="Invitación grupo VIP">
@@ -5667,7 +5587,7 @@
       <div id="vipPopupBox">
         <img src="grupo.webp" alt="Grupo VIP Ávila Parfums" id="vipPopupImg" width="320" height="235" />
         <p id="vipPopupTimer">⏳ Esta oferta expira en <span id="vipPopupCountdown">15:00</span></p>
-        <p id="vipPopupText">Únete a nuestro grupo VIP de WhatsApp y consigue un <strong>10% de descuento</strong> exclusivo.</p>
+        <p id="vipPopupText">Únete a nuestro grupo VIP de WhatsApp y entérate primero de nuestras ofertas exclusivas.</p>
         <input type="text" id="vipPopupNameInput" placeholder="Tu nombre (opcional)" maxlength="40" />
         <a href="https://chat.whatsapp.com/CmuCY3iVzLP36tKuXwmc7q"
            target="_blank" rel="noopener noreferrer"
@@ -5725,6 +5645,8 @@
         padding: 2rem 1.8rem 1.6rem;
         max-width: 420px;
         width: 90vw;
+        max-height: 90vh;
+        overflow-y: auto;
         text-align: center;
         box-shadow: 0 24px 64px rgba(0,0,0,0.35);
         animation: popupIn .4s cubic-bezier(.34,1.56,.64,1);
@@ -5892,68 +5814,6 @@
         window.dataLayer.push(Object.assign({ event }, params || {}));
       }
 
-      // ── Modal Pedido Rápido WhatsApp (genérico, reutilizable) ──
-      var qoCurrentProduct = null;
-      function openQuickOrderModal(btn) {
-        var name = (btn.getAttribute('data-name') || '').trim();
-        var priceAttr = btn.getAttribute('data-price');
-        var img = (btn.getAttribute('data-img') || '').trim();
-
-        // Fallback defensivo: si algún atributo falta o viene vacío, se extrae
-        // del DOM cercano (tarjeta de producto) en lugar de fallar en silencio.
-        var card = btn.closest('.product-card');
-        if (card) {
-          if (!name) {
-            var nameEl = card.querySelector('.product-name');
-            name = nameEl ? nameEl.textContent.trim() : '';
-          }
-          if (!priceAttr || isNaN(parseFloat(priceAttr))) {
-            var priceEl = card.querySelector('.product-price');
-            var match = priceEl ? priceEl.textContent.match(/[\d.]+/) : null;
-            priceAttr = match ? match[0] : priceAttr;
-          }
-          if (!img) {
-            var imgEl = card.querySelector('img');
-            img = imgEl ? imgEl.getAttribute('src') || '' : '';
-          }
-        }
-
-        var price = parseFloat(priceAttr);
-        if (!name || isNaN(price)) {
-          console.warn('[Ávila Parfums] No se pudo determinar nombre/precio del producto para el pedido rápido — revisa los atributos data-name/data-price del botón.', btn);
-          showToast('Error', 'No se pudo cargar este producto. Intenta de nuevo.');
-          return;
-        }
-
-        qoCurrentProduct = { name: name, price: price, img: img || 'logo.webp' };
-        document.getElementById('qoModalImg').src = qoCurrentProduct.img;
-        document.getElementById('qoModalImg').alt = qoCurrentProduct.name;
-        document.getElementById('qoModalName').textContent = qoCurrentProduct.name;
-        document.getElementById('qoModalPrice').textContent = 'Desde S/ ' + qoCurrentProduct.price.toFixed(2);
-        document.getElementById('qoQtySelect').value = '1';
-        document.getElementById('quickOrderModal').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-      }
-      function closeQuickOrderModal() {
-        document.getElementById('quickOrderModal').style.display = 'none';
-        document.body.style.overflow = '';
-        qoCurrentProduct = null;
-      }
-      function sendQuickOrder() {
-        if (!qoCurrentProduct) return;
-        var qty = parseInt(document.getElementById('qoQtySelect').value, 10);
-        var msg = `Hola Ávila Parfums, quiero pedir: ${qoCurrentProduct.name} x${qty}. ¿Me pueden confirmar disponibilidad y total?`;
-        pushEvent('product_buy_click', {
-          product_name: qoCurrentProduct.name,
-          price: qoCurrentProduct.price,
-          quantity: qty,
-          value: qoCurrentProduct.price * qty
-        });
-        window.open('https://wa.me/51994091862?text=' + encodeURIComponent(msg), '_blank');
-        closeQuickOrderModal();
-      }
-      document.getElementById('quickOrderModal').style.display = 'none';
-
       // ── Oferta Flash — cuenta atrás 24h (persiste vía cookie) ──
       (function() {
         var FLASH_SECONDS = 24 * 60 * 60;
@@ -5982,7 +5842,7 @@
         var flashInterval = setInterval(tick, 1000);
       })();
 
-      // ── Newsletter — suscripción con 10% de descuento ──
+      // ── Newsletter — suscripción a novedades y ofertas ──
       // El endpoint vive en AVILA_CONFIG (ver <head>); reemplázalo ahí, no aquí.
       var MAILCHIMP_URL = window.AVILA_CONFIG.MAILCHIMP_URL;
       document.getElementById('newsletterForm').addEventListener('submit', function(e) {
@@ -6005,8 +5865,8 @@
           console.warn('[Ávila Parfums] Mailchimp/Brevo URL no configurado. El correo no se ha suscrito realmente. Reemplaza TU_MAILCHIMP_URL en AVILA_CONFIG.');
           setTimeout(function() {
             btn.disabled = false;
-            btn.textContent = 'Obtener descuento';
-            msgEl.textContent = '✅ ¡Gracias! Revisa tu correo para el código de 10% de descuento.';
+            btn.textContent = 'Suscribirme';
+            msgEl.textContent = '✅ ¡Gracias por suscribirte! Pronto recibirás nuestras novedades.';
             msgEl.style.color = '#1a7a40';
             msgEl.style.display = 'block';
             document.getElementById('newsletterForm').reset();
@@ -6023,8 +5883,8 @@
         })
         .then(function() {
           btn.disabled = false;
-          btn.textContent = 'Obtener descuento';
-          msgEl.textContent = '✅ ¡Gracias! Revisa tu correo para el código de 10% de descuento.';
+          btn.textContent = 'Suscribirme';
+          msgEl.textContent = '✅ ¡Gracias por suscribirte! Pronto recibirás nuestras novedades.';
           msgEl.style.color = '#1a7a40';
           msgEl.style.display = 'block';
           document.getElementById('newsletterForm').reset();
@@ -6032,7 +5892,7 @@
         })
         .catch(function() {
           btn.disabled = false;
-          btn.textContent = 'Obtener descuento';
+          btn.textContent = 'Suscribirme';
           msgEl.textContent = 'Hubo un error. Intenta de nuevo más tarde.';
           msgEl.style.color = '#c0392b';
           msgEl.style.display = 'block';
