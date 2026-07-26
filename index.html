@@ -24,12 +24,44 @@
     <meta name="twitter:description" content="Fragancias de autor exclusivas en decants. Nicho, diseñador y árabe." />
     <meta name="twitter:image"       content="https://www.avilaparfums.com/grupo.webp" />
 
+    <!-- ══════════════════════════════════════════
+         CONFIGURACIÓN CENTRAL DE IDs DE TRACKING
+         Reemplaza estos valores por tus IDs reales antes de producción.
+         Mientras sean placeholders, cada integración se omite de forma
+         silenciosa (con un console.warn informativo) para no romper la
+         página ni generar peticiones de red a IDs inexistentes.
+    ══════════════════════════════════════════ -->
+    <script>
+      window.AVILA_CONFIG = {
+        GTM_ID:             'GTM-XXXXXX',
+        GA4_ID:             'G-XXXXXXXXX',
+        META_PIXEL_ID:      '000000000000',
+        CLARITY_ID:         'TU_ID_CLARITY',
+        GOOGLE_ADS_ID:      'AW-XXXXXXXXX',
+        GOOGLE_ADS_LABEL:   'XXXXXXX',
+        FORMSPREE_ID:       'TU_FORMSPREE_ID',
+        RECAPTCHA_SITE_KEY: 'TU_SITE_KEY',
+        MAILCHIMP_URL:      'TU_MAILCHIMP_URL'
+      };
+      // Un valor sigue siendo placeholder si contiene 'XXXX', empieza con 'TU_' o está vacío.
+      window.isPlaceholder = function(val) {
+        return !val || /XXXX/.test(val) || /^TU_/.test(val);
+      };
+    </script>
+
     <!-- ── Google Tag Manager ── -->
-    <!-- REEMPLAZA GTM-XXXXXX por tu ID real de GTM -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXX');</script>
+    <!-- Se omite automáticamente mientras GTM_ID sea un placeholder (ver AVILA_CONFIG arriba) -->
+    <script>
+      if (!window.isPlaceholder(window.AVILA_CONFIG.GTM_ID)) {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',window.AVILA_CONFIG.GTM_ID);
+      } else {
+        window.dataLayer = window.dataLayer || [];
+        console.warn('[Ávila Parfums] GTM_ID no configurado — Google Tag Manager no se cargó. Reemplaza GTM-XXXXXX en AVILA_CONFIG.');
+      }
+    </script>
 
     <!-- ── Schema.org — Organization ── -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="schemaOrganization">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -45,15 +77,44 @@
       "sameAs": ["https://www.instagram.com/avilaparfums/"]
     }
     </script>
+    <!-- Los bloques Schema.org Product se inyectan dinámicamente justo después de este script
+         (ver función injectProductSchema() al final del documento), ya que dependen del array
+         PRODUCTS definido en tiempo de ejecución. -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/webp" href="logo.webp" />
     <!-- Se eliminó la familia "Cinzel" del request: no se usaba en ninguna parte del CSS (ahorra una descarga de fuente). -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
+    <!-- AOS y Swiper: CSS no crítico (solo afecta secciones bajo el pliegue),
+         cargado sin bloquear el render con el patrón media="print" + onload.
+         <noscript> asegura que se aplique igual si JavaScript está deshabilitado. -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    </noscript>
+    <!-- reCAPTCHA v3 — se omite mientras RECAPTCHA_SITE_KEY sea un placeholder -->
+    <script>
+      if (!window.isPlaceholder(window.AVILA_CONFIG.RECAPTCHA_SITE_KEY)) {
+        var recaptchaScript = document.createElement('script');
+        recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=' + window.AVILA_CONFIG.RECAPTCHA_SITE_KEY;
+        recaptchaScript.async = true;
+        recaptchaScript.defer = true;
+        document.head.appendChild(recaptchaScript);
+      } else {
+        console.warn('[Ávila Parfums] RECAPTCHA_SITE_KEY no configurado — el formulario de contacto se enviará sin protección reCAPTCHA (modo testing). Reemplaza TU_SITE_KEY en AVILA_CONFIG.');
+      }
+    </script>
+    <!-- Font Awesome 6 — no crítico (iconos de footer/formulario/testimonios), carga no-bloqueante -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    </noscript>
     <style>
       /* ==========================================
     CSS VARIABLES & RESET
@@ -2256,6 +2317,10 @@
         height: 18px;
         fill: currentColor;
       }
+      .social-btn i {
+        font-size: 18px;
+        line-height: 1;
+      }
       .social-btn:hover {
         background: #fff;
         color: #000;
@@ -2883,6 +2948,488 @@
           animation: none;
         }
       }
+
+      /* ==========================================
+         TIPOGRAFÍA PREMIUM — Playfair Display + Lato
+      ========================================== */
+      body {
+        font-family: 'Lato', 'Raleway', sans-serif;
+      }
+      h1, h2, h3,
+      .section-title, .hero-title, .promo-name,
+      .product-name, .modal-name, .footer-koi,
+      .process-hero-title, .rec-wizard h3 {
+        font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+      }
+      .section-title em, .hero-title em {
+        font-style: italic;
+      }
+      button, .btn-primary, .btn-outline, .btn-social,
+      .filter-btn, .promo-add-btn, .promo-size-btn,
+      .modal-size-btn, .cart-item-remove, .checkout-submit,
+      nav a, .nav-link {
+        font-family: 'Lato', 'Raleway', sans-serif;
+      }
+
+      /* ==========================================
+         HOVERS REFINADOS — TARJETAS Y BOTONES
+      ========================================== */
+      .product-card {
+        will-change: transform;
+      }
+      .product-card:hover {
+        transform: translateY(-6px) scale(1.015) !important;
+        box-shadow: 0 20px 52px rgba(0,0,0,0.16) !important;
+      }
+      .btn-primary {
+        transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease !important;
+      }
+      .btn-primary:hover {
+        background: #222 !important;
+        color: #fff !important;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.18) !important;
+        transform: translateY(-2px) !important;
+      }
+      .product-quick-add {
+        transition: background 0.3s ease, transform 0.2s ease !important;
+      }
+      .product-quick-add:hover {
+        background: #111 !important;
+        transform: translateY(-1px) !important;
+      }
+
+      /* ==========================================
+         SECCIÓN TESTIMONIOS (SWIPER)
+      ========================================== */
+      .testimonios-section {
+        padding: 5rem 5vw;
+        background: #f9f9f9;
+        text-align: center;
+      }
+      .testimonios-section .section-label {
+        display: block;
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+      }
+      .testimonios-section .section-title {
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+        margin-bottom: 0.5rem;
+        color: #111;
+      }
+      .testimonios-section .section-line {
+        width: 40px; height: 1px;
+        background: #111;
+        margin: 0.8rem auto 3rem;
+      }
+      .swiper-testimonios {
+        max-width: 900px;
+        margin: 0 auto;
+        padding-bottom: 3rem !important;
+      }
+      .testimonio-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2.4rem 2rem 2rem;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        min-height: 280px;
+        justify-content: center;
+        user-select: none;
+      }
+      .testimonio-avatar {
+        width: 72px; height: 72px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #eee;
+      }
+      .testimonio-quote {
+        font-size: 1.4rem;
+        color: #c8a96e;
+        opacity: 0.6;
+      }
+      .testimonio-stars {
+        color: #c8a96e;
+        font-size: 1rem;
+        letter-spacing: 2px;
+      }
+      .testimonio-text {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 1rem;
+        color: #333;
+        line-height: 1.75;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      .testimonio-author {
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #111;
+      }
+      .testimonio-city {
+        font-family: 'Lato', sans-serif;
+        font-size: 0.72rem;
+        color: #999;
+        margin-top: -0.5rem;
+      }
+      .swiper-pagination-bullet-active {
+        background: #111 !important;
+      }
+
+      /* ==========================================
+         FORMULARIO DE CONTACTO FORMSPREE
+      ========================================== */
+      .contact-section {
+        padding: 5rem 5vw;
+        background: #fff;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .contact-section .section-title {
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        color: #111;
+        margin-bottom: 0.4rem;
+      }
+      .contact-section .section-line {
+        width: 40px; height: 1px;
+        background: #111;
+        margin: 0.7rem 0 2rem;
+      }
+      .cf-group {
+        position: relative;
+        margin-bottom: 1.4rem;
+      }
+      .cf-label {
+        display: block;
+        font-family: 'Lato', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #555;
+        margin-bottom: 0.4rem;
+      }
+      .cf-input, .cf-textarea {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-family: 'Lato', sans-serif;
+        font-size: 0.9rem;
+        color: #111;
+        background: #fafafa;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        outline: none;
+      }
+      .cf-input:focus, .cf-textarea:focus {
+        border-color: #111;
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+        background: #fff;
+      }
+      .cf-input.cf-error, .cf-textarea.cf-error {
+        border-color: #c0392b;
+        box-shadow: 0 0 0 3px rgba(192,57,43,0.08);
+      }
+      .cf-textarea { min-height: 130px; resize: vertical; }
+      .cf-error-msg {
+        font-family: 'Lato', sans-serif;
+        font-size: 0.72rem;
+        color: #c0392b;
+        margin-top: 0.3rem;
+        display: none;
+      }
+      .cf-group.has-error .cf-error-msg { display: block; }
+      .cf-submit {
+        width: 100%;
+        padding: 1rem;
+        background: #111;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        position: relative;
+      }
+      .cf-submit:hover { background: #333; transform: translateY(-1px); }
+      .cf-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+      .cf-success {
+        display: none;
+        background: #f0faf4;
+        border: 1px solid #25D366;
+        border-radius: 8px;
+        padding: 1.2rem 1.5rem;
+        font-family: 'Lato', sans-serif;
+        font-size: 0.9rem;
+        color: #1a7a40;
+        text-align: center;
+        margin-top: 1rem;
+      }
+      .cf-spinner {
+        display: none;
+        width: 18px; height: 18px;
+        border: 2px solid rgba(255,255,255,0.4);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        margin: 0 auto;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      .cf-sending .cf-btn-text { display: none; }
+      .cf-sending .cf-spinner { display: inline-block; }
+      .cf-recaptcha-note {
+        font-size: 0.65rem;
+        color: #bbb;
+        text-align: center;
+        margin-top: 0.8rem;
+      }
+      @media (max-width: 600px) {
+        .contact-section { padding: 3.5rem 1.2rem; }
+        .testimonios-section { padding: 3.5rem 1.2rem; }
+      }
+
+      /* ==========================================
+         BOTÓN "COMPRAR POR WHATSAPP" (tarjetas producto)
+      ========================================== */
+      .product-comprar-btn {
+        width: 100%;
+        margin-top: 0.7rem;
+        padding: 0.65rem 0.8rem;
+        background: #25D366;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+      .product-comprar-btn:hover { background: #1ebe5a; transform: translateY(-1px); }
+
+      /* ==========================================
+         MODAL PEDIDO RÁPIDO WHATSAPP
+      ========================================== */
+      #quickOrderModal { display: none; }
+      #quickOrderOverlay {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.72);
+        z-index: 19500;
+        animation: fadeIn .3s ease;
+      }
+      #quickOrderBox {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 19501;
+        background: #fff;
+        border-radius: 16px;
+        padding: 1.8rem;
+        max-width: 380px;
+        width: 90vw;
+        text-align: center;
+        box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+        animation: popupIn .35s cubic-bezier(.34,1.56,.64,1);
+      }
+      #qoModalImg {
+        width: 130px; height: 130px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin: 0 auto 1rem;
+        display: block;
+      }
+      #qoModalName {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        color: #111;
+        margin-bottom: 0.3rem;
+      }
+      #qoModalPrice {
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        color: #555;
+        font-size: 0.95rem;
+        margin-bottom: 1.2rem;
+      }
+      .qo-qty-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-bottom: 1.4rem;
+      }
+      .qo-qty-row label {
+        font-family: 'Lato', sans-serif;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #777;
+      }
+      #qoQtySelect {
+        font-family: 'Lato', sans-serif;
+        font-size: 0.95rem;
+        padding: 0.4rem 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background: #fafafa;
+      }
+      #qoSendBtn {
+        display: block;
+        width: 100%;
+        background: #25D366;
+        color: #fff;
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.85rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background .2s, transform .15s;
+        margin-bottom: 0.7rem;
+      }
+      #qoSendBtn:hover { background: #1ebe5a; transform: scale(1.02); }
+      #qoCloseBtn {
+        background: none; border: none;
+        color: #999; font-size: 0.75rem;
+        text-decoration: underline; cursor: pointer;
+      }
+
+      /* ==========================================
+         OFERTA FLASH — CUENTA ATRÁS EN HERO
+      ========================================== */
+      .flash-offer {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(0,0,0,0.55);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(200,169,110,0.5);
+        border-radius: 50px;
+        padding: 0.5rem 1.2rem;
+        margin: 0.8rem 0 1.2rem;
+      }
+      .flash-offer-label {
+        font-family: 'Lato', sans-serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.05em;
+        color: #eee;
+        text-transform: uppercase;
+      }
+      .flash-offer-timer {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #c8a96e;
+        letter-spacing: 0.02em;
+        min-width: 110px;
+      }
+
+      /* ==========================================
+         NEWSLETTER — DESCUENTO 10%
+      ========================================== */
+      .newsletter-section {
+        background: linear-gradient(135deg, #f7f0dd 0%, #efe2c0 100%);
+        padding: 3.5rem 5vw;
+        text-align: center;
+      }
+      .newsletter-section h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.3rem, 3vw, 1.9rem);
+        color: #3a2f1c;
+        margin-bottom: 0.5rem;
+      }
+      .newsletter-section p {
+        font-family: 'Lato', sans-serif;
+        font-size: 0.85rem;
+        color: #6b5c3d;
+        margin-bottom: 1.6rem;
+      }
+      #newsletterForm {
+        display: flex;
+        justify-content: center;
+        gap: 0.6rem;
+        max-width: 460px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+      }
+      #nlEmail {
+        flex: 1;
+        min-width: 200px;
+        padding: 0.8rem 1.1rem;
+        border: 1px solid #c8a96e;
+        border-radius: 50px;
+        font-family: 'Lato', sans-serif;
+        font-size: 0.85rem;
+        background: #fff;
+        outline: none;
+      }
+      #nlSubmitBtn {
+        background: #111;
+        color: #fff;
+        border: none;
+        padding: 0.8rem 1.6rem;
+        border-radius: 50px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+      #nlSubmitBtn:hover { background: #333; }
+      #nlMessage {
+        margin-top: 0.8rem;
+        font-family: 'Lato', sans-serif;
+        font-size: 0.8rem;
+        display: none;
+      }
+      @media (max-width: 600px) {
+        .newsletter-section { padding: 2.5rem 1.2rem; }
+        .flash-offer { padding: 0.4rem 0.9rem; gap: 0.4rem; }
+        .flash-offer-timer { font-size: 0.9rem; min-width: 90px; }
+      }
+
+      /* ==========================================
+         POPUP VIP — TEMPORIZADOR + CAMPO NOMBRE
+      ========================================== */
+      #vipPopupTimer {
+        font-family: 'Lato', sans-serif;
+        font-size: 0.72rem;
+        color: #c0392b;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+        letter-spacing: 0.02em;
+      }
+      #vipPopupNameInput {
+        width: 100%;
+        padding: 0.7rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 50px;
+        font-family: 'Lato', sans-serif;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        outline: none;
+      }
+      #vipPopupNameInput:focus { border-color: #25D366; }
+
       /* ==========================================
          BEFORE / AFTER PRICING — PROMO CARDS
       ========================================== */
@@ -2949,7 +3496,12 @@
     </style>
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) — REEMPLAZA GTM-XXXXXX por tu ID real -->
+    <!-- Google Tag Manager (noscript) — REEMPLAZA GTM-XXXXXX por tu ID real.
+         Nota: <noscript> solo se renderiza cuando JavaScript está deshabilitado en el
+         navegador; en ese escenario no hay AVILA_CONFIG disponible (requiere JS), así que
+         este ID debe actualizarse aquí manualmente junto con AVILA_CONFIG.GTM_ID. Con JS
+         habilitado (caso normal), los navegadores ignoran <noscript> por completo y no se
+         genera ninguna petición de red, por lo que este placeholder no causa errores. -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- ==========================================
      NAVIGATION
@@ -3052,6 +3604,10 @@
             <div class="hero-content">
               <span class="hero-category">Colección Nicho · Temporada 2025</span>
               <h1 class="hero-title">El Arte de<br /><em>Existir</em></h1>
+              <div class="flash-offer" id="flashOffer">
+                <span class="flash-offer-label">⚡ Oferta especial termina en:</span>
+                <span class="flash-offer-timer" id="flashOfferTimer">24h 00m 00s</span>
+              </div>
               <p class="hero-desc">
                 Perfumes de autor para quienes entienden que el aroma es el
                 accesorio más poderoso. Decants exclusivos de las fragancias más
@@ -3364,6 +3920,90 @@
             </a>
           </div>
         </section>
+
+        <!-- TESTIMONIOS (SWIPER) -->
+        <section class="testimonios-section" id="testimonios" data-aos="fade-up">
+          <span class="section-label">Clientes reales</span>
+          <h2 class="section-title">Lo que dicen nuestros <em>clientes</em></h2>
+          <div class="section-line"></div>
+
+          <div class="swiper swiper-testimonios">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="testimonio-card">
+                  <img class="testimonio-avatar" loading="lazy" width="72" height="72"
+                    src="https://ui-avatars.com/api/?name=Maria+Garcia&size=100&background=c8a96e&color=fff"
+                    alt="María García" />
+                  <i class="fa-solid fa-quote-left testimonio-quote" aria-hidden="true"></i>
+                  <div class="testimonio-stars">★★★★★</div>
+                  <p class="testimonio-text">"Llevaba meses buscando un decant de Erba Pura auténtico. Llegó perfectamente sellado, el aroma es idéntico al original. Ya pedí tres veces y siempre impecable."</p>
+                  <strong class="testimonio-author">María García</strong>
+                  <span class="testimonio-city">Lima, Miraflores</span>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testimonio-card">
+                  <img class="testimonio-avatar" loading="lazy" width="72" height="72"
+                    src="https://ui-avatars.com/api/?name=Carlos+Rios&size=100&background=2c2c2c&color=fff"
+                    alt="Carlos Ríos" />
+                  <i class="fa-solid fa-quote-left testimonio-quote" aria-hidden="true"></i>
+                  <div class="testimonio-stars">★★★★★</div>
+                  <p class="testimonio-text">"Me ayudaron a elegir el perfume ideal para mi tipo de piel sin saber nada del tema. El Le Beau Le Parfum que me recomendaron es exactamente lo que buscaba. Envío rapidísimo."</p>
+                  <strong class="testimonio-author">Carlos Ríos</strong>
+                  <span class="testimonio-city">Lima, San Isidro</span>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testimonio-card">
+                  <img class="testimonio-avatar" loading="lazy" width="72" height="72"
+                    src="https://ui-avatars.com/api/?name=Lucia+Paredes&size=100&background=888&color=fff"
+                    alt="Lucía Paredes" />
+                  <i class="fa-solid fa-quote-left testimonio-quote" aria-hidden="true"></i>
+                  <div class="testimonio-stars">★★★★★</div>
+                  <p class="testimonio-text">"Compré el pack de Valentinos para regalar y quedé encantada. La presentación es súper premium. Mi pareja ni creyó que era un decant. Definitivamente mi tienda de cabecera."</p>
+                  <strong class="testimonio-author">Lucía Paredes</strong>
+                  <span class="testimonio-city">Arequipa</span>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </section>
+
+        <!-- FORMULARIO DE CONTACTO -->
+        <section class="section-pad" id="contacto" data-aos="fade-up" style="background:#fff;">
+          <div class="contact-section">
+            <span class="section-label" style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#999;display:block;margin-bottom:0.5rem;">Escríbenos</span>
+            <h2 class="section-title">¿Tienes alguna <em>pregunta</em>?</h2>
+            <div class="section-line"></div>
+            <form id="contactForm" novalidate>
+              <div class="cf-group" id="cfg-nombre">
+                <label class="cf-label" for="cf-nombre"><i class="fa-solid fa-user" aria-hidden="true"></i> Nombre completo</label>
+                <input class="cf-input" type="text" id="cf-nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" />
+                <span class="cf-error-msg">Por favor ingresa tu nombre.</span>
+              </div>
+              <div class="cf-group" id="cfg-email">
+                <label class="cf-label" for="cf-email"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Correo electrónico</label>
+                <input class="cf-input" type="email" id="cf-email" name="email" placeholder="correo@ejemplo.com" autocomplete="email" />
+                <span class="cf-error-msg">Ingresa un correo válido.</span>
+              </div>
+              <div class="cf-group" id="cfg-mensaje">
+                <label class="cf-label" for="cf-mensaje"><i class="fa-solid fa-message" aria-hidden="true"></i> Mensaje</label>
+                <textarea class="cf-textarea" id="cf-mensaje" name="mensaje" placeholder="¿En qué podemos ayudarte? (mínimo 10 caracteres)"></textarea>
+                <span class="cf-error-msg">El mensaje debe tener al menos 10 caracteres.</span>
+              </div>
+              <button type="submit" class="cf-submit" id="cfSubmitBtn">
+                <span class="cf-btn-text">Enviar mensaje</span>
+                <span class="cf-spinner"></span>
+              </button>
+              <div class="cf-success" id="cfSuccess">
+                ✅ ¡Mensaje enviado! Te responderemos a la brevedad por WhatsApp o correo.
+              </div>
+              <p class="cf-recaptcha-note">Protegido por reCAPTCHA — <a href="https://policies.google.com/privacy" style="color:inherit;">Privacidad</a> · <a href="https://policies.google.com/terms" style="color:inherit;">Términos</a></p>
+            </form>
+          </div>
+        </section>
+
       </div>
       <!-- ==========================================
      CATALOG PAGE
@@ -3413,7 +4053,7 @@
           <div class="promo-categories-grid">
             <div class="promo-cat-card" data-category="nicho">
               <div class="promo-cat-img">
-                <img src="A_TU_ELECCIÓN_NICHO.webp" alt="Nicho" onerror="this.src = 'logo.webp'" loading="lazy" decoding="async" />
+                <img src="A_TU_ELECCIÓN_NICHO.webp" alt="Nicho" width="600" height="600" onerror="this.src = 'logo.webp'" loading="lazy" decoding="async" />
               </div>
               <div class="promo-cat-body">
                 <span class="promo-cat-badge">Exclusividad</span>
@@ -3426,7 +4066,7 @@
             </div>
             <div class="promo-cat-card" data-category="designer">
               <div class="promo-cat-img">
-                <img src="A_TU_ELECCIÓN_DISEÑADOR.webp" alt="Diseñador" onerror="this.src = 'logo.webp'" loading="lazy" decoding="async" />
+                <img src="A_TU_ELECCIÓN_DISEÑADOR.webp" alt="Diseñador" width="600" height="600" onerror="this.src = 'logo.webp'" loading="lazy" decoding="async" />
               </div>
               <div class="promo-cat-body">
                 <span class="promo-cat-badge">Premium</span>
@@ -3439,7 +4079,7 @@
             </div>
             <div class="promo-cat-card" data-category="arabe">
               <div class="promo-cat-img">
-                <img src="A_TU_ELECCIÓN_ÁRABE.webp" alt="Árabes" onerror="this.src = 'logo.webp'" loading="lazy" decoding="async" />
+                <img src="A_TU_ELECCIÓN_ÁRABE.webp" alt="Árabes" width="600" height="600" onerror="this.src = 'logo.webp'" loading="lazy" decoding="async" />
               </div>
               <div class="promo-cat-body">
                 <span class="promo-cat-badge">Oriental</span>
@@ -3545,7 +4185,7 @@
               <div class="payment-info">
                 <h4 class="payment-info-title">Métodos de Pago</h4>
                 <div class="payment-banner">
-                  <img src="metodo-pago.webp" alt="Visa, Mastercard, Yape, PagoEfectivo" title="Nuestros métodos de pago" loading="lazy" decoding="async" />
+                  <img src="metodo-pago.webp" alt="Visa, Mastercard, Yape, PagoEfectivo" title="Nuestros métodos de pago" width="1098" height="199" loading="lazy" decoding="async" />
                 </div>
                 <p class="payment-note">
                   Consulta por pago con tarjeta <strong>Visa/Mastercard (+5% de recargo)</strong>.<br />
@@ -3569,6 +4209,20 @@
       </div>
     </div>
     <!-- end #app -->
+
+    <!-- ==========================================
+         NEWSLETTER — 10% DE DESCUENTO
+    ========================================== -->
+    <section class="newsletter-section" id="newsletterSection" data-aos="fade-up">
+      <h3>Suscríbete y obtén un 10% de descuento en tu primer pedido</h3>
+      <p>Recibe ofertas exclusivas y sé el primero en enterarte de nuevos lanzamientos.</p>
+      <form id="newsletterForm">
+        <input type="email" id="nlEmail" placeholder="tu@correo.com" required />
+        <button type="submit" id="nlSubmitBtn">Obtener descuento</button>
+      </form>
+      <p id="nlMessage"></p>
+    </section>
+
     <!-- ==========================================
          FOOTER (MEJORADO)
     ========================================== -->
@@ -3590,19 +4244,13 @@
           </p>
           <div class="footer-social">
             <a href="https://www.instagram.com/avilaparfums.pe/" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-              </svg>
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
             </a>
             <a href="https://www.tiktok.com/@avilaparfums.pe" target="_blank" rel="noopener noreferrer" class="social-btn" title="TikTok" aria-label="TikTok">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
-              </svg>
+              <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
             </a>
             <a href="https://wa.me/51994091862" target="_blank" rel="noopener noreferrer" class="social-btn" title="WhatsApp" aria-label="WhatsApp">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-              </svg>
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
             </a>
           </div>
         </div>
@@ -3636,7 +4284,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copyright">© 2025 Ávila Parfums. Todos los derechos reservados. Lima, Perú. &nbsp;·&nbsp;
+        <p class="footer-copyright">© <span id="footerYear">2025</span> Ávila Parfums. Todos los derechos reservados. Lima, Perú. &nbsp;·&nbsp;
           <a href="aviso-legal.html" style="color:inherit;text-decoration:underline;font-size:0.75rem;">Aviso Legal</a> &nbsp;·&nbsp;
           <a href="politica-privacidad.html" style="color:inherit;text-decoration:underline;font-size:0.75rem;">Privacidad y Cookies</a>
         </p>
@@ -4040,6 +4688,11 @@
           <div class="product-name">${product.name}</div>
           <div class="product-notes">${product.notes.split("·")[0].replace("Notas: ", "")}</div>
           <div class="product-price"><span class="product-price-from">Desde</span> S/ ${basePrice.toFixed(2)}</div>
+          <button class="product-comprar-btn"
+                  data-name="${product.name}" data-price="${basePrice}" data-img="${product.img}"
+                  onclick="event.stopPropagation(); openQuickOrderModal(this);">
+            Comprar por WhatsApp
+          </button>
         </div>
       </div>`;
       }
@@ -4783,11 +5436,228 @@
       }
 
       // ==========================================
+      // SCHEMA.ORG — PRODUCT (dinámico, basado en PRODUCTS)
+      // ==========================================
+      function injectProductSchema() {
+        var siteUrl = 'https://www.avilaparfums.com/';
+        var products = PRODUCTS.map(function(p) {
+          var minPrice = Math.min.apply(null, Object.values(p.prices));
+          return {
+            "@type": "Product",
+            "name": p.name + " (Decant) — " + p.brand,
+            "image": siteUrl + p.img,
+            "brand": { "@type": "Brand", "name": p.brand },
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "PEN",
+              "price": minPrice.toFixed(2),
+              "availability": "https://schema.org/InStock",
+              "url": siteUrl
+            }
+          };
+        });
+        var schema = {
+          "@context": "https://schema.org",
+          "@graph": products
+        };
+        var script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.id = 'schemaProducts';
+        script.textContent = JSON.stringify(schema);
+        var orgSchema = document.getElementById('schemaOrganization');
+        if (orgSchema && orgSchema.parentNode) {
+          orgSchema.parentNode.insertBefore(script, orgSchema.nextSibling);
+        } else {
+          document.head.appendChild(script);
+        }
+      }
+
+      // ==========================================
       // INIT
       // ==========================================
       renderAll();
       startHeroCarousel();
+      injectProductSchema();
     </script>
+
+    <!-- AOS + Swiper JS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      // ── Copyright año dinámico ──
+      var fy = document.getElementById('footerYear');
+      if (fy) fy.textContent = new Date().getFullYear();
+
+      // ── AOS ── (respeta prefers-reduced-motion además de la regla CSS existente)
+      AOS.init({
+        once: true,
+        duration: 800,
+        offset: 60,
+        easing: 'ease-out-cubic',
+        disable: function() {
+          return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+      });
+
+      // ── Swiper Testimonios ── (resiliente a que el número de slides cambie)
+      (function() {
+        var slideCount = document.querySelectorAll('.swiper-testimonios .swiper-slide').length;
+        if (slideCount === 0) {
+          console.warn('[Ávila Parfums] No hay testimonios para mostrar — Swiper no se inicializó.');
+          return;
+        }
+        // El modo loop de Swiper requiere más slides que slidesPerView para funcionar
+        // sin advertencias; con 1 solo slide tampoco tiene sentido el loop.
+        new Swiper('.swiper-testimonios', {
+          loop: slideCount > 1,
+          autoplay: slideCount > 1 ? { delay: 5000, disableOnInteraction: false } : false,
+          slidesPerView: 1,
+          spaceBetween: 24,
+          pagination: slideCount > 1 ? { el: '.swiper-pagination', clickable: true } : false,
+          breakpoints: {
+            640: { slidesPerView: 1 },
+            900: { slidesPerView: 1 }
+          }
+        });
+      })();
+
+      // ── Formulario Formspree + reCAPTCHA v3 ──
+      // Los IDs viven en AVILA_CONFIG (ver <head>); reemplázalos ahí, no aquí.
+      var FORMSPREE_ID = window.AVILA_CONFIG.FORMSPREE_ID;
+      var RECAPTCHA_KEY = window.AVILA_CONFIG.RECAPTCHA_SITE_KEY;
+
+      function cfValidate() {
+        var ok = true;
+        var nombre  = document.getElementById('cf-nombre');
+        var email   = document.getElementById('cf-email');
+        var mensaje = document.getElementById('cf-mensaje');
+
+        [nombre, email, mensaje].forEach(function(el) {
+          el.classList.remove('cf-error');
+          el.closest('.cf-group').classList.remove('has-error');
+        });
+
+        if (!nombre.value.trim()) {
+          nombre.classList.add('cf-error');
+          nombre.closest('.cf-group').classList.add('has-error');
+          ok = false;
+        }
+        var emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRx.test(email.value.trim())) {
+          email.classList.add('cf-error');
+          email.closest('.cf-group').classList.add('has-error');
+          ok = false;
+        }
+        if (mensaje.value.trim().length < 10) {
+          mensaje.classList.add('cf-error');
+          mensaje.closest('.cf-group').classList.add('has-error');
+          ok = false;
+        }
+        return ok;
+      }
+
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!cfValidate()) return;
+
+        var btn = document.getElementById('cfSubmitBtn');
+        btn.disabled = true;
+        btn.classList.add('cf-sending');
+
+        function doSubmit(token) {
+          // Formspree no configurado: simula éxito para no bloquear la demo/testing
+          if (window.isPlaceholder(FORMSPREE_ID)) {
+            console.warn('[Ávila Parfums] Formspree ID no configurado. El mensaje no se ha enviado realmente. Reemplaza TU_FORMSPREE_ID en AVILA_CONFIG.');
+            setTimeout(function() {
+              btn.disabled = false;
+              btn.classList.remove('cf-sending');
+              document.getElementById('contactForm').reset();
+              document.getElementById('cfSuccess').style.display = 'block';
+              pushEvent('contact_form_sent');
+            }, 500);
+            return;
+          }
+
+          var payload = {
+            nombre:  document.getElementById('cf-nombre').value.trim(),
+            email:   document.getElementById('cf-email').value.trim(),
+            mensaje: document.getElementById('cf-mensaje').value.trim(),
+            'g-recaptcha-response': token || ''
+          };
+          fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            btn.disabled = false;
+            btn.classList.remove('cf-sending');
+            if (data.ok || data.next) {
+              document.getElementById('contactForm').reset();
+              document.getElementById('cfSuccess').style.display = 'block';
+              pushEvent('contact_form_sent');
+            } else {
+              alert('Hubo un error al enviar. Por favor intenta de nuevo.');
+            }
+          })
+          .catch(function() {
+            btn.disabled = false;
+            btn.classList.remove('cf-sending');
+            alert('Error de conexión. Intenta más tarde o escríbenos por WhatsApp.');
+          });
+        }
+
+        if (window.isPlaceholder(RECAPTCHA_KEY)) {
+          console.warn('[Ávila Parfums] reCAPTCHA no configurado — enviando formulario sin token (modo testing). Reemplaza TU_SITE_KEY en AVILA_CONFIG.');
+          doSubmit('');
+        } else if (typeof grecaptcha !== 'undefined') {
+          grecaptcha.ready(function() {
+            grecaptcha.execute(RECAPTCHA_KEY, { action: 'contact' }).then(doSubmit).catch(function() {
+              console.warn('[Ávila Parfums] reCAPTCHA falló al ejecutar. Enviando sin token.');
+              doSubmit('');
+            });
+          });
+        } else {
+          console.warn('[Ávila Parfums] reCAPTCHA configurado pero el script no cargó a tiempo. Enviando sin token.');
+          doSubmit('');
+        }
+      });
+
+      // Validación en tiempo real al salir del campo
+      ['cf-nombre','cf-email','cf-mensaje'].forEach(function(id) {
+        var el = document.getElementById(id);
+        el.addEventListener('blur', function() { cfValidate(); });
+        el.addEventListener('input', function() {
+          el.classList.remove('cf-error');
+          el.closest('.cf-group').classList.remove('has-error');
+        });
+      });
+    </script>
+
+    <!-- ══════════════════════════════════════════
+         MODAL PEDIDO RÁPIDO WHATSAPP (genérico, reutilizable)
+    ══════════════════════════════════════════ -->
+    <div id="quickOrderModal" aria-modal="true" role="dialog" aria-label="Pedido rápido por WhatsApp">
+      <div id="quickOrderOverlay" onclick="closeQuickOrderModal()"></div>
+      <div id="quickOrderBox">
+        <img id="qoModalImg" src="" alt="" width="130" height="130" />
+        <div id="qoModalName"></div>
+        <div id="qoModalPrice"></div>
+        <div class="qo-qty-row">
+          <label for="qoQtySelect">Cantidad</label>
+          <select id="qoQtySelect">
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+            <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <button id="qoSendBtn" onclick="sendQuickOrder()">💬 Enviar pedido por WhatsApp</button>
+        <button id="qoCloseBtn" onclick="closeQuickOrderModal()">Cancelar</button>
+      </div>
+    </div>
 
     <!-- ══════════════════════════════════════════
          POPUP VIP WHATSAPP
@@ -4795,8 +5665,10 @@
     <div id="vipPopup" style="display:none;" aria-modal="true" role="dialog" aria-label="Invitación grupo VIP">
       <div id="vipPopupOverlay"></div>
       <div id="vipPopupBox">
-        <img src="grupo.webp" alt="Grupo VIP Ávila Parfums" id="vipPopupImg" />
-        <p id="vipPopupText">Únete a nuestro grupo VIP de WhatsApp.</p>
+        <img src="grupo.webp" alt="Grupo VIP Ávila Parfums" id="vipPopupImg" width="320" height="235" />
+        <p id="vipPopupTimer">⏳ Esta oferta expira en <span id="vipPopupCountdown">15:00</span></p>
+        <p id="vipPopupText">Únete a nuestro grupo VIP de WhatsApp y consigue un <strong>10% de descuento</strong> exclusivo.</p>
+        <input type="text" id="vipPopupNameInput" placeholder="Tu nombre (opcional)" maxlength="40" />
         <a href="https://chat.whatsapp.com/CmuCY3iVzLP36tKuXwmc7q"
            target="_blank" rel="noopener noreferrer"
            id="vipPopupJoinBtn"
@@ -4815,7 +5687,7 @@
        id="waFloatBtn"
        aria-label="Únete al grupo VIP de WhatsApp"
        onclick="trackWAFloat()">
-      <img src="grupo.webp" alt="WhatsApp VIP" />
+      <img src="grupo.webp" alt="" width="58" height="58" />
       <span id="waFloatTooltip">¿Hablamos? Únete al grupo VIP</span>
     </a>
 
@@ -5020,6 +5892,153 @@
         window.dataLayer.push(Object.assign({ event }, params || {}));
       }
 
+      // ── Modal Pedido Rápido WhatsApp (genérico, reutilizable) ──
+      var qoCurrentProduct = null;
+      function openQuickOrderModal(btn) {
+        var name = (btn.getAttribute('data-name') || '').trim();
+        var priceAttr = btn.getAttribute('data-price');
+        var img = (btn.getAttribute('data-img') || '').trim();
+
+        // Fallback defensivo: si algún atributo falta o viene vacío, se extrae
+        // del DOM cercano (tarjeta de producto) en lugar de fallar en silencio.
+        var card = btn.closest('.product-card');
+        if (card) {
+          if (!name) {
+            var nameEl = card.querySelector('.product-name');
+            name = nameEl ? nameEl.textContent.trim() : '';
+          }
+          if (!priceAttr || isNaN(parseFloat(priceAttr))) {
+            var priceEl = card.querySelector('.product-price');
+            var match = priceEl ? priceEl.textContent.match(/[\d.]+/) : null;
+            priceAttr = match ? match[0] : priceAttr;
+          }
+          if (!img) {
+            var imgEl = card.querySelector('img');
+            img = imgEl ? imgEl.getAttribute('src') || '' : '';
+          }
+        }
+
+        var price = parseFloat(priceAttr);
+        if (!name || isNaN(price)) {
+          console.warn('[Ávila Parfums] No se pudo determinar nombre/precio del producto para el pedido rápido — revisa los atributos data-name/data-price del botón.', btn);
+          showToast('Error', 'No se pudo cargar este producto. Intenta de nuevo.');
+          return;
+        }
+
+        qoCurrentProduct = { name: name, price: price, img: img || 'logo.webp' };
+        document.getElementById('qoModalImg').src = qoCurrentProduct.img;
+        document.getElementById('qoModalImg').alt = qoCurrentProduct.name;
+        document.getElementById('qoModalName').textContent = qoCurrentProduct.name;
+        document.getElementById('qoModalPrice').textContent = 'Desde S/ ' + qoCurrentProduct.price.toFixed(2);
+        document.getElementById('qoQtySelect').value = '1';
+        document.getElementById('quickOrderModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      }
+      function closeQuickOrderModal() {
+        document.getElementById('quickOrderModal').style.display = 'none';
+        document.body.style.overflow = '';
+        qoCurrentProduct = null;
+      }
+      function sendQuickOrder() {
+        if (!qoCurrentProduct) return;
+        var qty = parseInt(document.getElementById('qoQtySelect').value, 10);
+        var msg = `Hola Ávila Parfums, quiero pedir: ${qoCurrentProduct.name} x${qty}. ¿Me pueden confirmar disponibilidad y total?`;
+        pushEvent('product_buy_click', {
+          product_name: qoCurrentProduct.name,
+          price: qoCurrentProduct.price,
+          quantity: qty,
+          value: qoCurrentProduct.price * qty
+        });
+        window.open('https://wa.me/51994091862?text=' + encodeURIComponent(msg), '_blank');
+        closeQuickOrderModal();
+      }
+      document.getElementById('quickOrderModal').style.display = 'none';
+
+      // ── Oferta Flash — cuenta atrás 24h (persiste vía cookie) ──
+      (function() {
+        var FLASH_SECONDS = 24 * 60 * 60;
+        var startStr = getCookie('flash_offer_start');
+        var startTime = startStr ? parseInt(startStr, 10) : Date.now();
+        if (!startStr) setCookie('flash_offer_start', String(startTime), 1);
+
+        var timerEl = document.getElementById('flashOfferTimer');
+        var wrapEl = document.getElementById('flashOffer');
+        if (!timerEl) return;
+
+        function tick() {
+          var elapsed = Math.floor((Date.now() - startTime) / 1000);
+          var remaining = FLASH_SECONDS - elapsed;
+          if (remaining <= 0) {
+            if (wrapEl) wrapEl.style.display = 'none';
+            clearInterval(flashInterval);
+            return;
+          }
+          var h = Math.floor(remaining / 3600);
+          var m = Math.floor((remaining % 3600) / 60);
+          var s = remaining % 60;
+          timerEl.textContent = h + 'h ' + String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+        }
+        tick();
+        var flashInterval = setInterval(tick, 1000);
+      })();
+
+      // ── Newsletter — suscripción con 10% de descuento ──
+      // El endpoint vive en AVILA_CONFIG (ver <head>); reemplázalo ahí, no aquí.
+      var MAILCHIMP_URL = window.AVILA_CONFIG.MAILCHIMP_URL;
+      document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = document.getElementById('nlEmail').value.trim();
+        var msgEl = document.getElementById('nlMessage');
+        var emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRx.test(email)) {
+          msgEl.textContent = 'Por favor ingresa un correo válido.';
+          msgEl.style.color = '#c0392b';
+          msgEl.style.display = 'block';
+          return;
+        }
+        var btn = document.getElementById('nlSubmitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+
+        if (window.isPlaceholder(MAILCHIMP_URL)) {
+          // Sin endpoint configurado: simula éxito para no bloquear la demo/testing
+          console.warn('[Ávila Parfums] Mailchimp/Brevo URL no configurado. El correo no se ha suscrito realmente. Reemplaza TU_MAILCHIMP_URL en AVILA_CONFIG.');
+          setTimeout(function() {
+            btn.disabled = false;
+            btn.textContent = 'Obtener descuento';
+            msgEl.textContent = '✅ ¡Gracias! Revisa tu correo para el código de 10% de descuento.';
+            msgEl.style.color = '#1a7a40';
+            msgEl.style.display = 'block';
+            document.getElementById('newsletterForm').reset();
+            pushEvent('newsletter_signup', { email_domain: email.split('@')[1] });
+          }, 600);
+          return;
+        }
+
+        fetch(MAILCHIMP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors', // Mailchimp/Brevo suelen requerir no-cors o JSONP
+          body: JSON.stringify({ email_address: email, status: 'subscribed' })
+        })
+        .then(function() {
+          btn.disabled = false;
+          btn.textContent = 'Obtener descuento';
+          msgEl.textContent = '✅ ¡Gracias! Revisa tu correo para el código de 10% de descuento.';
+          msgEl.style.color = '#1a7a40';
+          msgEl.style.display = 'block';
+          document.getElementById('newsletterForm').reset();
+          pushEvent('newsletter_signup', { email_domain: email.split('@')[1] });
+        })
+        .catch(function() {
+          btn.disabled = false;
+          btn.textContent = 'Obtener descuento';
+          msgEl.textContent = 'Hubo un error. Intenta de nuevo más tarde.';
+          msgEl.style.color = '#c0392b';
+          msgEl.style.display = 'block';
+        });
+      });
+
       // ── Popup VIP ──
       function dismissPopup() {
         document.getElementById('vipPopup').style.display = 'none';
@@ -5028,7 +6047,12 @@
         pushEvent('popup_dismissed');
       }
       function trackPopupJoin() {
-        pushEvent('whatsapp_group_click', { location: 'popup' });
+        var nameInput = document.getElementById('vipPopupNameInput');
+        var visitorName = nameInput ? nameInput.value.trim() : '';
+        // Nota: los enlaces de invitación a grupos de WhatsApp (chat.whatsapp.com/...)
+        // no admiten mensajes prellenados vía ?text= (a diferencia de wa.me/<numero>).
+        // El nombre se envía como parámetro de tracking para personalizar el seguimiento.
+        pushEvent('whatsapp_group_click', { location: 'popup', visitor_name: visitorName || undefined });
         setCookie('popup_visto', '1', 7);
         setTimeout(() => { document.getElementById('vipPopup').style.display = 'none'; document.body.style.overflow = ''; }, 300);
       }
@@ -5041,6 +6065,33 @@
         document.getElementById('vipPopup').style.display = 'block';
         document.body.style.overflow = 'hidden';
       }
+
+      // ── Temporizador del popup VIP (15:00, persiste durante la sesión vía cookie) ──
+      (function() {
+        var COUNTDOWN_SECONDS = 15 * 60;
+        var startStr = getCookie('vip_popup_start');
+        var startTime = startStr ? parseInt(startStr, 10) : Date.now();
+        if (!startStr) setCookie('vip_popup_start', String(startTime), 1);
+
+        var elEl = document.getElementById('vipPopupCountdown');
+        var timerWrap = document.getElementById('vipPopupTimer');
+        if (!elEl) return;
+
+        function tick() {
+          var elapsed = Math.floor((Date.now() - startTime) / 1000);
+          var remaining = COUNTDOWN_SECONDS - elapsed;
+          if (remaining <= 0) {
+            if (timerWrap) timerWrap.textContent = 'Oferta finalizada';
+            clearInterval(vipTimerInterval);
+            return;
+          }
+          var m = Math.floor(remaining / 60);
+          var s = remaining % 60;
+          elEl.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+        }
+        tick();
+        var vipTimerInterval = setInterval(tick, 1000);
+      })();
 
       // ── Banner de cookies ──
       function acceptCookies() {
@@ -5058,28 +6109,60 @@
 
       // ── Analytics (GA4 + Meta Pixel) — solo tras consentimiento ──
       function initAnalytics() {
-        // Google Analytics 4 — REEMPLAZA G-XXXXXXXXX por tu ID real
+        var cfg = window.AVILA_CONFIG;
+
+        // Google Analytics 4 — se omite si GA4_ID es placeholder
         if (!window._ga4Loaded) {
-          window._ga4Loaded = true;
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX';
-          document.head.appendChild(s);
-          window.gtag = function() { window.dataLayer.push(arguments); };
-          window.gtag('js', new Date());
-          window.gtag('config', 'G-XXXXXXXXX', { anonymize_ip: true });
+          if (window.isPlaceholder(cfg.GA4_ID)) {
+            console.warn('[Ávila Parfums] GA4_ID no configurado — Google Analytics 4 no se cargó. Reemplaza G-XXXXXXXXX en AVILA_CONFIG.');
+          } else {
+            window._ga4Loaded = true;
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + cfg.GA4_ID;
+            document.head.appendChild(s);
+            window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+            window.gtag('js', new Date());
+            window.gtag('config', cfg.GA4_ID, { anonymize_ip: true });
+          }
         }
-        // Meta Pixel — REEMPLAZA 000000000000 por tu ID real
+
+        // Meta Pixel — se omite si META_PIXEL_ID es placeholder
         if (!window._fbLoaded) {
-          window._fbLoaded = true;
-          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-          window.fbq('init', '000000000000');
-          window.fbq('track', 'PageView');
+          if (window.isPlaceholder(cfg.META_PIXEL_ID)) {
+            console.warn('[Ávila Parfums] META_PIXEL_ID no configurado — Meta Pixel no se cargó. Reemplaza 000000000000 en AVILA_CONFIG.');
+          } else {
+            window._fbLoaded = true;
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            window.fbq('init', cfg.META_PIXEL_ID);
+            window.fbq('track', 'PageView');
+          }
         }
-        // Microsoft Clarity — REEMPLAZA TU_ID_CLARITY por tu ID real
+
+        // Microsoft Clarity — se omite si CLARITY_ID es placeholder
         if (!window._clarityLoaded) {
-          window._clarityLoaded = true;
-          (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,'clarity','script','TU_ID_CLARITY');
+          if (window.isPlaceholder(cfg.CLARITY_ID)) {
+            console.warn('[Ávila Parfums] CLARITY_ID no configurado — Microsoft Clarity no se cargó. Reemplaza TU_ID_CLARITY en AVILA_CONFIG.');
+          } else {
+            window._clarityLoaded = true;
+            (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,'clarity','script',cfg.CLARITY_ID);
+          }
+        }
+
+        // Google Ads Conversion Tracking — se omite si GOOGLE_ADS_ID es placeholder
+        if (!window._gadsLoaded) {
+          if (window.isPlaceholder(cfg.GOOGLE_ADS_ID)) {
+            console.warn('[Ávila Parfums] GOOGLE_ADS_ID no configurado — Google Ads no se cargó. Reemplaza AW-XXXXXXXXX en AVILA_CONFIG.');
+          } else {
+            window._gadsLoaded = true;
+            var ga = document.createElement('script');
+            ga.async = true;
+            ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + cfg.GOOGLE_ADS_ID;
+            document.head.appendChild(ga);
+            window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+            window.gtag('js', new Date());
+            window.gtag('config', cfg.GOOGLE_ADS_ID);
+          }
         }
       }
 
@@ -5092,6 +6175,31 @@
           page_location: window.location.href
         });
       });
+
+      // ── Google Ads: disparar conversión en cada product_buy_click ──
+      // Los IDs viven en AVILA_CONFIG (ver <head>); reemplázalos ahí, no aquí.
+      (function() {
+        var cfg = window.AVILA_CONFIG;
+        var adsConfigured = !window.isPlaceholder(cfg.GOOGLE_ADS_ID) && !window.isPlaceholder(cfg.GOOGLE_ADS_LABEL);
+        var warned = false;
+        var originalPush = window.dataLayer.push.bind(window.dataLayer);
+        window.dataLayer.push = function() {
+          var args = arguments;
+          if (args[0] && args[0].event === 'product_buy_click') {
+            if (adsConfigured && typeof window.gtag === 'function') {
+              window.gtag('event', 'conversion', {
+                'send_to': cfg.GOOGLE_ADS_ID + '/' + cfg.GOOGLE_ADS_LABEL,
+                'value': args[0].price || 0,
+                'currency': 'PEN'
+              });
+            } else if (!adsConfigured && !warned) {
+              warned = true;
+              console.warn('[Ávila Parfums] GOOGLE_ADS_ID/GOOGLE_ADS_LABEL no configurados — las conversiones de Google Ads no se están registrando. Reemplaza AW-XXXXXXXXX y XXXXXXX en AVILA_CONFIG.');
+            }
+          }
+          return originalPush.apply(window.dataLayer, args);
+        };
+      })();
     </script>
   </body>
 </html>
