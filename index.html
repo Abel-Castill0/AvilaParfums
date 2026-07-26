@@ -4,7 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Avila Parfums — Decants auténticos de perfumería de nicho, diseñador y árabe. Xerjoff, Dior, Valentino, Lattafa y más. Lima, Perú. Contra entrega y envío a provincias." />
-    <title>Avila Parfums — Tu Aroma, Tu Sello</title>
+    <title>Ávila Parfums — Decants Auténticos de Perfumería | Lima, Perú</title>
+
+    <!-- ── SEO & Open Graph ── -->
+    <meta name="description" content="Fragancias de autor exclusivas en decants. Descubre Ávila Parfums — nicho, diseñador y árabe. Únete a nuestro grupo VIP para ofertas únicas. Lima, Perú." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.avilaparfums.com/" />
+
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://www.avilaparfums.com/" />
+    <meta property="og:title"       content="Ávila Parfums — Decants Auténticos de Perfumería" />
+    <meta property="og:description" content="Fragancias de autor exclusivas en decants. Nicho, diseñador y árabe. Únete al grupo VIP y obtén 10% de descuento." />
+    <meta property="og:image"       content="https://www.avilaparfums.com/grupo.webp" />
+    <meta property="og:locale"      content="es_PE" />
+    <meta property="og:site_name"   content="Ávila Parfums" />
+
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="Ávila Parfums — Decants Auténticos de Perfumería" />
+    <meta name="twitter:description" content="Fragancias de autor exclusivas en decants. Nicho, diseñador y árabe." />
+    <meta name="twitter:image"       content="https://www.avilaparfums.com/grupo.webp" />
+
+    <!-- ── Google Tag Manager ── -->
+    <!-- REEMPLAZA GTM-XXXXXX por tu ID real de GTM -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXX');</script>
+
+    <!-- ── Schema.org — Organization ── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Ávila Parfums",
+      "url": "https://www.avilaparfums.com/",
+      "logo": "https://www.avilaparfums.com/logo.webp",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+51-994-091-862",
+        "contactType": "customer service",
+        "availableLanguage": "Spanish"
+      },
+      "sameAs": ["https://www.instagram.com/avilaparfums/"]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/webp" href="logo.webp" />
@@ -2908,6 +2949,8 @@
     </style>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) — REEMPLAZA GTM-XXXXXX por tu ID real -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- ==========================================
      NAVIGATION
 ========================================== -->
@@ -3593,7 +3636,10 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copyright">© 2025 Avila Parfums. Todos los derechos reservados. Lima, Perú.</p>
+        <p class="footer-copyright">© 2025 Ávila Parfums. Todos los derechos reservados. Lima, Perú. &nbsp;·&nbsp;
+          <a href="aviso-legal.html" style="color:inherit;text-decoration:underline;font-size:0.75rem;">Aviso Legal</a> &nbsp;·&nbsp;
+          <a href="politica-privacidad.html" style="color:inherit;text-decoration:underline;font-size:0.75rem;">Privacidad y Cookies</a>
+        </p>
         <p class="footer-signature">
           Diseñado y desarrollado por
           <a href="https://abel-castill0.github.io/Portafolio/" target="_blank" rel="noopener noreferrer">Abel Castillo</a>
@@ -4741,6 +4787,311 @@
       // ==========================================
       renderAll();
       startHeroCarousel();
+    </script>
+
+    <!-- ══════════════════════════════════════════
+         POPUP VIP WHATSAPP
+    ══════════════════════════════════════════ -->
+    <div id="vipPopup" style="display:none;" aria-modal="true" role="dialog" aria-label="Invitación grupo VIP">
+      <div id="vipPopupOverlay"></div>
+      <div id="vipPopupBox">
+        <img src="grupo.webp" alt="Grupo VIP Ávila Parfums" id="vipPopupImg" />
+        <p id="vipPopupText">Únete a nuestro grupo VIP de WhatsApp y consigue un <strong>10% de descuento</strong> exclusivo.</p>
+        <a href="https://chat.whatsapp.com/CmuCY3iVzLP36tKuXwmc7q"
+           target="_blank" rel="noopener noreferrer"
+           id="vipPopupJoinBtn"
+           onclick="trackPopupJoin()">
+          💬 Quiero unirme
+        </a>
+        <button id="vipPopupDismiss" onclick="dismissPopup()">No gracias, ir a la tienda</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         BOTÓN FLOTANTE WHATSAPP VIP
+    ══════════════════════════════════════════ -->
+    <a href="https://chat.whatsapp.com/CmuCY3iVzLP36tKuXwmc7q"
+       target="_blank" rel="noopener noreferrer"
+       id="waFloatBtn"
+       aria-label="Únete al grupo VIP de WhatsApp"
+       onclick="trackWAFloat()">
+      <img src="grupo.webp" alt="WhatsApp VIP" />
+      <span id="waFloatTooltip">¿Hablamos? Únete al grupo VIP</span>
+    </a>
+
+    <!-- ══════════════════════════════════════════
+         BANNER DE COOKIES
+    ══════════════════════════════════════════ -->
+    <div id="cookieBanner" style="display:none;" role="alertdialog" aria-label="Aviso de cookies">
+      <p>Usamos cookies analíticas y de marketing para mejorar tu experiencia. Al continuar navegando aceptas nuestro uso de cookies.
+        <a href="politica-privacidad.html">Más info</a>
+      </p>
+      <div id="cookieBannerBtns">
+        <button id="cookieAcceptBtn" onclick="acceptCookies()">Aceptar</button>
+        <a href="politica-privacidad.html" id="cookieMoreBtn">Gestionar</a>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         ESTILOS — POPUP, BOTÓN FLOTANTE, BANNER
+    ══════════════════════════════════════════ -->
+    <style>
+      /* ── Popup VIP ── */
+      #vipPopupOverlay {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.72);
+        z-index: 19000;
+        animation: fadeIn .35s ease;
+      }
+      #vipPopupBox {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 19001;
+        background: #fff;
+        border-radius: 18px;
+        padding: 2rem 1.8rem 1.6rem;
+        max-width: 420px;
+        width: 90vw;
+        text-align: center;
+        box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+        animation: popupIn .4s cubic-bezier(.34,1.56,.64,1);
+      }
+      #vipPopupImg {
+        width: 100%;
+        max-width: 320px;
+        border-radius: 12px;
+        margin-bottom: 1.2rem;
+        object-fit: cover;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #vipPopupText {
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 1.4rem;
+      }
+      #vipPopupText strong { color: #111; }
+      #vipPopupJoinBtn {
+        display: block;
+        background: #25D366;
+        color: #fff;
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0.85rem 1.6rem;
+        border-radius: 50px;
+        text-decoration: none;
+        margin-bottom: 0.9rem;
+        transition: background .2s, transform .15s;
+        letter-spacing: 0.02em;
+      }
+      #vipPopupJoinBtn:hover { background: #1ebe5a; transform: scale(1.03); }
+      #vipPopupDismiss {
+        background: none;
+        border: none;
+        color: #999;
+        font-family: var(--font-body);
+        font-size: 0.78rem;
+        cursor: pointer;
+        text-decoration: underline;
+        padding: 0.3rem;
+        transition: color .2s;
+      }
+      #vipPopupDismiss:hover { color: #555; }
+
+      @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+      @keyframes popupIn {
+        from { opacity:0; transform: translate(-50%,-48%) scale(.92) }
+        to   { opacity:1; transform: translate(-50%,-50%) scale(1) }
+      }
+
+      /* ── Botón flotante WhatsApp ── */
+      #waFloatBtn {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 18000;
+        width: 58px; height: 58px;
+        border-radius: 50%;
+        overflow: visible;
+        display: flex; align-items: center; justify-content: center;
+        text-decoration: none;
+        animation: waPulse 2.4s infinite;
+      }
+      #waFloatBtn img {
+        width: 58px; height: 58px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #25D366;
+        box-shadow: 0 4px 18px rgba(37,211,102,.45);
+        transition: transform .2s;
+      }
+      #waFloatBtn:hover img { transform: scale(1.1); }
+      #waFloatTooltip {
+        position: absolute;
+        right: 70px; bottom: 50%;
+        transform: translateY(50%);
+        background: #111;
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 0.72rem;
+        white-space: nowrap;
+        padding: 0.4rem 0.75rem;
+        border-radius: 6px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity .2s;
+      }
+      #waFloatTooltip::after {
+        content: '';
+        position: absolute;
+        right: -6px; top: 50%;
+        transform: translateY(-50%);
+        border: 6px solid transparent;
+        border-left-color: #111;
+        border-right: 0;
+      }
+      #waFloatBtn:hover #waFloatTooltip { opacity: 1; }
+      @keyframes waPulse {
+        0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,.5) }
+        70%      { box-shadow: 0 0 0 14px rgba(37,211,102,0) }
+      }
+
+      /* ── Banner de cookies ── */
+      #cookieBanner {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        z-index: 17000;
+        background: #111;
+        color: #eee;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        font-family: var(--font-body);
+        font-size: 0.78rem;
+        line-height: 1.5;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        animation: slideUp .4s ease;
+      }
+      #cookieBanner p { margin: 0; flex: 1; min-width: 220px; color: #ccc; }
+      #cookieBanner a { color: #aaa; }
+      #cookieBannerBtns { display: flex; gap: 0.6rem; align-items: center; flex-shrink: 0; }
+      #cookieAcceptBtn {
+        background: #25D366;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1.2rem;
+        border-radius: 4px;
+        font-family: var(--font-body);
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background .2s;
+      }
+      #cookieAcceptBtn:hover { background: #1ebe5a; }
+      #cookieMoreBtn { color: #888; font-size: 0.72rem; text-decoration: underline; }
+      @keyframes slideUp { from { transform: translateY(100%) } to { transform: translateY(0) } }
+    </style>
+
+    <!-- ══════════════════════════════════════════
+         SCRIPTS — POPUP, COOKIES, TRACKING
+    ══════════════════════════════════════════ -->
+    <script>
+      // ── Helpers de cookies ──
+      function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+        document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
+      }
+      function getCookie(name) {
+        const v = document.cookie.split(';').find(c => c.trim().startsWith(name + '='));
+        return v ? v.trim().split('=')[1] : null;
+      }
+
+      // ── dataLayer helpers (GTM/GA4/Meta) ──
+      window.dataLayer = window.dataLayer || [];
+      function pushEvent(event, params) {
+        window.dataLayer.push(Object.assign({ event }, params || {}));
+      }
+
+      // ── Popup VIP ──
+      function dismissPopup() {
+        document.getElementById('vipPopup').style.display = 'none';
+        document.body.style.overflow = '';
+        setCookie('popup_visto', '1', 7);
+        pushEvent('popup_dismissed');
+      }
+      function trackPopupJoin() {
+        pushEvent('whatsapp_group_click', { location: 'popup' });
+        setCookie('popup_visto', '1', 7);
+        setTimeout(() => { document.getElementById('vipPopup').style.display = 'none'; document.body.style.overflow = ''; }, 300);
+      }
+      function trackWAFloat() {
+        pushEvent('whatsapp_group_click', { location: 'float_button' });
+      }
+
+      // Mostrar popup si la cookie no existe
+      if (!getCookie('popup_visto')) {
+        document.getElementById('vipPopup').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      }
+
+      // ── Banner de cookies ──
+      function acceptCookies() {
+        setCookie('cookies_aceptadas', '1', 365);
+        document.getElementById('cookieBanner').style.display = 'none';
+        pushEvent('cookies_accepted');
+        // Activar GA4 y Meta Pixel tras consentimiento
+        initAnalytics();
+      }
+      if (!getCookie('cookies_aceptadas')) {
+        document.getElementById('cookieBanner').style.display = 'flex';
+      } else {
+        initAnalytics();
+      }
+
+      // ── Analytics (GA4 + Meta Pixel) — solo tras consentimiento ──
+      function initAnalytics() {
+        // Google Analytics 4 — REEMPLAZA G-XXXXXXXXX por tu ID real
+        if (!window._ga4Loaded) {
+          window._ga4Loaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX';
+          document.head.appendChild(s);
+          window.gtag = function() { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', 'G-XXXXXXXXX', { anonymize_ip: true });
+        }
+        // Meta Pixel — REEMPLAZA 000000000000 por tu ID real
+        if (!window._fbLoaded) {
+          window._fbLoaded = true;
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          window.fbq('init', '000000000000');
+          window.fbq('track', 'PageView');
+        }
+        // Microsoft Clarity — REEMPLAZA TU_ID_CLARITY por tu ID real
+        if (!window._clarityLoaded) {
+          window._clarityLoaded = true;
+          (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,'clarity','script','TU_ID_CLARITY');
+        }
+      }
+
+      // ── Tracking de clics en "Añadir al Carrito" / "Comprar" ──
+      document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.product-quick-add, .promo-add-btn, #checkoutBtn');
+        if (!btn) return;
+        pushEvent('product_buy_click', {
+          button_text: btn.textContent.trim().slice(0, 40),
+          page_location: window.location.href
+        });
+      });
     </script>
   </body>
 </html>
